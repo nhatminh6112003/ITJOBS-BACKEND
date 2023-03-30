@@ -1,0 +1,15 @@
+
+GET http://localhost:8085/api/users/dashboard
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzIzOTk0MDIsImV4cCI6MTY3MjQwMDAwMn0.9i-XukIuy5PzTvQDOhEUNY77FKzjooWn74I8uhvVXH0
+###
+
+POST http://localhost:8085/update
+Content-Type: application/json
+
+{
+    "email":'testupdate@gmail.com'
+}
+###
+POST  http://localhost:8085/api/users/login
+Content-Type: application/json
+
