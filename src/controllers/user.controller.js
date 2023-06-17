@@ -33,7 +33,6 @@ const UserController = {
 	async viewPdf(req, res) {
 		res.render('template', { data: [1, 2, 3], layout: null });
 	},
-
 	async uploadFile(req, res) {
 		const file = req.files.image;
 	}

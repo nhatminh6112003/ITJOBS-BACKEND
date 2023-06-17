@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			user_account.hasMany(models.user_type, { foreignKey: 'user_type_id', as: 'user_account' });
-			user_account.belongsTo(models.resume, { foreignKey: 'user_account_id', as: 'resume_account' });
+			user_account.belongsTo(models.resume, { foreignKey: 'user_account_id', as: 'resume_account1' });
 		}
 	}
 	user_account.init(
