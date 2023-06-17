@@ -1,13 +1,13 @@
-import express from "express";
-import AuthMiddleWear from "@src/middleware/authMiddlewear";
-import authController from "@src/controllers/auth.controller";
-import authValidation from "@src/validations/auth/auth.validation";
+import express from 'express';
+import AuthMiddleWare from '@src/middleware/authMiddleware';
+import AuthController from '@src/controllers/auth.controller';
+import AuthValidation from '@src/validations/auth.validation';
+import asyncHandler from 'express-async-handler';
 const router = express.Router();
 
-
-router.post("/refresh-token",authController.refreshToken);
-router.post("/register",authValidation.register,authController.register);
-router.post("/login", authController.login);
-router.post("/logout", authController.logout);
+router.post('/refresh-token', asyncHandler(AuthController.refreshToken));
+router.post('/register', AuthValidation.register, AuthController.register);
+router.post('/login', AuthValidation.login, AuthController.login);
+router.post('/logout', AuthController.logout);
 
 export default router;

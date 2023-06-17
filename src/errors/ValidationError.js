@@ -1,8 +1,8 @@
 class ValidationError extends Error {
-    constructor(message){
-        super() 
-        this.status=422;
-        this.messageObject=message
-    }
+	constructor(message) {
+		super();
+		this.statusCode = 422;
+		this.messageObject = message;
+	}
 }
-export default new ValidationError()
+export default ValidationError;

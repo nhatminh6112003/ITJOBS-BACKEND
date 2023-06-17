@@ -1,10 +1,10 @@
-import userRoutes from "./user.route.js";
-import authRoutes from './auth.route.js';
-import express from "express";
+import UserRoutes from './users.route.js';
+import AuthRoutes from './auth.route.js';
+import express from 'express';
 function route(app) {
-    const apiRoutes = express.Router();
-    apiRoutes.use('/users',userRoutes);
-    apiRoutes.use('/auth',authRoutes);    
-    app.use('/api', apiRoutes);
+	const apiRoutes = express.Router();
+	apiRoutes.use('/users', UserRoutes);
+	apiRoutes.use('/auth', AuthRoutes);
+	app.use('/api', apiRoutes);
 }
-export default route
+export default route;
