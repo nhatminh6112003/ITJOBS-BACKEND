@@ -10,6 +10,18 @@ module.exports = (sequelize, DataTypes) => {
 		static associate(models) {
 			resume.hasMany(models.user_account, { foreignKey: 'user_account_id', as: 'resume' });
 			resume.hasMany(models.resume_type, { foreignKey: 'resume_type_id', as: 'resume_type' });
+			resume.belongsToMany(models.job_welfare, {
+				through: models.welfare_desired_job,
+				foreignKey: 'welfare_id',
+				otherKey: 'resume_id',
+				as: 'job_welfare'
+			});
+			resume.belongsToMany(models.profession, {
+				through: models.profession_desired_job,
+				foreignKey: 'profession_id',
+				otherKey: 'resume_id',
+				as: 'profession'
+			});
 		}
 	}
 	resume.init(
