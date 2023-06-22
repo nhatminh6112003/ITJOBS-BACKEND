@@ -8,8 +8,14 @@ module.exports = (sequelize, DataTypes) => {
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-			resume.hasMany(models.user_account, { foreignKey: 'user_account_id', as: 'resume' });
-			resume.hasMany(models.resume_type, { foreignKey: 'resume_type_id', as: 'resume_type' });
+			// sử dụng belongsTo thì  user_account_id phải nằm trong bảng resume
+			resume.belongsTo(models.user_account, { foreignKey: 'user_account_id', as: 'resume' });
+			resume.belongsTo(models.resume_type, { foreignKey: 'resume_type_id', as: 'resume_type' });
+			resume.hasOne(models.resume_desired_job, { foreignKey: 'resume_id', as: 'resume_desired_job' });
+			resume.hasOne(models.resume_language, { foreignKey: 'resume_id', as: 'resume_language' });
+			resume.hasOne(models.resume_skill, { foreignKey: 'resume_id', as: 'resume_skill' });
+			resume.hasOne(models.resume_personalinfo, { foreignKey: 'resume_id', as: 'resume_personalinfo' });
+			resume.hasOne(models.resume_title, { foreignKey: 'resume_id', as: 'resume_title' });
 			resume.belongsToMany(models.job_welfare, {
 				through: models.welfare_desired_job,
 				foreignKey: 'welfare_id',
@@ -27,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
 	resume.init(
 		{
 			user_account_id: DataTypes.INTEGER,
-			resume_type_id: DataTypes.INTEGER,
+			resume_type_id: DataTypes.TINYINT,
 			resume_active: {
 				type: DataTypes.ENUM,
 				values: ['1', '2', '3'] // Cung cấp một mảng các giá trị ENUM có thể

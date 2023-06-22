@@ -3,29 +3,66 @@ import bcryptHelpers from '@src/helpers/bcrypt';
 import ValidationError from '@src/errors/ValidationError';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
-import { user_account } from '@src/models';
+import { user_account, resume, resume_personalinfo } from '@src/models';
 import createError from 'http-errors';
-
+import { sequelize } from '@src/models';
 dotenv.config();
 //nếu viết mỗi throw không thì nó sẽ trả về tương ứng ví dụ throw "lỗi"; thì nó sẽ trả về một string là lỗi còn với throw new Error("lỗi rồi") nó sẽ trả về một object có thuộc tính là name,message,stack
 //throw new Error khác với new Error ở chỗ là  throw new Error  sẽ chạy vào catch còn new Error thì không
 const AuthService = {
-	async create({ email, user_type_id }) {
-		const findUser = await user_account.findOne({
-			where: { email, user_type_id },
-			attributes: ['email']
-		});
-		if (findUser) createError(409, 'Email đã tồn tại');
-		// Mã hóa mật khẩu người dùng trước khi lưu vào cơ sở dữ liệu
-		const hashedPassword = await bcryptHelpers.hashPassword(data.password);
-		//Thêm người dùng vào cơ sở dữ liệu
-		const newUser = await User.create({
-			email: data.email,
-			password: hashedPassword,
-			user_type_id: data.user_type_id
-		});
-		if (!newUser) throw createError(500, 'Thêm mới người dùng thất bại');
-		return newUser;
+	async create({ email, password, user_type_id, firstname, lastname }) {
+		try {
+			const transaction = await sequelize.transaction();
+			const findUser = await user_account.findOne({
+				where: { email, user_type_id },
+				attributes: ['email'],
+				raw: true
+			});
+
+			if (findUser) throw createError(409, 'Email đã tồn tại');
+			// Mã hóa mật khẩu người dùng trước khi lưu vào cơ sở dữ liệu
+			const hashedPassword = await bcryptHelpers.hashPassword(password);
+			//Thêm người dùng vào cơ sở dữ liệu
+			let newUser = await user_account.create(
+				{
+					email,
+					password: hashedPassword,
+					user_type_id
+				},
+				{ transaction }
+			);
+			newUser = newUser.get({ plain: true });
+			//resume_type_id=1 hồ sơ itjobs
+			let createResume = await resume.create(
+				{
+					user_account_id: newUser.id,
+					resume_type_id: 1
+				},
+				{ transaction }
+			);
+
+			createResume = createResume.get({ plain: true });
+
+			let insertInfo = await resume_personalinfo.create(
+				{
+					resume_id: createResume.id,
+					firstname,
+					lastname
+				},
+				{ transaction }
+			);
+
+			if (!newUser) throw createError(500, 'Thêm mới người dùng thất bại');
+
+			await transaction.commit();
+
+			delete newUser.password;
+
+			return newUser;
+		} catch (error) {
+			await transaction.rollback();
+			throw error;
+		}
 	},
 
 	async authentication({ email, password, user_type_id }) {
@@ -33,47 +70,13 @@ const AuthService = {
 			where: { email, user_type_id },
 			raw: true
 		});
+
 		if (!user) throw createError(404, 'Email không tồn tại');
 
 		const isPasswordMatch = await bcrypt.compare(password, user.password);
 		if (!isPasswordMatch) throw createError(401, 'Mật khẩu không chính xác');
-
+		delete user.password;
 		return user;
-	},
-	async findUser(data) {
-		const { email, id, user_type_id } = data;
-		const user = await authModel.findById({ id, email, user_type_id }, ['refresh_token']);
-		if (user.length == 0) {
-			return null;
-		}
-		return user;
-	},
-
-	updateRefeshToken({ refreshToken: refresh_token, id }) {
-		return new Promise(async (resolve, reject) => {
-			try {
-				await authModel.update({ refresh_token }, { id });
-				resolve();
-			} catch (err) {
-				reject(err);
-			}
-		});
-	},
-	// Hàm xoá người dùng
-	deleteRefeshToken({ id }) {
-		return new Promise(async (resolve, reject) => {
-			try {
-				await authModel.update({ refresh_token: '' }, { id });
-				resolve();
-			} catch (err) {
-				reject(err);
-			}
-		});
-	},
-
-	// Hàm cập nhật thông tin người dùng
-	update() {
-		// ...
 	}
 };
 export default AuthService;

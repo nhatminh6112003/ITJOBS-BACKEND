@@ -2,8 +2,8 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    const data = [
+	async up(queryInterface, Sequelize) {
+		const data = [
 			{ welfare_type: 'Chế độ bảo hiểm' },
 			{ welfare_type: 'Đào tạo' },
 			{ welfare_type: 'Du lịch' },
@@ -19,21 +19,17 @@ module.exports = {
 			{ welfare_type: 'Phụ cấp thâm niên' },
 			{ welfare_type: 'CLB thể thao' },
 			{ welfare_type: 'Chăm sóc sức khỏe' },
-			{ welfare_type: 'Chế độ thưởng' },
-
-      
-
-
+			{ welfare_type: 'Chế độ thưởng' }
 		];
 		await queryInterface.bulkInsert('job_welfare', data);
-  },
+	},
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  }
+	async down(queryInterface, Sequelize) {
+		/**
+		 * Add commands to revert seed here.
+		 *
+		 * Example:
+		 * await queryInterface.bulkDelete('People', null, {});
+		 */
+	}
 };

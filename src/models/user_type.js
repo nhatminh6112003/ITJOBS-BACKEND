@@ -3,8 +3,7 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
 	class user_type extends Model {
 		static associate(models) {
-			// 1 loại người dùng có thể liên kết với nhiều account khác nhau
-			user_type.belongsTo(models.user_account, { foreignKey: 'user_type_id', as: 'user_type' });
+			user_type.hasMany(models.user_account, { foreignKey: 'user_type_id', as: 'user_type' });
 		}
 	}
 	user_type.init(
@@ -13,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			sequelize,
+			tableName: 'user_type',
 			modelName: 'user_type'
 		}
 	);

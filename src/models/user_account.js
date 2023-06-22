@@ -8,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-			user_account.hasMany(models.user_type, { foreignKey: 'user_type_id', as: 'user_account' });
-			user_account.belongsTo(models.resume, { foreignKey: 'user_account_id', as: 'resume_account1' });
+			user_account.belongsTo(models.user_type, { foreignKey: 'user_type_id', as: 'user_type' });
+			user_account.hasMany(models.resume, { foreignKey: 'user_account_id', as: 'resume' });
 		}
 	}
 	user_account.init(

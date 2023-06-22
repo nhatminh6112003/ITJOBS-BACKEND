@@ -1,5 +1,5 @@
 import AuthSchema from '@src/schemas/auth.schema';
-import validateRequest from '@src/helpers/validateRequest';
+import validateRequest from '@src/middleware/validateRequest';
 const { register, login } = AuthSchema;
 
 const AuthValidation = {

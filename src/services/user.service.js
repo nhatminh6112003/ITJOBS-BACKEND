@@ -23,9 +23,10 @@ const userService = {
 	},
 
 	async update(data, id) {
-		const updateUser = await user_account.update(data, {
-			where: { id }
-		});
+			this.getOne(id);
+			const updateUser = await user_account.update(data, {
+				where: { id }
+			});
 	},
 
 	async delete(id) {

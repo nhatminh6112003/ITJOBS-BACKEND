@@ -16,10 +16,10 @@ module.exports = {
 					key: 'id' // Tên trường khóa ngoại trong bảng user_type
 				}
 			},
-			resume_type_id:{
-				type: Sequelize.INTEGER,
+			resume_type_id: {
+				type: Sequelize.TINYINT,
 				references: {
-					model: 'resume', // Tên bảng mà khóa ngoại tham chiếu đến
+					model: 'resume_type', // Tên bảng mà khóa ngoại tham chiếu đến
 					key: 'id' // Tên trường khóa ngoại trong bảng user_type
 				}
 			},
@@ -36,11 +36,13 @@ module.exports = {
 			},
 			createdAt: {
 				allowNull: false,
-				type: Sequelize.DATE
+				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
 			},
 			updatedAt: {
 				allowNull: false,
-				type: Sequelize.DATE
+				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
 			}
 		});
 	},

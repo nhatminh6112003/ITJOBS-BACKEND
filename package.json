@@ -7,7 +7,7 @@
 		"start": "nodemon  --exec ./node_modules/.bin/babel-node --inspect server.js",
 		"watch": "node-sass -w src/resources/scss/app.scss -o src/public/css/app.css",
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"db":"cd src && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+		"db": "cd src && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
 		"model:create": "cd src && cross-env npx sequelize-cli model:generate --name $npm_config_name --attributes $npm_config_attr",
 		"migration": "cd src && npx sequelize-cli db:migrate",
 		"migration:revert": "cd src && npx sequelize-cli db:migrate:undo",

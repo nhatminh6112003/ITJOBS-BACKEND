@@ -2,15 +2,24 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		await queryInterface.createTable('job_position', {
+		await queryInterface.createTable('resume_languages', {
 			id: {
 				allowNull: false,
 				autoIncrement: true,
 				primaryKey: true,
 				type: Sequelize.INTEGER
 			},
-			position: {
-				type: Sequelize.STRING
+			resume_id: {
+				type: Sequelize.INTEGER
+			},
+			rs_language: {
+				type: Sequelize.ENUM('vn', 'en', 'fr', 'de', 'ru', 'cn', 'kr', 'jp', 'other')
+			},
+			rs_language_level: {
+				type: Sequelize.ENUM('1', '2', '3', '4', '5')
+			},
+			rs_language_certify: {
+				type: Sequelize.STRING(200)
 			},
 			createdAt: {
 				allowNull: false,
@@ -25,6 +34,6 @@ module.exports = {
 		});
 	},
 	async down(queryInterface, Sequelize) {
-		await queryInterface.dropTable('job_position');
+		await queryInterface.dropTable('resume_languages');
 	}
 };
