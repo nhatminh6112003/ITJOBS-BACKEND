@@ -11,8 +11,8 @@ const AuthMiddleWare = {
 		// Nếu không có token hoặc token không hợp lệ, trả về lỗi 401 Unauthorized
 		try {
 			// Xác thực token với khóa bí mật
-
-			const decoded = token && jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+			if(!token) throw createError(401, 'You dont have permission');
+			const decoded = await jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 			const { email, user_type_id } = decoded;
 			const user = await user_account.findOne({
 				where: { email, user_type_id }
@@ -31,7 +31,7 @@ const AuthMiddleWare = {
 			} else if (error.name === 'JsonWebTokenError') {
 				return res.status(200).json({ code: 401, message: error.message });
 			}
-			return res.json({ error: error.message });
+			next(error)
 		}
 	},
 

@@ -2,14 +2,9 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		await queryInterface.createTable('resume_languages', {
-			id: {
-				allowNull: false,
-				autoIncrement: true,
-				primaryKey: true,
-				type: Sequelize.INTEGER
-			},
+		await queryInterface.createTable('resume_language', {
 			resume_id: {
+				primaryKey:true,
 				type: Sequelize.INTEGER
 			},
 			rs_language: {
@@ -20,6 +15,10 @@ module.exports = {
 			},
 			rs_language_certify: {
 				type: Sequelize.STRING(200)
+			},
+			status:{
+				type:Sequelize.BOOLEAN,
+				defaultValue:false
 			},
 			createdAt: {
 				allowNull: false,
@@ -34,6 +33,6 @@ module.exports = {
 		});
 	},
 	async down(queryInterface, Sequelize) {
-		await queryInterface.dropTable('resume_languages');
+		await queryInterface.dropTable('resume_language');
 	}
 };

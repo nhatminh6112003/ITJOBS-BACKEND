@@ -3,13 +3,8 @@
 module.exports = {
 	async up(queryInterface, Sequelize) {
 		await queryInterface.createTable('resume_desired_job', {
-			id: {
-				allowNull: false,
-				autoIncrement: true,
-				primaryKey: true,
-				type: Sequelize.INTEGER
-			},
 			resume_id: {
+				primaryKey:true,
 				type: Sequelize.INTEGER,
 				references: {
 					model: 'resume',
@@ -35,7 +30,8 @@ module.exports = {
 				type: Sequelize.BOOLEAN
 			},
 			status: {
-				type: Sequelize.BOOLEAN
+				type: Sequelize.BOOLEAN,
+				defaultValue: false
 			},
 			createdAt: {
 				allowNull: false,

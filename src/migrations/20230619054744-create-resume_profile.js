@@ -2,19 +2,15 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		await queryInterface.createTable('resume_personalinfo', {
-			id: {
-				allowNull: false,
-				autoIncrement: true,
-				primaryKey: true,
-				type: Sequelize.INTEGER
-			},
+		await queryInterface.createTable('resume_profile', {
 			resume_id: {
+				allowNull: false,
 				type: Sequelize.INTEGER,
 				references: {
 					model: 'resume',
 					key: 'id'
-				}
+				},
+				primaryKey: true,
 			},
 			firstname: {
 				type: Sequelize.STRING
@@ -33,10 +29,11 @@ module.exports = {
 				defaultValue: false
 			},
 			birthday: {
-				type: Sequelize.DATE
+				type: Sequelize.DATEONLY
 			},
 			status: {
-				type: Sequelize.BOOLEAN
+				type: Sequelize.BOOLEAN,
+				defaultValue: false
 			},
 			createdAt: {
 				allowNull: false,
@@ -51,6 +48,6 @@ module.exports = {
 		});
 	},
 	async down(queryInterface, Sequelize) {
-		await queryInterface.dropTable('resume_personalinfo');
+		await queryInterface.dropTable('resume_profile');
 	}
 };

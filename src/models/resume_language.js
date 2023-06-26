@@ -13,7 +13,10 @@ module.exports = (sequelize, DataTypes) => {
 	}
 	resume_language.init(
 		{
-			resume_id: DataTypes.INTEGER,
+			resume_id:{
+				primaryKey:true,
+				type: DataTypes.INTEGER
+			},
 			rs_language: {
 				type: DataTypes.ENUM('vn', 'en', 'fr', 'de', 'ru', 'cn', 'kr', 'jp', 'other')
 			},
@@ -24,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			sequelize,
+			tableName:'resume_language',
 			modelName: 'resume_language'
 		}
 	);

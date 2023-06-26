@@ -3,7 +3,7 @@ import bcryptHelpers from '@src/helpers/bcrypt';
 import ValidationError from '@src/errors/ValidationError';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
-import { user_account, resume, resume_personalinfo } from '@src/models';
+import { user_account, resume, resume_profile, resume_title } from '@src/models';
 import createError from 'http-errors';
 import { sequelize } from '@src/models';
 dotenv.config();
@@ -11,8 +11,8 @@ dotenv.config();
 //throw new Error khác với new Error ở chỗ là  throw new Error  sẽ chạy vào catch còn new Error thì không
 const AuthService = {
 	async create({ email, password, user_type_id, firstname, lastname }) {
+		const transaction = await sequelize.transaction();
 		try {
-			const transaction = await sequelize.transaction();
 			const findUser = await user_account.findOne({
 				where: { email, user_type_id },
 				attributes: ['email'],
@@ -40,17 +40,25 @@ const AuthService = {
 				},
 				{ transaction }
 			);
-
 			createResume = createResume.get({ plain: true });
-
-			let insertInfo = await resume_personalinfo.create(
-				{
-					resume_id: createResume.id,
-					firstname,
-					lastname
-				},
-				{ transaction }
-			);
+				
+			const [createInfo, createResumeTitle] = await Promise.all([
+				resume_profile.create(
+					{
+						resume_id: createResume.id,
+						firstname,
+						lastname
+					},
+					{ transaction }
+				),
+				resume_title.create(
+					{
+						resume_id: createResume.id,
+						title: ''
+					},
+					{ transaction }
+				)
+			]);
 
 			if (!newUser) throw createError(500, 'Thêm mới người dùng thất bại');
 

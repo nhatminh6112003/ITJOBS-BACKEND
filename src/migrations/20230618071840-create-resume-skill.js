@@ -3,14 +3,13 @@
 module.exports = {
 	async up(queryInterface, Sequelize) {
 		await queryInterface.createTable('resume_skill', {
-			id: {
-				allowNull: false,
-				autoIncrement: true,
-				primaryKey: true,
-				type: Sequelize.INTEGER
-			},
 			resume_id: {
-				type: Sequelize.INTEGER
+				primaryKey:true,
+				type: Sequelize.INTEGER,
+				references: {
+					model: 'resume',
+					key: 'id'
+				}
 			},
 			skill_name: {
 				type: Sequelize.STRING

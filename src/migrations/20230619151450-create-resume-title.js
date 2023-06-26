@@ -2,25 +2,21 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		await queryInterface.createTable('resume_titles', {
-			id: {
-				allowNull: false,
-				autoIncrement: true,
-				primaryKey: true,
-				type: Sequelize.INTEGER
-			},
+		await queryInterface.createTable('resume_title', {
 			resume_id: {
+				primaryKey:true,
 				type: Sequelize.INTEGER,
 				references: {
 					model: 'resume',
 					key: 'id'
 				}
 			},
-			resume_title: {
+			title: {
 				type: Sequelize.STRING
 			},
 			status: {
-				type: Sequelize.BOOLEAN
+				type: Sequelize.BOOLEAN,
+				defaultValue: false
 			},
 			createdAt: {
 				allowNull: false,
@@ -33,6 +29,6 @@ module.exports = {
 		});
 	},
 	async down(queryInterface, Sequelize) {
-		await queryInterface.dropTable('resume_titles');
+		await queryInterface.dropTable('resume_title');
 	}
 };

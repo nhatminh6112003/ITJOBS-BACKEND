@@ -13,12 +13,16 @@ module.exports = (sequelize, DataTypes) => {
 	}
 	resume_title.init(
 		{
-			resume_id: DataTypes.INTEGER,
-			resume_title: DataTypes.STRING,
+			resume_id: {
+				type:DataTypes.INTEGER,
+				primaryKey:true
+			},
+			title: DataTypes.STRING,
 			status: DataTypes.BOOLEAN
 		},
 		{
 			sequelize,
+			tableName:'resume_title',
 			modelName: 'resume_title'
 		}
 	);

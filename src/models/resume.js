@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 			resume.hasOne(models.resume_desired_job, { foreignKey: 'resume_id', as: 'resume_desired_job' });
 			resume.hasOne(models.resume_language, { foreignKey: 'resume_id', as: 'resume_language' });
 			resume.hasOne(models.resume_skill, { foreignKey: 'resume_id', as: 'resume_skill' });
-			resume.hasOne(models.resume_personalinfo, { foreignKey: 'resume_id', as: 'resume_personalinfo' });
+			resume.hasOne(models.resume_profile, { foreignKey: 'resume_id', as: 'resume_profile' });
 			resume.hasOne(models.resume_title, { foreignKey: 'resume_id', as: 'resume_title' });
 			resume.belongsToMany(models.job_welfare, {
 				through: models.welfare_desired_job,

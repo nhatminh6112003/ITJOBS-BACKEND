@@ -1,5 +1,12 @@
-import db from "@src/models"
+import { resume } from "@src/models"
 const ResumeController={
+ 
+   getAll(){
+
+   },
+   getOne(){
+
+   },
 
 
 }
