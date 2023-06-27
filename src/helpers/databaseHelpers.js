@@ -1,6 +1,6 @@
 import createError from 'http-errors';
 
-export const findByIdAndUpdate = async (model, id, data) => {
+export const findByPkAndUpdate = async (model, id, data) => {
 	try {
 		//tìm theo primary key
 		const record = await model.findByPk(id);
@@ -22,7 +22,7 @@ export const findOneAndUpdate = async (model, conditions, data) => {
 		throw error;
 	}
 };
-export const findByIdAndDelete = async (model, id) => {
+export const findByPkAndDelete = async (model, id) => {
 	try {
 		// Tìm theo primary key
 		const record = await model.findByPk(id);
