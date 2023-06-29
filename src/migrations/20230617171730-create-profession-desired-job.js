@@ -5,7 +5,7 @@ module.exports = {
 		await queryInterface.createTable('profession_desired_job', {
 			resume_id: {
 				primaryKey: true,
-				type: Sequelize.INTEGER,
+				type: Sequelize.UUID,
 				references: {
 					model: 'resume',
 					key: 'id'
@@ -13,7 +13,7 @@ module.exports = {
 			},
 			profession_id: {
 				primaryKey: true,
-				type: Sequelize.INTEGER,
+				type: Sequelize.UUID,
 				references: {
 					model: 'profession',
 					key: 'id'

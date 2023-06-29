@@ -32,6 +32,8 @@ const AuthService = {
 				{ transaction }
 			);
 			newUser = newUser.get({ plain: true });
+			console.log("🚀 ~ file: auth.service.js:35 ~ create ~ newUser:", newUser)
+			
 			//resume_type_id=1 hồ sơ itjobs
 			let createResume = await resume.create(
 				{
@@ -41,7 +43,7 @@ const AuthService = {
 				{ transaction }
 			);
 			createResume = createResume.get({ plain: true });
-				
+			console.log(createResume);
 			const [createInfo, createResumeTitle] = await Promise.all([
 				resume_profile.create(
 					{

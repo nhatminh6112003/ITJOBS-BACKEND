@@ -4,22 +4,22 @@
 module.exports = {
 	async up(queryInterface, Sequelize) {
 		const data = [
-			{ welfare_type: 'Chế độ bảo hiểm' },
-			{ welfare_type: 'Đào tạo' },
-			{ welfare_type: 'Du lịch' },
-			{ welfare_type: 'Phụ cấp' },
-			{ welfare_type: 'Nghỉ phép năm' },
-			{ welfare_type: 'Xe đưa đón' },
-			{ welfare_type: 'Tăng lương' },
-			{ welfare_type: 'Laptop' },
-			{ welfare_type: 'Tăng lương' },
-			{ welfare_type: 'Du lịch nước ngoài' },
-			{ welfare_type: 'Đồng phục' },
-			{ welfare_type: 'Công tác phí' },
-			{ welfare_type: 'Phụ cấp thâm niên' },
-			{ welfare_type: 'CLB thể thao' },
-			{ welfare_type: 'Chăm sóc sức khỏe' },
-			{ welfare_type: 'Chế độ thưởng' }
+			{ id: 1, welfare_type: 'Chế độ bảo hiểm' },
+			{ id: 2, welfare_type: 'Đào tạo' },
+			{ id: 3, welfare_type: 'Du lịch' },
+			{ id: 4, welfare_type: 'Phụ cấp' },
+			{ id: 5, welfare_type: 'Nghỉ phép năm' },
+			{ id: 6, welfare_type: 'Xe đưa đón' },
+			{ id: 7, welfare_type: 'Tăng lương' },
+			{ id: 8, welfare_type: 'Laptop' },
+			{ id: 9, welfare_type: 'Tăng lương' },
+			{ id: 10, welfare_type: 'Du lịch nước ngoài' },
+			{ id: 11, welfare_type: 'Đồng phục' },
+			{ id: 12, welfare_type: 'Công tác phí' },
+			{ id: 13, welfare_type: 'Phụ cấp thâm niên' },
+			{ id: 14, welfare_type: 'CLB thể thao' },
+			{ id: 15, welfare_type: 'Chăm sóc sức khỏe' },
+			{ id: 16, welfare_type: 'Chế độ thưởng' }
 		];
 		await queryInterface.bulkInsert('job_welfare', data);
 	},

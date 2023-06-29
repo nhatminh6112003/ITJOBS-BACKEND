@@ -5,15 +5,15 @@ module.exports = {
 		await queryInterface.createTable('resume', {
 			id: {
 				allowNull: false,
-				autoIncrement: true,
+				defaultValue: Sequelize.UUIDV4,
 				primaryKey: true,
-				type: Sequelize.INTEGER
+				type: Sequelize.UUID,
 			},
 			user_account_id: {
-				type: Sequelize.INTEGER,
+				type: Sequelize.UUID,
 				references: {
 					model: 'user_account', // Tên bảng mà khóa ngoại tham chiếu đến
-					key: 'id' // Tên trường khóa ngoại trong bảng user_type
+					key: 'id' 
 				}
 			},
 			resume_type_id: {

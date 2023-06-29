@@ -3,9 +3,14 @@
 module.exports = {
 	async up(queryInterface, Sequelize) {
 		await queryInterface.createTable('resume_skill', {
+			id: {
+				allowNull: false,
+				defaultValue: Sequelize.UUIDV4,
+				primaryKey: true,
+				type: Sequelize.UUID,
+			 },
 			resume_id: {
-				primaryKey:true,
-				type: Sequelize.INTEGER,
+				type: Sequelize.UUID,
 				references: {
 					model: 'resume',
 					key: 'id'

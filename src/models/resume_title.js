@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 	resume_title.init(
 		{
 			resume_id: {
-				type:DataTypes.INTEGER,
+				type:DataTypes.UUID,
 				primaryKey:true
 			},
 			title: DataTypes.STRING,

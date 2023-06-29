@@ -5,7 +5,7 @@ module.exports = {
 		await queryInterface.createTable('resume_desired_job', {
 			resume_id: {
 				primaryKey:true,
-				type: Sequelize.INTEGER,
+				type: Sequelize.UUID,
 				references: {
 					model: 'resume',
 					key: 'id'
@@ -18,7 +18,7 @@ module.exports = {
 				type: Sequelize.STRING
 			},
 			position_id: {
-				type: Sequelize.INTEGER
+				type: Sequelize.UUID,
 			},
 			provinces: {
 				type: Sequelize.INTEGER
