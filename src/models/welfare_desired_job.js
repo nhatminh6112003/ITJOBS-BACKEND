@@ -20,8 +20,14 @@ module.exports = (sequelize, DataTypes) => {
 	}
 	welfare_desired_job.init(
 		{
-			resume_id: DataTypes.INTEGER,
-			welfare_id: DataTypes.INTEGER
+			resume_id: {
+				type: DataTypes.UUID,
+				primaryKey: true
+			},
+			welfare_id: {
+				type: DataTypes.INTEGER,
+				primaryKey: true
+			}
 		},
 		{
 			sequelize,

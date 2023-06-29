@@ -5,15 +5,15 @@ module.exports = {
 		await queryInterface.createTable('user_account', {
 			id: {
 				allowNull: false,
-				autoIncrement: true,
+				defaultValue: Sequelize.UUIDV4,
 				primaryKey: true,
-				type: Sequelize.INTEGER
+				type: Sequelize.UUID,
 			},
 			user_type_id: {
 				type: Sequelize.INTEGER,
 				references: {
-					model: 'user_type', // Tên bảng mà khóa ngoại tham chiếu đến
-					key: 'id' // Tên trường khóa ngoại trong bảng user_type
+					model: 'user_type',
+					key: 'id'
 				}
 			},
 			email: {

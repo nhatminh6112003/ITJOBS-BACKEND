@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 				through: models.welfare_desired_job,
 				foreignKey: 'welfare_id',
 				otherKey: 'resume_id',
-				as: 'resumes'
+				as: 'resume'
 			});
 		}
 	}

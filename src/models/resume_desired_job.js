@@ -14,12 +14,12 @@ module.exports = (sequelize, DataTypes) => {
 	resume_desired_job.init(
 		{
 			resume_id: {
-				type:DataTypes.INTEGER,
+				type:DataTypes.UUID,
 				primaryKey:true
 			},
 			salary_from: DataTypes.STRING,
 			salary_to: DataTypes.STRING,
-			position_id: DataTypes.INTEGER,
+			position_id: DataTypes.UUID,
 			provinces: DataTypes.INTEGER,
 			districts: DataTypes.INTEGER,
 			work_home: DataTypes.BOOLEAN,

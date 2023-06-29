@@ -24,6 +24,7 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"@joi/date": "^2.1.0",
 		"apicache": "^1.6.3",
 		"bcrypt": "^5.1.0",
 		"cloudinary": "^1.33.0",

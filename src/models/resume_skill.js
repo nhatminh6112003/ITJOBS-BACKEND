@@ -13,10 +13,12 @@ module.exports = (sequelize, DataTypes) => {
 	}
 	resume_skill.init(
 		{
-			resume_id: {
-				primaryKey:true,
-				type:DataTypes.INTEGER
+			id: {
+				type: DataTypes.UUID,
+				defaultValue: DataTypes.UUIDV4,
+				primaryKey: true
 			},
+			resume_id:DataTypes.UUID,
 			skill_name: DataTypes.STRING,
 			skill_content: DataTypes.STRING,
 			skill_level: DataTypes.STRING,

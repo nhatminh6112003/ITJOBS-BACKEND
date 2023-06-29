@@ -5,7 +5,7 @@ module.exports = {
 		await queryInterface.createTable('resume_profile', {
 			resume_id: {
 				allowNull: false,
-				type: Sequelize.INTEGER,
+				type: Sequelize.UUID,
 				references: {
 					model: 'resume',
 					key: 'id'

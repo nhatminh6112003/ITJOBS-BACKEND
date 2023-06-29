@@ -15,8 +15,14 @@ module.exports = (sequelize, DataTypes) => {
 	}
 	profession_desired_job.init(
 		{
-			resume_id: DataTypes.INTEGER,
-			profession_id: DataTypes.INTEGER
+			resume_id: {
+				type: DataTypes.UUID,
+				primaryKey: true
+			},
+			profession_id: {
+				type: DataTypes.UUID,
+				primaryKey: true
+			}
 		},
 		{
 			sequelize,

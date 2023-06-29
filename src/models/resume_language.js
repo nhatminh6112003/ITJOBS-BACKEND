@@ -13,9 +13,13 @@ module.exports = (sequelize, DataTypes) => {
 	}
 	resume_language.init(
 		{
+			id: {
+				type: DataTypes.UUID,
+				defaultValue: DataTypes.UUIDV4,
+				primaryKey: true
+			},
 			resume_id:{
-				primaryKey:true,
-				type: DataTypes.INTEGER
+				type: DataTypes.UUID
 			},
 			rs_language: {
 				type: DataTypes.ENUM('vn', 'en', 'fr', 'de', 'ru', 'cn', 'kr', 'jp', 'other')

@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
 		{
 			resume_id: {
 				primaryKey: true ,
-				type: DataTypes.INTEGER
+				type: DataTypes.UUID
 			},
 			firstname: DataTypes.STRING,
 			lastname: DataTypes.STRING,

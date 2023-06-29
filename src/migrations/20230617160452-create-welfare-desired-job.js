@@ -4,7 +4,7 @@ module.exports = {
 	async up(queryInterface, Sequelize) {
 		await queryInterface.createTable('welfare_desired_job', {
 			resume_id: {
-				type: Sequelize.INTEGER,
+				type: Sequelize.UUID,
 				primaryKey: true,
 				references: {
 					model: 'resume',

@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
 			resume.belongsTo(models.user_account, { foreignKey: 'user_account_id', as: 'resume' });
 			resume.belongsTo(models.resume_type, { foreignKey: 'resume_type_id', as: 'resume_type' });
 			resume.hasOne(models.resume_desired_job, { foreignKey: 'resume_id', as: 'resume_desired_job' });
-			resume.hasOne(models.resume_language, { foreignKey: 'resume_id', as: 'resume_language' });
-			resume.hasOne(models.resume_skill, { foreignKey: 'resume_id', as: 'resume_skill' });
+			resume.hasMany(models.resume_language, { foreignKey: 'resume_id', as: 'resume_language' });
+			resume.hasMany(models.resume_skill, { foreignKey: 'resume_id', as: 'resume_skill' });
 			resume.hasOne(models.resume_profile, { foreignKey: 'resume_id', as: 'resume_profile' });
 			resume.hasOne(models.resume_title, { foreignKey: 'resume_id', as: 'resume_title' });
 			resume.belongsToMany(models.job_welfare, {
@@ -32,7 +32,12 @@ module.exports = (sequelize, DataTypes) => {
 	}
 	resume.init(
 		{
-			user_account_id: DataTypes.INTEGER,
+			id: {
+				type: DataTypes.UUID,
+				defaultValue: DataTypes.UUIDV4,
+				primaryKey: true
+			},
+			user_account_id:DataTypes.UUID,
 			resume_type_id: DataTypes.TINYINT,
 			resume_active: {
 				type: DataTypes.ENUM,
