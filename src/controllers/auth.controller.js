@@ -32,29 +32,6 @@ const AuthController = {
 			next(error);
 		}
 	},
-
-	async logout(req, res) {
-		const { userRefreshToken } = req.cookies;
-		try {
-			res.clearCookie('userRefreshToken');
-			return res.json({
-				...responseStatus.SUCCESS,
-				message: 'Logout successful'
-			});
-		} catch (error) {
-			if (error.name === 'JsonWebTokenError') {
-				return res.status(200).json({ code: 401, message: error.message });
-			} else if (error.name === 'TokenExpiredError') {
-				res.clearCookie('userRefreshToken');
-				return res.json({
-					...responseStatus.SUCCESS,
-					message: 'Token expired'
-				});
-			}
-			return res.json(responseStatus.UNAUTHORIZED);
-		}
-	},
-
 	async refreshToken(req, res) {
 		const { refreshToken } = req.body;
 		try {

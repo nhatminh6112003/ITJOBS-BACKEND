@@ -17,7 +17,7 @@ const userService = {
 		return data;
 	},
 
-	async getOne(id) {
+	async getOne(id) { 
 		const user = await user_account.findOne({ where: { id }, raw: true, attributes: { exclude: ['password'] } });
 		if (!user) throw createError(404, 'Người dùng không tồn tại');
 	},

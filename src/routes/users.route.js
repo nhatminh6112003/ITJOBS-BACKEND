@@ -21,6 +21,5 @@ router.get('/viewpdf', UserController.viewPdf);
 router.post('/generatePdf', UserController.dowloadPdf);
 
 // Middleware upload.single('image') sẽ lấy hình ảnh được upload từ form có name là 'image' và lưu trữ trong một biến req.file
-// router.post("/uploadImage",uploadCloud.single("image"), UserController.logout);
 
 export default router;
