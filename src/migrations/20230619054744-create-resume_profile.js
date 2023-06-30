@@ -12,12 +12,6 @@ module.exports = {
 				},
 				primaryKey: true,
 			},
-			firstname: {
-				type: Sequelize.STRING
-			},
-			lastname: {
-				type: Sequelize.STRING
-			},
 			gender: {
 				type: Sequelize.ENUM('Male', 'Female', 'Other')
 			},

@@ -17,8 +17,6 @@ module.exports = (sequelize, DataTypes) => {
 				primaryKey: true ,
 				type: DataTypes.UUID
 			},
-			firstname: DataTypes.STRING,
-			lastname: DataTypes.STRING,
 			gender: DataTypes.ENUM('Male', 'Female', 'Other'),
 			phone_number: DataTypes.STRING(20),
 			marial_status: DataTypes.BOOLEAN,

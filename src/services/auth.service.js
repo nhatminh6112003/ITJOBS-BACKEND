@@ -10,7 +10,8 @@ dotenv.config();
 //nếu viết mỗi throw không thì nó sẽ trả về tương ứng ví dụ throw "lỗi"; thì nó sẽ trả về một string là lỗi còn với throw new Error("lỗi rồi") nó sẽ trả về một object có thuộc tính là name,message,stack
 //throw new Error khác với new Error ở chỗ là  throw new Error  sẽ chạy vào catch còn new Error thì không
 const AuthService = {
-	async create({ email, password, user_type_id, firstname, lastname }) {
+	async create(data) {
+		const {email,user_type_id,password}=data
 		const transaction = await sequelize.transaction();
 		try {
 			const findUser = await user_account.findOne({
@@ -25,14 +26,13 @@ const AuthService = {
 			//Thêm người dùng vào cơ sở dữ liệu
 			let newUser = await user_account.create(
 				{
-					email,
-					password: hashedPassword,
-					user_type_id
+					...data,
+					password:hashedPassword
 				},
 				{ transaction }
 			);
 			newUser = newUser.get({ plain: true });
-			console.log("🚀 ~ file: auth.service.js:35 ~ create ~ newUser:", newUser)
+		
 			
 			//resume_type_id=1 hồ sơ itjobs
 			let createResume = await resume.create(
@@ -43,13 +43,10 @@ const AuthService = {
 				{ transaction }
 			);
 			createResume = createResume.get({ plain: true });
-			console.log(createResume);
 			const [createInfo, createResumeTitle] = await Promise.all([
 				resume_profile.create(
 					{
-						resume_id: createResume.id,
-						firstname,
-						lastname
+						resume_id: createResume.id
 					},
 					{ transaction }
 				),
@@ -80,7 +77,7 @@ const AuthService = {
 			where: { email, user_type_id },
 			raw: true
 		});
-
+		console.log(user);
 		if (!user) throw createError(404, 'Email không tồn tại');
 
 		const isPasswordMatch = await bcrypt.compare(password, user.password);
