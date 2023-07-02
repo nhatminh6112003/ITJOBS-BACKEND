@@ -25,7 +25,7 @@ const resumeLanguageController = {
     async delete (req, res) {
         const {id} = req.params;
         await resumeLanguageService.delete(id)
-        return res.apiResponse(id)
+        return res.apiResponse()
     }
 
 }
