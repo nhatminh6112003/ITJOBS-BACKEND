@@ -6,7 +6,6 @@ const ResumeProfileController = {
 		const { resume_id } = req.params;
 		const handleUpdate=await resumeProfileService.update(resume_id, data);
 		return res.apiResponse(handleUpdate)
-
 	}
 };
 export default asyncHandlerDecorator(ResumeProfileController);

@@ -13,6 +13,12 @@ const ResumeSchema = {
 			.required(),
 		marial_status: Joi.string().valid('0', '1').required(),
 		birthday: Joi.date().format('YYYY-MM-DD').utc(),
+	}),
+	resume_language: Joi.object({
+		resume_id: Joi.string().required(),
+		rs_language: Joi.string().valid('vn', 'en', 'fr', 'de', 'ru', 'cn', 'kr', 'jp', 'other').required(),
+		rs_language_level: Joi.string().valid('1', '2', '3', '4', '5').required(),
+		rs_language_certify: Joi.string()
 	})
 };
 export default ResumeSchema;
