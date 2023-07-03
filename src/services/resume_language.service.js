@@ -1,21 +1,23 @@
 import createError from 'http-errors';
-import { resume_language } from '@src/models';
+import { resume_language, resume } from '@src/models';
 import { resumeStatusEnum } from '@src/constants/resumeStatus';
-import { findByPkAndUpdate, findByPkAndDelete, findOneAndCreate } from '@src/helpers/databaseHelpers';
-import dotenv from 'dotenv';
+import { findByPkAndUpdate, findByPkAndDelete } from '@src/helpers/databaseHelpers';
 
-dotenv.config();
 
 const resumeLanguageService = {
 	async create(data) {
-		return await findOneAndCreate(
-			resume_language,
-			{ resume_id: data.resume_id },
-			{
-				...data,
-				status: resumeStatusEnum.SUCCESS
-			}
-		);
+		const findResume = await resume.findOne({
+			where: {
+				id: data.resume_id
+			},
+			raw: true
+		});
+		if (!findResume) throw createError(409, 'Không tìm thấy bản ghi');
+
+		return await resume_language.create({
+			...data,
+			status: resumeStatusEnum.SUCCESS
+		});
 	},
 
 	async update(id, data) {
@@ -33,7 +35,7 @@ const resumeLanguageService = {
 			},
 			raw: true
 		});
-		if (!oneLanguage) throw createError(400, 'không có dữ liệu này');
+		if (!oneLanguage) throw createError(409, 'Không tìm thấy bản ghi');
 		return oneLanguage;
 	}
 };
