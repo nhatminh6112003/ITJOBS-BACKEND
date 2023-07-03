@@ -23,7 +23,7 @@ const userService = {
 			raw: true,
 			attributes: { exclude: ['password'] }
 		});
-		if (!user) throw createError(404, 'Người dùng không tồn tại');
+		if (!user) throw createError(409, 'Người dùng không tồn tại');
 	},
 
 	async update(data, id) {

@@ -1,22 +1,25 @@
-import responseStatus from '@src/constants/responseStatus';
 import createError from 'http-errors';
 import { resume_language } from '@src/models';
 import { resumeStatusEnum } from '@src/constants/resumeStatus';
-import { findByPkAndUpdate, findByPkAndDelete } from '@src/helpers/databaseHelpers';
+import { findByPkAndUpdate, findByPkAndDelete, findOneAndCreate } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 const resumeLanguageService = {
 	async create(data) {
-		return await resume_language.create(data);
+		return await findOneAndCreate(
+			resume_language,
+			{ resume_id: data.resume_id },
+			{
+				...data,
+				status: resumeStatusEnum.SUCCESS
+			}
+		);
 	},
 
 	async update(id, data) {
-		return await findByPkAndUpdate(resume_language, id, {
-			...data,
-			status: resumeStatusEnum.SUCCESS
-		});
+		return await findByPkAndUpdate(resume_language, id, data);
 	},
 
 	async delete(id) {

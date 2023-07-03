@@ -1,47 +1,52 @@
 import createError from 'http-errors';
 
-export const findByPkAndUpdate = async (model, id, data) => {
-	try {
-		// tìm theo primary key
-		const record = await model.findByPk(id);
-		if (!record) throw createError(409, 'Không tìm thấy bản ghi');
-		await record.update(data);
-		return record;
-	} catch (error) {
-		throw error;
-	}
+// CREATE
+export const findByPkAndCreate = async (model, id, data) => {
+	const record = await model.findByPk(id);
+	if (!record) throw createError(409, 'Không tìm thấy bản ghi');
+	const createdRecord = await model.create(data);
+	return createdRecord;
 };
+
+export const findOneAndCreate = async (model, conditions, data) => {
+	const record = await model.findOne({ where: conditions });
+	if (!record) throw createError(409, 'Không tìm thấy bản ghi');
+	const createdRecord = await model.create(data);
+	return createdRecord;
+};
+
+// UPDATE
+export const findByPkAndUpdate = async (model, id, data) => {
+	const record = await model.findByPk(id);
+	if (!record) throw createError(409, 'Không tìm thấy bản ghi');
+	await record.update(data);
+	return record;
+};
+
 export const findOneAndUpdate = async (model, conditions, data) => {
-	try {
-		const record = await model.findOne({ where: conditions });
-		if (!record) throw createError(409, 'Không tìm thấy bản ghi');
-		await record.update(data);
-		return record;
-	} catch (error) {
-		console.error(error);
-		throw error;
-	}
+	const record = await model.findOne({ where: conditions });
+	if (!record) throw createError(409, 'Không tìm thấy bản ghi');
+	await record.update(data);
+	return record;
+};
+
+// DELETE
+export const findByIdAndDelete = async (model, id, data) => {
+	const record = await model.findOne({ where: { id } });
+	if (!record) throw createError(409, 'Không tìm thấy bản ghi');
+	await record.update(data);
+	return record;
 };
 export const findByPkAndDelete = async (model, id) => {
-	try {
-		// Tìm theo primary key
-		const record = await model.findByPk(id);
-		if (!record) throw createError(409, 'Không tìm thấy bản ghi');
-		await record.destroy();
-		return record;
-	} catch (error) {
-		throw error;
-	}
+	const record = await model.findByPk(id);
+	if (!record) throw createError(409, 'Không tìm thấy bản ghi');
+	await record.destroy();
+	return record;
 };
 
 export const findOneAndDelete = async (model, conditions) => {
-	try {
-		// Tìm bản ghi đầu tiên theo điều kiện
-		const record = await model.findOne({ where: conditions });
-		if (!record) throw createError(409, 'Không tìm thấy bản ghi');
-		await record.destroy();
-		return record;
-	} catch (error) {
-		throw error;
-	}
+	const record = await model.findOne({ where: conditions });
+	if (!record) throw createError(409, 'Không tìm thấy bản ghi');
+	await record.destroy();
+	return record;
 };

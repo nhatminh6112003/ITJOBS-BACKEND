@@ -25,6 +25,9 @@ module.exports = {
 		'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
 		'import/no-unresolved': 'off',
 		'no-return-await': 'off',
+		'node/no-unpublished-require': 'off',
+		'node/no-missing-require': 'off',
+		'import/extensions': 'off',
 		'prettier/prettier': [
 			'warn',
 			{
