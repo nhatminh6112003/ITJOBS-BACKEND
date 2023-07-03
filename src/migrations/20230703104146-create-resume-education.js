@@ -1,7 +1,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		await queryInterface.createTable('resume_skill', {
+		await queryInterface.createTable('resume_education', {
 			id: {
 				allowNull: false,
 				defaultValue: Sequelize.UUIDV4,
@@ -15,18 +15,20 @@ module.exports = {
 					key: 'id'
 				}
 			},
-			skill_name: {
+			redu_name: {
 				type: Sequelize.STRING
 			},
-			skill_content: {
-				type: Sequelize.STRING
-			},
-			skill_level: {
+			redu_degree: {
 				type: Sequelize.ENUM('0', '1', '2', '3', '4', '5')
 			},
+			redu_date: {
+				type: Sequelize.DATE
+			},
+			redu_desc: {
+				type: Sequelize.STRING
+			},
 			status: {
-				type: Sequelize.BOOLEAN,
-				defaultValue: false
+				type: Sequelize.BOOLEAN
 			},
 			createdAt: {
 				allowNull: false,
@@ -41,6 +43,6 @@ module.exports = {
 		});
 	},
 	async down(queryInterface, Sequelize) {
-		await queryInterface.dropTable('resume_skill');
+		await queryInterface.dropTable('resume_education');
 	}
 };

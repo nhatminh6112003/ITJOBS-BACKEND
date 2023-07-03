@@ -49,6 +49,10 @@ module.exports = (sequelize, DataTypes) => {
 				otherKey: 'resume_id',
 				as: 'profession'
 			});
+			resume.hasMany(models.resume_education, {
+				foreignKey: 'resume_id',
+				as: 'resume_education'
+			});
 		}
 	}
 	resume.init(

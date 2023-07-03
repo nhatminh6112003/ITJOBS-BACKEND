@@ -1,20 +1,21 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-	class resume_skill extends Model {
+	class resume_education extends Model {
 		/**
 		 * Helper method for defining associations.
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-			resume_skill.belongsTo(models.resume, {
+			// define association here
+			resume_education.belongsTo(models.resume, {
 				foreignKey: 'resume_id',
-				as: 'resume_skill'
+				as: 'resume_education'
 			});
 		}
 	}
-	resume_skill.init(
+	resume_education.init(
 		{
 			id: {
 				type: DataTypes.UUID,
@@ -22,18 +23,19 @@ module.exports = (sequelize, DataTypes) => {
 				primaryKey: true
 			},
 			resume_id: DataTypes.UUID,
-			skill_name: DataTypes.STRING,
-			skill_content: DataTypes.STRING,
-			skill_level: {
-				type: DataTypes.ENUM('0', '1', '2', '3', '4', '5')
+			redu_name: DataTypes.STRING,
+			redu_degree: {
+				type: DataTypes.ENUM('0', '1', '2', '3', '4', '5', '6')
 			},
+			redu_date: DataTypes.DATE,
+			redu_desc: DataTypes.STRING,
 			status: DataTypes.BOOLEAN
 		},
 		{
 			sequelize,
-			tableName: 'resume_skill',
-			modelName: 'resume_skill'
+			modelName: 'resume_education',
+			tableName: 'resume_education'
 		}
 	);
-	return resume_skill;
+	return resume_education;
 };

@@ -25,6 +25,13 @@ const ResumeSchema = {
 		skill_name: Joi.string().required(),
 		skill_content: Joi.string(),
 		skill_level: Joi.string().valid('0', '1', '2', '3', '4', '5').required()
+	}),
+	resume_education: Joi.object({
+		resume_id: Joi.string().required(),
+		redu_name: Joi.string().required(),
+		redu_degree: Joi.string().valid('0', '1', '2', '3', '4', '5', '6').required(),
+		redu_date: Joi.date(),
+		redu_desc: Joi.string()
 	})
 };
 export default ResumeSchema;
