@@ -3,6 +3,7 @@ import UserRoutes from './users.route.js';
 import AuthRoutes from './auth.route.js';
 import ResumeRoutes from './resume.route.js';
 import resumeLanguageRoutes from './resume_language.route';
+import resumeSkillRoutes from './resume_skill.route.js';
 
 function route(app) {
 	const apiRoutes = express.Router();
@@ -10,6 +11,7 @@ function route(app) {
 	apiRoutes.use('/auth', AuthRoutes);
 	apiRoutes.use('/resume', ResumeRoutes);
 	apiRoutes.use('/resume_language', resumeLanguageRoutes);
+	apiRoutes.use('/resume_skill', resumeSkillRoutes);
 
 	app.use('/api', apiRoutes);
 }
