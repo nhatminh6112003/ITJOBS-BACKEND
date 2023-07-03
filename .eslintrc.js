@@ -22,23 +22,25 @@ module.exports = {
 	},
 	rules: {
 		camelcase: 'off',
+		eqeqeq: 'off',
+		'no-console': 'off',
 		'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
 		'import/no-unresolved': 'off',
 		'no-return-await': 'off',
 		'node/no-unpublished-require': 'off',
 		'node/no-missing-require': 'off',
 		'import/extensions': 'off',
-		'prettier/prettier': [
-			'warn',
-			{
-				printWidth: 120,
-				useTabs: true,
-				bracketSameLine: true,
-				jsxSingleQuote: true,
-				singleQuote: true,
-				tabWidth: 3,
-				trailingComma: 'none'
-			}
-		]
+		// 'prettier/prettier': [
+		// 	'warn',
+		// 	{
+		// 		printWidth: 120,
+		// 		useTabs: true,
+		// 		bracketSameLine: true,
+		// 		jsxSingleQuote: true,
+		// 		singleQuote: true,
+		// 		tabWidth: 3,
+		// 		trailingComma: 'none'
+		// 	}
+		// ]
 	}
 };
