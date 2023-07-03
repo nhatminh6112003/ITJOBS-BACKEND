@@ -19,6 +19,12 @@ const ResumeSchema = {
 		rs_language: Joi.string().valid('vn', 'en', 'fr', 'de', 'ru', 'cn', 'kr', 'jp', 'other').required(),
 		rs_language_level: Joi.string().valid('1', '2', '3', '4', '5').required(),
 		rs_language_certify: Joi.string()
+	}),
+	resume_skill: Joi.object({
+		resume_id: Joi.string().required(),
+		skill_name: Joi.string().required(),
+		skill_content: Joi.string(),
+		skill_level: Joi.string().valid('0', '1', '2', '3', '4', '5').required()
 	})
 };
 export default ResumeSchema;
