@@ -1,8 +1,9 @@
+import express from 'express';
 import UserRoutes from './users.route.js';
 import AuthRoutes from './auth.route.js';
 import ResumeRoutes from './resume.route.js';
-import resumeLanguageRoutes from "./resume_language.route"
-import express from 'express';
+import resumeLanguageRoutes from './resume_language.route';
+
 function route(app) {
 	const apiRoutes = express.Router();
 	apiRoutes.use('/users', UserRoutes);

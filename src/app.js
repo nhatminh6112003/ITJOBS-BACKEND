@@ -1,14 +1,14 @@
-import configViewEngine from './config/viewEngine.js';
-
 import express from 'express';
 import morgan from 'morgan';
-import route from './routes/index.js';
 import cors from 'cors';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
+import route from './routes/index.js';
+import configViewEngine from './config/viewEngine.js';
 import errorHandler from './middleware/errorHandler.js';
 import apiResponse from './middleware/apiResponse.js';
 import { connectDb } from './config/connectDB.js';
+
 const app = express();
 
 app.use(cookieParser());
@@ -27,7 +27,7 @@ app.use(
 	})
 );
 
-//cấp quyền để truy cập tài nguyên
+// cấp quyền để truy cập tài nguyên
 app.use(apiResponse);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

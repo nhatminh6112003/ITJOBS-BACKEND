@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import responseStatus from '@src/constants/responseStatus';
+
 const bcryptHelpers = {
 	hashPassword(password) {
 		return new Promise(async (resolve, reject) => {
@@ -10,6 +11,6 @@ const bcryptHelpers = {
 				reject(e);
 			}
 		});
-	},
+	}
 };
 export default bcryptHelpers;

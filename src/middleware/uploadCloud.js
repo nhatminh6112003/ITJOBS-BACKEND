@@ -1,8 +1,10 @@
 import dotenv from 'dotenv';
-dotenv.config();
-const cloudinary = require('cloudinary').v2;
 import CloudinaryStorage from 'multer-storage-cloudinary';
 import multer from 'multer';
+
+dotenv.config();
+const cloudinary = require('cloudinary').v2;
+
 cloudinary.config({
 	cloud_name: process.env.cloud_name,
 	api_key: process.env.api_key,

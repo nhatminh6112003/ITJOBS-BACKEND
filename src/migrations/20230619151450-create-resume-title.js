@@ -1,10 +1,9 @@
-'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
 		await queryInterface.createTable('resume_title', {
 			resume_id: {
-				primaryKey:true,
+				primaryKey: true,
 				type: Sequelize.UUID,
 				references: {
 					model: 'resume',

@@ -1,14 +1,14 @@
-//Đã Tồn tại : 409 vd:User đã tồn tại
-//Lỗi server : 500 vd:Thêm mới thất bại
+// Đã Tồn tại : 409 vd:User đã tồn tại
+// Lỗi server : 500 vd:Thêm mới thất bại
 
 const responseStatus = {
-	//Sử dụng khi GET một tài nguyên
+	// Sử dụng khi GET một tài nguyên
 	SUCCESS: {
 		isSuccess: true,
 		status: 200,
 		message: 'Success !'
 	},
-	//Sử dụng khi tạo một tài nguyên
+	// Sử dụng khi tạo một tài nguyên
 	CREATED: {
 		isSuccess: true,
 		status: 201,
@@ -19,7 +19,7 @@ const responseStatus = {
 		status: 202,
 		message: 'Accepted !'
 	},
-	//Thường sử dụng khi xóa một tài nguyên
+	// Thường sử dụng khi xóa một tài nguyên
 	NO_CONTENT: {
 		isSuccess: true,
 		status: 204,
@@ -48,7 +48,7 @@ const responseStatus = {
 		status: 404,
 		message: 'Not Found'
 	},
-	//Được sử dụng khi có lỗi xảy ra phía máy chủ, không thể xác định rõ nguyên nhân cụ thể.
+	// Được sử dụng khi có lỗi xảy ra phía máy chủ, không thể xác định rõ nguyên nhân cụ thể.
 	INTERNAL_SERVER_ERROR: {
 		isSuccess: false,
 		status: 500,

@@ -17,16 +17,20 @@ const userService = {
 		return data;
 	},
 
-	async getOne(id) { 
-		const user = await user_account.findOne({ where: { id }, raw: true, attributes: { exclude: ['password'] } });
+	async getOne(id) {
+		const user = await user_account.findOne({
+			where: { id },
+			raw: true,
+			attributes: { exclude: ['password'] }
+		});
 		if (!user) throw createError(404, 'Người dùng không tồn tại');
 	},
 
 	async update(data, id) {
-			this.getOne(id);
-			const updateUser = await user_account.update(data, {
-				where: { id }
-			});
+		this.getOne(id);
+		const updateUser = await user_account.update(data, {
+			where: { id }
+		});
 	},
 
 	async delete(id) {
@@ -64,7 +68,12 @@ const userService = {
 			await page.goto(url, { waitUntil: 'networkidle2' });
 			await page.emulateMediaType('screen');
 			const pdf = await page.pdf({
-				margin: { top: '100px', right: '50px', bottom: '100px', left: '50px' },
+				margin: {
+					top: '100px',
+					right: '50px',
+					bottom: '100px',
+					left: '50px'
+				},
 				printBackground: true,
 				format: 'A4'
 			});

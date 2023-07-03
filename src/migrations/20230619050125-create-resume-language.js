@@ -1,4 +1,3 @@
-'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
@@ -7,13 +6,13 @@ module.exports = {
 				allowNull: false,
 				defaultValue: Sequelize.UUIDV4,
 				primaryKey: true,
-				type: Sequelize.UUID,
+				type: Sequelize.UUID
 			},
 			resume_id: {
-			   type: Sequelize.UUID,
-				references:{
-					model:'resume',
-					key:'id'
+				type: Sequelize.UUID,
+				references: {
+					model: 'resume',
+					key: 'id'
 				}
 			},
 			rs_language: {
@@ -25,9 +24,9 @@ module.exports = {
 			rs_language_certify: {
 				type: Sequelize.STRING(200)
 			},
-			status:{
-				type:Sequelize.BOOLEAN,
-				defaultValue:false
+			status: {
+				type: Sequelize.BOOLEAN,
+				defaultValue: false
 			},
 			createdAt: {
 				allowNull: false,

@@ -1,30 +1,37 @@
-/* eslint-disabled */
 module.exports = {
 	env: {
-		browser: false,
+		browser: true,
 		es2021: true
 	},
-	extends: ['standard', 'eslint:recommended', 'prettier'],
-	overrides: [],
+	extends: ['airbnb-base', 'eslint:recommended', 'eslint-config-prettier', 'prettier'],
+	plugins: ['prettier'],
+	overrides: [
+		{
+			env: {
+				node: true
+			},
+			files: ['.eslintrc.{js,cjs}'],
+			parserOptions: {
+				sourceType: 'script'
+			}
+		}
+	],
 	parserOptions: {
 		ecmaVersion: 'latest',
 		sourceType: 'module'
 	},
-	plugins: ['prettier'],
 	rules: {
-		'no-useless-catch': 'warn',
-		camelcase: [
-			2,
-			{
-				properties: 'always'
-			}
-		],
-		eqeqeq: [2, 'smart'],
+		camelcase: 'off',
+		'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+		'import/no-unresolved': 'off',
+		'no-return-await': 'off',
 		'prettier/prettier': [
 			'warn',
 			{
 				printWidth: 120,
 				useTabs: true,
+				bracketSameLine: true,
+				jsxSingleQuote: true,
 				singleQuote: true,
 				tabWidth: 3,
 				trailingComma: 'none'

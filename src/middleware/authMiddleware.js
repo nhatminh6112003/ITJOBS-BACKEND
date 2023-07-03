@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken';
-import responseStatus from '../constants/responseStatus';
 import createError from 'http-errors';
 import { user_account } from '@src/models';
+import responseStatus from '../constants/responseStatus';
+
 const AuthMiddleWare = {
 	async protect(req, res, next) {
 		let token;
@@ -11,7 +12,7 @@ const AuthMiddleWare = {
 		// Nếu không có token hoặc token không hợp lệ, trả về lỗi 401 Unauthorized
 		try {
 			// Xác thực token với khóa bí mật
-			if(!token) throw createError(401, 'You dont have permission');
+			if (!token) throw createError(401, 'You dont have permission');
 			const decoded = await jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 			const { email, user_type_id } = decoded;
 			const user = await user_account.findOne({
@@ -28,10 +29,11 @@ const AuthMiddleWare = {
 			// Nếu token không hợp lệ, trả về lỗi 401 Unauthorized
 			if (error.name === 'TokenExpiredError') {
 				return res.status(200).json({ code: 401, message: error.message });
-			} else if (error.name === 'JsonWebTokenError') {
+			}
+			if (error.name === 'JsonWebTokenError') {
 				return res.status(200).json({ code: 401, message: error.message });
 			}
-			next(error)
+			next(error);
 		}
 	},
 

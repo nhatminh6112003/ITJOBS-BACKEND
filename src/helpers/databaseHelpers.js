@@ -2,7 +2,7 @@ import createError from 'http-errors';
 
 export const findByPkAndUpdate = async (model, id, data) => {
 	try {
-		//tìm theo primary key
+		// tìm theo primary key
 		const record = await model.findByPk(id);
 		if (!record) throw createError(409, 'Không tìm thấy bản ghi');
 		await record.update(data);

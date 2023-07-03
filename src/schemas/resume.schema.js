@@ -1,5 +1,5 @@
-const Joi = require('joi')
-    .extend(require('@joi/date'));
+const Joi = require('joi').extend(require('@joi/date'));
+
 const ResumeSchema = {
 	resume_title: Joi.object({
 		title: Joi.string().required().max(400)
@@ -12,7 +12,7 @@ const ResumeSchema = {
 			.pattern(/^(?:\+84|0)(?:\d{9}|\d{10})$/)
 			.required(),
 		marial_status: Joi.string().valid('0', '1').required(),
-		birthday: Joi.date().format('YYYY-MM-DD').utc(),
+		birthday: Joi.date().format('YYYY-MM-DD').utc()
 	}),
 	resume_language: Joi.object({
 		resume_id: Joi.string().required(),

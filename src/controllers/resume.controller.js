@@ -1,13 +1,7 @@
-import { resume } from "@src/models"
-const ResumeController={
- 
-   getAll(){
+import { resume } from '@src/models';
 
-   },
-   getOne(){
-
-   },
-
-
-}
-export default ResumeController
+const ResumeController = {
+	getAll() {},
+	getOne() {}
+};
+export default ResumeController;

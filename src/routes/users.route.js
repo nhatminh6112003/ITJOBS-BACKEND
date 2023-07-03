@@ -4,6 +4,7 @@ import UserController from '@src/controllers/user.controller';
 import uploadCloud from '@src/middleware/uploadCloud';
 import { cacheMiddleware } from '@src/middleware/cacheMiddleware';
 import UserRoleEnum from '@src/constants/userRoles';
+
 const router = express.Router();
 
 router.get(

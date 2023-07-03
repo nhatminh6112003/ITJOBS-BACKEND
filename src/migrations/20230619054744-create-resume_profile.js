@@ -1,4 +1,3 @@
-'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
@@ -10,7 +9,7 @@ module.exports = {
 					model: 'resume',
 					key: 'id'
 				},
-				primaryKey: true,
+				primaryKey: true
 			},
 			gender: {
 				type: Sequelize.ENUM('Male', 'Female', 'Other')

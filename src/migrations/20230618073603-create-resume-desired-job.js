@@ -1,10 +1,9 @@
-'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
 		await queryInterface.createTable('resume_desired_job', {
 			resume_id: {
-				primaryKey:true,
+				primaryKey: true,
 				type: Sequelize.UUID,
 				references: {
 					model: 'resume',
@@ -18,7 +17,7 @@ module.exports = {
 				type: Sequelize.STRING
 			},
 			position_id: {
-				type: Sequelize.UUID,
+				type: Sequelize.UUID
 			},
 			provinces: {
 				type: Sequelize.INTEGER

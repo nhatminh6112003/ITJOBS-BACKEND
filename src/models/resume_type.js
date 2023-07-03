@@ -1,5 +1,5 @@
-'use strict';
 const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
 	class resume_type extends Model {
 		/**
@@ -9,7 +9,10 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			// 1 loại hồ sơ thì có thể liên kết với nhiều hồ sơ
-			resume_type.hasMany(models.resume, { foreignKey: 'resume_type_id', as: 'resume_type' });
+			resume_type.hasMany(models.resume, {
+				foreignKey: 'resume_type_id',
+				as: 'resume_type'
+			});
 		}
 	}
 	resume_type.init(

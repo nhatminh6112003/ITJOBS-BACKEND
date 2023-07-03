@@ -3,6 +3,7 @@ import responseStatus from '@src/constants/responseStatus';
 import JwtHelpers from '@src/helpers/jwt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+
 dotenv.config();
 const AuthController = {
 	async register(req, res, next) {
@@ -50,7 +51,8 @@ const AuthController = {
 					...responseStatus.UNAUTHORIZED,
 					message: 'Refresh token expired'
 				});
-			} else if (error.name === 'JsonWebTokenError') {
+			}
+			if (error.name === 'JsonWebTokenError') {
 				return res.status(200).json({ code: 401, message: error.message });
 			}
 			return res.json({ message: error.message });

@@ -8,7 +8,7 @@ export const resumeTypeEnum = {
 	2: 'Đính kèm File',
 	3: 'Đính kèm CVhay'
 };
-export const resumeStatusEnum={
-	FALSE:0,
-	SUCCESS:1
-}
+export const resumeStatusEnum = {
+	FALSE: 0,
+	SUCCESS: 1
+};

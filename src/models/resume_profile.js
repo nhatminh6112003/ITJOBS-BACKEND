@@ -1,5 +1,5 @@
-'use strict';
 const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
 	class resume_profile extends Model {
 		/**
@@ -8,13 +8,16 @@ module.exports = (sequelize, DataTypes) => {
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-			resume_profile.belongsTo(models.resume, { foreignKey: 'resume_id', as: 'resume_profile' });
+			resume_profile.belongsTo(models.resume, {
+				foreignKey: 'resume_id',
+				as: 'resume_profile'
+			});
 		}
 	}
 	resume_profile.init(
 		{
 			resume_id: {
-				primaryKey: true ,
+				primaryKey: true,
 				type: DataTypes.UUID
 			},
 			gender: DataTypes.ENUM('Male', 'Female', 'Other'),

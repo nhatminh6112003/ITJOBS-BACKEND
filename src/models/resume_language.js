@@ -1,5 +1,5 @@
-'use strict';
 const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
 	class resume_language extends Model {
 		/**
@@ -8,7 +8,10 @@ module.exports = (sequelize, DataTypes) => {
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-			resume_language.belongsTo(models.resume, { foreignKey: 'resume_id', as: 'resume_language' });
+			resume_language.belongsTo(models.resume, {
+				foreignKey: 'resume_id',
+				as: 'resume_language'
+			});
 		}
 	}
 	resume_language.init(
@@ -18,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
 				defaultValue: DataTypes.UUIDV4,
 				primaryKey: true
 			},
-			resume_id:{
+			resume_id: {
 				type: DataTypes.UUID
 			},
 			rs_language: {
@@ -31,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			sequelize,
-			tableName:'resume_language',
+			tableName: 'resume_language',
 			modelName: 'resume_language'
 		}
 	);
