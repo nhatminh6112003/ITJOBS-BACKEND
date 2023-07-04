@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			salary_from: DataTypes.STRING,
 			salary_to: DataTypes.STRING,
-			position_id: DataTypes.UUID,
+			position_id: DataTypes.INTEGER,
 			provinces: DataTypes.INTEGER,
 			districts: DataTypes.INTEGER,
 			work_home: DataTypes.BOOLEAN,

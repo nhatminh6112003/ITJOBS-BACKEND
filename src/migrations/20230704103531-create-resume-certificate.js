@@ -1,40 +1,37 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		await queryInterface.createTable('resume_desired_job', {
-			resume_id: {
+		await queryInterface.createTable('resume_certificate', {
+			id: {
+				allowNull: false,
+				defaultValue: Sequelize.UUIDV4,
 				primaryKey: true,
+				type: Sequelize.UUID
+			},
+			resume_id: {
 				type: Sequelize.UUID,
 				references: {
 					model: 'resume',
 					key: 'id'
 				}
 			},
-			salary_from: {
+			cer_by: {
 				type: Sequelize.STRING
 			},
-			salary_to: {
-				type: Sequelize.STRING
+			cer_form: {
+				type: Sequelize.DATE
 			},
-			position_id: {
-				type: Sequelize.INTEGER,
-				references:{
-					key:'id',
-					model:'job_position'
-				}
+			cer_to: {
+				type: Sequelize.DATE
 			},
-			provinces: {
-				type: Sequelize.INTEGER
-			},
-			districts: {
-				type: Sequelize.INTEGER
-			},
-			work_home: {
+			cer_limit: {
 				type: Sequelize.BOOLEAN
 			},
+			cer_title: {
+				type: Sequelize.STRING
+			},
 			status: {
-				type: Sequelize.BOOLEAN,
-				defaultValue: false
+				type: Sequelize.BOOLEAN
 			},
 			createdAt: {
 				allowNull: false,
@@ -49,6 +46,6 @@ module.exports = {
 		});
 	},
 	async down(queryInterface, Sequelize) {
-		await queryInterface.dropTable('resume_desired_job');
+		await queryInterface.dropTable('resume_certificate');
 	}
 };

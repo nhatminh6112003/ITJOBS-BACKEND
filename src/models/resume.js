@@ -29,6 +29,11 @@ module.exports = (sequelize, DataTypes) => {
 				foreignKey: 'resume_id',
 				as: 'resume_skill'
 			});
+			resume.hasMany(models.resume_refer, {
+				foreignKey: 'resume_id',
+				as: 'resume_refer'
+			});
+
 			resume.hasOne(models.resume_profile, {
 				foreignKey: 'resume_id',
 				as: 'resume_profile'
@@ -52,6 +57,10 @@ module.exports = (sequelize, DataTypes) => {
 			resume.hasMany(models.resume_education, {
 				foreignKey: 'resume_id',
 				as: 'resume_education'
+			});
+			resume.hasMany(models.resume_certificate, {
+				foreignKey: 'resume_id',
+				as: 'resume_certificate'
 			});
 		}
 	}
