@@ -12,7 +12,7 @@ const ResumeSchema = {
 		marial_status: Joi.string().valid('0', '1').required(),
 		provinces: Joi.string().required(),
 		districts: Joi.string().required(),
-		address:Joi.string().required(),
+		address: Joi.string().required(),
 		birthday: Joi.date().format('YYYY-MM-DD').utc()
 	}),
 	resume_language: Joi.object({
@@ -33,6 +33,14 @@ const ResumeSchema = {
 		redu_degree: Joi.string().valid('0', '1', '2', '3', '4', '5', '6').required(),
 		redu_date: Joi.date(),
 		redu_desc: Joi.string()
+	}),
+	resume_certificate: Joi.object({
+		resume_id: Joi.string().required(),
+		cer_title: Joi.string().required(),
+		cer_by: Joi.string().required(),
+		cer_limit: Joi.boolean(),
+		cer_form: Joi.date().required().format('YYYY-MM-DD').utc(),
+		cer_to: Joi.date().format('YYYY-MM-DD').utc()
 	})
 };
 export default ResumeSchema;

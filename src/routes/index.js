@@ -5,6 +5,7 @@ import ResumeRoutes from './resume.route.js';
 import resumeLanguageRoutes from './resume_language.route';
 import resumeSkillRoutes from './resume_skill.route.js';
 import resumeEducationRoutes from './resume_education.route.js';
+import resumeCertificateRoutes from './resume_certificate.route.js';
 
 function route(app) {
 	const apiRoutes = express.Router();
@@ -14,7 +15,7 @@ function route(app) {
 	apiRoutes.use('/resume_language', resumeLanguageRoutes);
 	apiRoutes.use('/resume_skill', resumeSkillRoutes);
 	apiRoutes.use('/resume_education', resumeEducationRoutes);
-
+	apiRoutes.use('/resume_certificate', resumeCertificateRoutes);
 	app.use('/api', apiRoutes);
 }
 export default route;
