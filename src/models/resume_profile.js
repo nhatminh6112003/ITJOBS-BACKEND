@@ -24,6 +24,9 @@ module.exports = (sequelize, DataTypes) => {
 			phone_number: DataTypes.STRING(20),
 			marial_status: DataTypes.BOOLEAN,
 			birthday: DataTypes.DATEONLY,
+			provinces: DataTypes.INTEGER,
+			districts: DataTypes.INTEGER,
+			address:DataTypes.STRING,
 			status: DataTypes.BOOLEAN
 		},
 		{
