@@ -10,15 +10,15 @@ const resumeEducationController = {
 
 	async create(req, res) {
 		const data = req.body;
-		await resumeEducationService.create(data);
-		return res.apiResponse(data);
+		const handleCreate = await resumeEducationService.create(data);
+		return res.apiResponse(handleCreate);
 	},
 
 	async update(req, res) {
 		const data = req.body;
 		const { id } = req.params;
-		await resumeEducationService.update(id, data);
-		return res.apiResponse(data);
+		const handleUpdate = await resumeEducationService.update(id, data);
+		return res.apiResponse(handleUpdate);
 	},
 
 	async delete(req, res) {

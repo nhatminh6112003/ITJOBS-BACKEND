@@ -41,6 +41,16 @@ const ResumeSchema = {
 		cer_limit: Joi.boolean(),
 		cer_form: Joi.date().required().format('YYYY-MM-DD').utc(),
 		cer_to: Joi.date().format('YYYY-MM-DD').utc()
+	}),
+	resume_refer: Joi.object({
+		resume_id: Joi.string().required(),
+		ref_name: Joi.string().required(),
+		ref_title: Joi.string().required(),
+		ref_company: Joi.string().required(),
+		ref_phone: Joi.string()
+			.pattern(/^(?:\+84|0)(?:\d{9}|\d{10})$/)
+			.required(),
+		ref_email: Joi.string().email({ minDomainSegments: 2 }).required()
 	})
 };
 export default ResumeSchema;
