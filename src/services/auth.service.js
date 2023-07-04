@@ -1,9 +1,7 @@
-import responseStatus from '@src/constants/responseStatus';
 import bcryptHelpers from '@src/helpers/bcrypt';
-import ValidationError from '@src/errors/ValidationError';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
-import { user_account, resume, resume_profile, resume_title, sequelize } from '@src/models';
+import { user_account, resume, resume_profile, resume_title, sequelize, resume_desired_job } from '@src/models';
 import createError from 'http-errors';
 
 dotenv.config();
@@ -42,7 +40,7 @@ const AuthService = {
 				{ transaction }
 			);
 			createResume = createResume.get({ plain: true });
-			const [createInfo, createResumeTitle] = await Promise.all([
+			await Promise.all([
 				resume_profile.create(
 					{
 						resume_id: createResume.id

@@ -17,7 +17,11 @@ module.exports = {
 				type: Sequelize.STRING
 			},
 			position_id: {
-				type: Sequelize.UUID
+				type: Sequelize.INTEGER,
+				references:{
+					key:'id',
+					model:'job_position'
+				}
 			},
 			provinces: {
 				type: Sequelize.INTEGER
