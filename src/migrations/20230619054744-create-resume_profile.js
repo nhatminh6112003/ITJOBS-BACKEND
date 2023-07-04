@@ -21,6 +21,15 @@ module.exports = {
 				type: Sequelize.BOOLEAN,
 				defaultValue: false
 			},
+			provinces: {
+				type: Sequelize.INTEGER
+			},
+			districts: {
+				type: Sequelize.INTEGER
+			},
+			address:{
+				type: Sequelize.STRING
+			},
 			birthday: {
 				type: Sequelize.DATEONLY
 			},
