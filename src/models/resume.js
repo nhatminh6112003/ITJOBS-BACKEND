@@ -21,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
 				foreignKey: 'resume_id',
 				as: 'resume_desired_job'
 			});
+			resume.hasOne(models.resume_template, {
+				foreignKey: 'resume_id',
+				as: 'resume_template'
+			});
+
 			resume.hasMany(models.resume_language, {
 				foreignKey: 'resume_id',
 				as: 'resume_language'
