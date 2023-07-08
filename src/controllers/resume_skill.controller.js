@@ -10,15 +10,15 @@ const resumeSkillController = {
 
 	async create(req, res) {
 		const data = req.body;
-		await resumeSkillService.create(data);
-		return res.apiResponse(data);
+		const handleCreate = await resumeSkillService.create(data);
+		return res.apiResponse(handleCreate);
 	},
 
 	async update(req, res) {
 		const data = req.body;
 		const { id } = req.params;
-		await resumeSkillService.update(id, data);
-		return res.apiResponse(data);
+		const handleUpdate = await resumeSkillService.update(id, data);
+		return res.apiResponse(handleUpdate);
 	},
 
 	async delete(req, res) {
