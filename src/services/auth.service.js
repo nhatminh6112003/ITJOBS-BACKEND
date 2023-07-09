@@ -1,9 +1,9 @@
 import bcryptHelpers from '@src/helpers/bcrypt';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
-import { user_account, resume, resume_profile, resume_title, sequelize, resume_desired_job } from '@src/models';
+import { user_account, resume, resume_profile, resume_title, sequelize, resume_desired_job ,resume_template } from '@src/models';
 import createError from 'http-errors';
-
+import { colorsEnum } from '@src/constants/resumeTemplateEnum';
 dotenv.config();
 // nếu viết mỗi throw không thì nó sẽ trả về tương ứng ví dụ throw "lỗi"; thì nó sẽ trả về một string là lỗi còn với throw new Error("lỗi rồi") nó sẽ trả về một object có thuộc tính là name,message,stack
 // throw new Error khác với new Error ở chỗ là  throw new Error  sẽ chạy vào catch còn new Error thì không
@@ -51,6 +51,24 @@ const AuthService = {
 					{
 						resume_id: createResume.id,
 						title: ''
+					},
+					{ transaction }
+				),
+				resume_template.create(
+					{
+						resume_id: createResume.id,
+						cv_color:101,
+						cv_font:"Roboto",
+						cv_font_color:"fontCVColorBlack",
+						cv_language:"en",
+						cv_size:"fontCVsize14",
+						cv_template_id:1,
+						default_color: colorsEnum[101],
+						default_font: "fontCVRoboto",
+						default_size: "fontCVsize14",
+						default_template_name: "CVHay Mới tốt nghiệp",
+						default_template_color: "101",
+						default_template: "cv-template-11",
 					},
 					{ transaction }
 				)

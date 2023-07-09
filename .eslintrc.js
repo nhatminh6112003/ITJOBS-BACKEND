@@ -23,6 +23,7 @@ module.exports = {
 	rules: {
 		camelcase: 'off',
 		eqeqeq: 'off',
+		'strict':'off',
 		'no-console': 'off',
 		'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
 		'import/no-unresolved': 'off',

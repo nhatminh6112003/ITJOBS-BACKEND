@@ -1,4 +1,5 @@
 'use strict';
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -25,6 +26,9 @@ module.exports = {
         type: Sequelize.STRING
       },
       default_template: {
+        type: Sequelize.STRING
+      },
+      image_cv:{
         type: Sequelize.STRING
       },
       color_pick: {
