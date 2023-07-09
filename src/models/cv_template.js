@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const {Model} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class cv_template extends Model {
     /**
@@ -29,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     tableName:'cv_template',
+    timestamps: false,
     modelName: 'cv_template',
   });
   return cv_template;
