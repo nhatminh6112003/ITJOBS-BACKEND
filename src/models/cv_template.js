@@ -1,5 +1,7 @@
 'use strict';
+
 const {Model} = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class cv_template extends Model {
     /**
@@ -21,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     default_template_name: DataTypes.STRING,
     default_template_color: DataTypes.STRING,
     default_template: DataTypes.STRING,
+    image_cv: DataTypes.STRING,
     color_pick: DataTypes.TEXT,
     html_template_en: DataTypes.TEXT,
     html_template_vi: DataTypes.TEXT
