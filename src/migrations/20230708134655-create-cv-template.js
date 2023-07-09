@@ -28,7 +28,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       color_pick: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       html_template_en: {
         type: Sequelize.TEXT
