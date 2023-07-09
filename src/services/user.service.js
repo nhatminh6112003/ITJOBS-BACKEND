@@ -28,13 +28,13 @@ const userService = {
 
 	async update(data, id) {
 		this.getOne(id);
-		const updateUser = await user_account.update(data, {
+		return await user_account.update(data, {
 			where: { id }
 		});
 	},
 
 	async delete(id) {
-		const deleteUser = await User.destroy({ where: { id } });
+		const deleteUser = await user_account.destroy({ where: { id } });
 		if (deleteUser === 0) throw createError(400, 'Xoá user không thành công');
 		return deleteUser;
 	},
