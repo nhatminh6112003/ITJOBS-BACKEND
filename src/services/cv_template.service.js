@@ -13,7 +13,7 @@ const cvTemplateService = {
             where:{id},
             raw:true
         })
-        if(!dataOne) throw createError(400,'không tìm thấy thông tin template')
+        if(!dataOne) throw createError(404,'không tìm thấy thông tin template')
         return dataOne
     }
 }

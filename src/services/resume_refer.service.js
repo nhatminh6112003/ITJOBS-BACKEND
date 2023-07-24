@@ -13,7 +13,7 @@ const resumeReferService = {
 			},
 			raw: true
 		});
-		if (!findResume) throw createError(409, 'Không tìm thấy bản ghi');
+		if (!findResume) throw createError(404, 'Không tìm thấy bản ghi');
 		return findResume;
 	},
 
@@ -22,7 +22,7 @@ const resumeReferService = {
 			where: { id: data.resume_id },
 			raw: true
 		});
-		if (!findResume) throw createError(409, 'Không tìm thấy bản ghi');
+		if (!findResume) throw createError(404, 'Không tìm thấy bản ghi');
 
 		return resume_refer.create(data);
 	},

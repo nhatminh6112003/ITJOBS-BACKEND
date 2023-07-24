@@ -8,7 +8,7 @@ import ResumeValidation from '@src/validations/resume.validation';
 
 const router = express.Router();
 
-router.get('', AuthMiddleWare.protect, AuthMiddleWare.authPage([UserRoleEnum.ADMIN]), ResumeController.getAll);
+router.get('/', AuthMiddleWare.protect, AuthMiddleWare.authPage([UserRoleEnum.ADMIN]), ResumeController.getAll);
 router.get('/:id', AuthMiddleWare.protect, AuthMiddleWare.authPage([UserRoleEnum.ADMIN]), ResumeController.getOne);
 
 router.patch(

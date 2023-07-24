@@ -12,7 +12,7 @@ const resumeLanguageService = {
 			},
 			raw: true
 		});
-		if (!findResume) throw createError(409, 'Không tìm thấy bản ghi');
+		if (!findResume) throw createError(404, 'Không tìm thấy bản ghi');
 
 		return await resume_language.create({
 			...data,
@@ -35,7 +35,7 @@ const resumeLanguageService = {
 			},
 			raw: true
 		});
-		if (!oneLanguage) throw createError(409, 'Không tìm thấy bản ghi');
+		if (!oneLanguage) throw createError(404, 'Không tìm thấy bản ghi');
 		return oneLanguage;
 	}
 };

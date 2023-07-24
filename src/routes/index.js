@@ -7,6 +7,7 @@ import resumeSkillRoutes from './resume_skill.route.js';
 import resumeEducationRoutes from './resume_education.route.js';
 import resumeCertificateRoutes from './resume_certificate.route.js';
 import resumeReferRoutes from './resume_refer.route.js';
+import resumeTemplateRoutes from "./resume_template.route"
 import cvTemplateRoutes from './cv_template.route.js';
 
 function route(app) {
@@ -20,6 +21,8 @@ function route(app) {
 	apiRoutes.use('/resume_education', resumeEducationRoutes);
 	apiRoutes.use('/resume_certificate', resumeCertificateRoutes);
 	apiRoutes.use('/resume_refer', resumeReferRoutes);
+	apiRoutes.use('/resume_template', resumeTemplateRoutes);
+
 	app.use('/api', apiRoutes);
 }
 export default route;
