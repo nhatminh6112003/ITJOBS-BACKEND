@@ -8,7 +8,8 @@ const {
 	resume_skill,
 	resume_education,
 	resume_certificate,
-	resume_refer
+	resume_refer,
+	resume_template
 } = ResumeSchema;
 
 const ResumeValidation = {
@@ -18,6 +19,10 @@ const ResumeValidation = {
 	resume_skill: validateRequest(resume_skill),
 	resume_education: validateRequest(resume_education),
 	resume_certificate: validateRequest(resume_certificate),
-	resume_refer: validateRequest(resume_refer)
+	resume_refer: validateRequest(resume_refer),
+	resume_template:{
+		updateTemplate: validateRequest(resume_template.updateTemplate),
+		updateUi: validateRequest(resume_template.updateUi),
+	},
 };
 export default ResumeValidation;

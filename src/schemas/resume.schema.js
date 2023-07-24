@@ -51,6 +51,17 @@ const ResumeSchema = {
 			.pattern(/^(?:\+84|0)(?:\d{9}|\d{10})$/)
 			.required(),
 		ref_email: Joi.string().email({ minDomainSegments: 2 }).required()
-	})
+	}),
+	resume_template:{
+		updateTemplate:Joi.object({
+			cv_template_id: Joi.number().required(),
+		}),
+		updateUi:Joi.object({
+			cv_color: Joi.string().required(),
+			cv_font: Joi.string().required(),
+			cv_language: Joi.string().required(),
+			cv_size: Joi.string().required()
+		}),
+	},
 };
 export default ResumeSchema;

@@ -1,7 +1,15 @@
 import bcryptHelpers from '@src/helpers/bcrypt';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
-import { user_account, resume, resume_profile, resume_title, sequelize, resume_desired_job ,resume_template } from '@src/models';
+import {
+	user_account,
+	resume,
+	resume_profile,
+	resume_title,
+	sequelize,
+	resume_desired_job,
+	resume_template
+} from '@src/models';
 import createError from 'http-errors';
 import { colorsEnum } from '@src/constants/resumeTemplateEnum';
 dotenv.config();
@@ -57,18 +65,18 @@ const AuthService = {
 				resume_template.create(
 					{
 						resume_id: createResume.id,
-						cv_color:101,
-						cv_font:"Roboto",
-						cv_font_color:"fontCVColorBlack",
-						cv_language:"en",
-						cv_size:"fontCVsize14",
-						cv_template_id:1,
+						cv_color: 101,
+						cv_font: 'Roboto',
+						cv_font_color: 'fontCVColorBlack',
+						cv_language: 'en',
+						cv_size: 'fontCVsize14',
+						cv_template_id: 1,
 						default_color: colorsEnum[101],
-						default_font: "fontCVRoboto",
-						default_size: "fontCVsize14",
-						default_template_name: "CVHay Mới tốt nghiệp",
-						default_template_color: "101",
-						default_template: "cv-template-11",
+						default_font: 'fontCVRoboto',
+						default_size: 'fontCVsize14',
+						default_template_name: 'CVHay Mới tốt nghiệp',
+						default_template_color: '101',
+						default_template: 'cv-template-11'
 					},
 					{ transaction }
 				)
@@ -90,7 +98,9 @@ const AuthService = {
 	async authentication({ email, password, user_type_id }) {
 		const user = await user_account.findOne({
 			where: { email, user_type_id },
-			raw: true
+			include: user_type_id === 1 ? [{ model: resume, as: 'resume', attributes: ['id'] }] : [],
+			raw: true,
+			nest: true
 		});
 		if (!user) throw createError(404, 'Email không tồn tại');
 

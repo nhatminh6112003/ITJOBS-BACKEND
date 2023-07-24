@@ -14,7 +14,7 @@ const resumeEducationService = {
 			},
 			raw: true
 		});
-		if (!findResume) throw createError(409, 'Không tìm thấy bản ghi');
+		if (!findResume) throw createError(404, 'Không tìm thấy bản ghi');
 		return findResume;
 	},
 
@@ -23,7 +23,7 @@ const resumeEducationService = {
 			where: { id: data.resume_id },
 			raw: true
 		});
-		if (!findResume) throw createError(409, 'Không tìm thấy bản ghi');
+		if (!findResume) throw createError(404, 'Không tìm thấy bản ghi');
 
 		return resume_education.create({
 			...data,
