@@ -12,7 +12,7 @@ module.exports = {
 			},
 			profession_id: {
 				primaryKey: true,
-				type: Sequelize.UUID,
+				type: Sequelize.INTEGER,
 				references: {
 					model: 'profession',
 					key: 'id'

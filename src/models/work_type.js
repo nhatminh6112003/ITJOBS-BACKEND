@@ -8,12 +8,17 @@ module.exports = (sequelize, DataTypes) => {
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-			// define association here
+			work_type.belongsToMany(models.resume, {
+				through: models.resume_work_type,
+				foreignKey: 'work_type_id',
+				otherKey: 'resume_id',
+				as: 'work_type_resume'
+			});
 		}
 	}
 	work_type.init(
 		{
-			name: DataTypes.STRING
+		name: DataTypes.STRING
 		},
 		{
 			sequelize,

@@ -23,7 +23,8 @@ module.exports = {
 				}
 			},
 			resume_active: {
-				type: Sequelize.ENUM('1', '2', '3')
+				type: Sequelize.ENUM('1', '2', '3'),
+				defaultValue:"1"
 			},
 			resume_complete: {
 				type: Sequelize.BOOLEAN,
