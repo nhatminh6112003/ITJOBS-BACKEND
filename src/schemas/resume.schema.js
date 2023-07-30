@@ -63,5 +63,17 @@ const ResumeSchema = {
 			cv_size: Joi.string().required()
 		}),
 	},
+	resume_desired_job:Joi.object({
+		position_id:Joi.number().required(),
+	 resume_id:Joi.string().required(),
+	 profession_id: Joi.array().items(Joi.number()).required(),
+	 salary_from:Joi.string().required(),
+	 salary_to:Joi.string().required(),
+	 work_type_id:Joi.array().items(Joi.number()).required(),
+    work_home:Joi.boolean().required(),
+   provinces:Joi.number().required(),
+   districts:Joi.number().required(),
+   welfare_id:Joi.array().items(Joi.number()).required(),
+	}),
 };
 export default ResumeSchema;

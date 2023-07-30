@@ -12,6 +12,7 @@ import {
 } from '@src/models';
 import createError from 'http-errors';
 import { colorsEnum } from '@src/constants/resumeTemplateEnum';
+
 dotenv.config();
 // nếu viết mỗi throw không thì nó sẽ trả về tương ứng ví dụ throw "lỗi"; thì nó sẽ trả về một string là lỗi còn với throw new Error("lỗi rồi") nó sẽ trả về một object có thuộc tính là name,message,stack
 // throw new Error khác với new Error ở chỗ là  throw new Error  sẽ chạy vào catch còn new Error thì không
@@ -79,6 +80,11 @@ const AuthService = {
 						default_template: 'cv-template-11'
 					},
 					{ transaction }
+				),
+				resume_desired_job.create({
+					resume_id: createResume.id,
+				},
+				{ transaction }
 				)
 			]);
 

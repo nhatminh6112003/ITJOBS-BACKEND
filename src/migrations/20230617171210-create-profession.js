@@ -4,9 +4,9 @@ module.exports = {
 		await queryInterface.createTable('profession', {
 			id: {
 				allowNull: false,
-				defaultValue: Sequelize.UUIDV4,
+				autoIncrement: true,
 				primaryKey: true,
-				type: Sequelize.UUID
+				type: Sequelize.INTEGER
 			},
 			name: {
 				type: Sequelize.STRING
