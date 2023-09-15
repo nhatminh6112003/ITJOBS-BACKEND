@@ -21,6 +21,10 @@ const ResumeSchema = {
 		rs_language_level: Joi.string().valid('1', '2', '3', '4', '5').required(),
 		rs_language_certify: Joi.string()
 	}),
+	resume_objective: Joi.object({
+		resume_id: Joi.string().required(),
+		objective_job: Joi.string().required(),
+	}),
 	resume_skill: Joi.object({
 		resume_id: Joi.string().required(),
 		skill_name: Joi.string().required(),
