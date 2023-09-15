@@ -12,6 +12,7 @@ import resumeDesiredJobRoutes from "./resume_desired_job.route";
 import resumeTitleRoutes from "./resume_title.route"
 import cvTemplateRoutes from './cv_template.route.js';
 import resumeObjectiveRoutes from './resume_objective.route.js'
+import myAttachRoutes from "./my_attach.route.js"
 
 function route(app) {
 	const apiRoutes = express.Router();
@@ -28,6 +29,7 @@ function route(app) {
 	apiRoutes.use('/resume_template', resumeTemplateRoutes);
 	apiRoutes.use('/resume_desired_job', resumeDesiredJobRoutes);
 	apiRoutes.use('/resume_objective', resumeObjectiveRoutes);
+	apiRoutes.use('/my_attach', myAttachRoutes);
 
 
 	app.use('/api', apiRoutes);
