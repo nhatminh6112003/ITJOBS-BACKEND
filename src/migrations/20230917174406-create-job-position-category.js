@@ -3,11 +3,11 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('job_position_category', {
-      id: {
+       id: {
         allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
+				defaultValue: Sequelize.UUIDV4,
+				primaryKey: true,
+				type: Sequelize.UUID
       },
       id: {
         type: Sequelize.UUID
