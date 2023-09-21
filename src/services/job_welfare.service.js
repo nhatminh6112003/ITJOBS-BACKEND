@@ -1,21 +1,21 @@
 import createError from 'http-errors';
-import { job_position_category } from '@src/models';
+import { job_welfare } from '@src/models';
 import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
 
 dotenv.config();
-const jobPositionCategoryService = {
+const jobWelfareService = {
 	async getAll(query) {
 		const page = Number(query.page) || 1;
 		const limit = Number(query.limit) || 25;
 		const keyword = query.keyword ?? '';
 
-		const [data, pagination] =await handlePaginate({ model: job_position_category, page, keyword, limit });
+		const [data, pagination] =await handlePaginate({ model: job_welfare, page, keyword, limit });
 		return [data,pagination]
 	},
 
 	async getOne(id) {
-		const findResume = await job_position_category.findOne({
+		const findResume = await job_welfare.findOne({
 			where: {
 				id
 			},
@@ -26,16 +26,16 @@ const jobPositionCategoryService = {
 	},
 
 	async create(data) {
-		return await job_position_category.create(data);
+		return await job_welfare.create(data);
 	},
 
 	async update(id, data) {
-		return await findByPkAndUpdate(job_position_category, id, data);
+		return await findByPkAndUpdate(job_welfare, id, data);
 	},
 
 	async delete(id) {
-		return await findByPkAndDelete(job_position_category, id);
+		return await findByPkAndDelete(job_welfare, id);
 	}
 };
 
-export default jobPositionCategoryService;
+export default jobWelfareService;
