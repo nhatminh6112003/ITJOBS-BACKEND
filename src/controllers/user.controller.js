@@ -2,22 +2,26 @@ import userService from '@src/services/user.service.js';
 import responseStatus from '@src/constants/responseStatus';
 import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
 import dotenv from 'dotenv';
+import { Sequelize } from 'sequelize';
 
 dotenv.config();
 const UserController = {
 	async getAll(req, res) {
-		const data = await userService.getAll();
-		return res.apiResponse(data);
+		const { query } = req;
+		const [data, pagination] = await userService.getAll(query);
+
+		return res.apiResponse(data,pagination);
 	},
 	async getOne(req, res) {
 		const { id } = req.params;
-		const data = await userService.getOne();
+		const data = await userService.getOne(id);
 		return res.apiResponse(data);
 	},
 
 	async update(req, res) {
+		const {id}=req.params
 		const data = req.body;
-		await userService.update(data);
+		await userService.update(data,id);
 		return res.apiResponse(data);
 	},
 	async delete(req, res) {

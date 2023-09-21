@@ -1,7 +1,6 @@
 import express from 'express';
 import AuthMiddleWare from '@src/middleware/authMiddleware';
 import UserController from '@src/controllers/user.controller';
-import uploadCloud from '@src/middleware/uploadCloud';
 import { cacheMiddleware } from '@src/middleware/cacheMiddleware';
 import UserRoleEnum from '@src/constants/userRoles';
 
@@ -9,11 +8,12 @@ const router = express.Router();
 
 router.get(
 	'',
-	AuthMiddleWare.protect,
-	AuthMiddleWare.authPage([UserRoleEnum.JOBSEEKER]),
+	// AuthMiddleWare.protect,
+	// AuthMiddleWare.authPage([UserRoleEnum.ADMIN]),
 	cacheMiddleware('2 minutes'),
 	UserController.getAll
 );
+router.get('/:id', UserController.getOne);
 router.patch('/:id', UserController.update);
 router.delete('/:id', UserController.delete);
 

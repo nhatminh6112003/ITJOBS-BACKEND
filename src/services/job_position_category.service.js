@@ -2,16 +2,28 @@ import createError from 'http-errors';
 import { job_position_category } from '@src/models';
 import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
+import { Sequelize } from 'sequelize';
 
+const { Op } = Sequelize;
 dotenv.config();
 const jobPositionCategoryService = {
 	async getAll(query) {
 		const page = Number(query.page) || 1;
 		const limit = Number(query.limit) || 25;
 		const keyword = query.keyword ?? '';
+		const queryCondition = {};
+		
+		if (keyword) {
+			queryCondition.name = { [Op.substring]: keyword };
+		}
 
-		const [data, pagination] =await handlePaginate({ model: job_position_category, page, keyword, limit });
-		return [data,pagination]
+		const [data, pagination] = await handlePaginate({
+			model: job_position_category,
+			page,
+			limit,
+			query: queryCondition
+		});
+		return [data, pagination];
 	},
 
 	async getOne(id) {
