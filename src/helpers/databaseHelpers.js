@@ -1,7 +1,5 @@
 import createError from 'http-errors';
-import { Sequelize } from 'sequelize';
 
-const { Op } = Sequelize;
 
 // CREATE
 export const findByPkAndCreate = async (model, id, data) => {
@@ -76,24 +74,25 @@ export const findOneAndDelete = async (model, conditions) => {
 // 	return [data, pagination];
 // };
 
-export async function handlePaginate({model, page, limit, keyword}) {
-	const query = {}
+export async function handlePaginate({ model, page, limit, query = {} }) {
 
-	if (keyword) {
-		 query.name = {[Op.substring]: keyword}
-	}
 
 	const queries = {
-		 offset: (page - 1) * limit,
-		 limit
-	}       
-	
-	const data = await model.findAndCountAll({
-		 where: query,
-		 ...queries
-	})
+		offset: (page - 1) * limit,
+		limit
+	};
 
-	const pagination = { totalPages: Math.ceil(data.count / limit), totalItems:data?.count, itemsPerPage: limit, pageIndex: page };
-	
+	const data = await model.findAndCountAll({
+		where: query,
+		...queries
+	});
+
+	const pagination = {
+		totalPages: Math.ceil(data.count / limit),
+		totalItems: data?.count,
+		itemsPerPage: limit,
+		pageIndex: page
+	};
+
 	return [data.rows, pagination];
- }
+}

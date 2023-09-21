@@ -6,15 +6,43 @@ import path from 'path';
 import createError from 'http-errors';
 import { user_account } from '@src/models';
 
+import { Sequelize } from 'sequelize';
+
+const { Op } = Sequelize;
+
 dotenv.config();
 
 const userService = {
-	async getAll() {
-		const data = await user_account.findAll({
+	async getAll(query) {
+		const page = Number(query.page) || 1;
+		const limit = Number(query.limit) || 25;
+		const keyword = query.keyword ?? '';
+		const user_type_id = query.user_type_id ?? '';
+
+		const queryCondition = {};
+		if (keyword) {
+			queryCondition.name = { [Op.substring]: keyword };
+		}
+
+		if(user_type_id){
+			queryCondition.user_type_id = user_type_id
+		}
+
+		const data = await user_account.findAndCountAll({
+			where: queryCondition,
+			offset: (page - 1) * limit,
+			limit,
 			raw: true,
 			attributes: { exclude: ['password'] }
 		});
-		return data;
+
+		const pagination = {
+			totalPages: Math.ceil(data.count / limit),
+			totalItems: data?.count,
+			itemsPerPage: limit,
+			pageIndex: page
+		};
+		return [data.rows, pagination];
 	},
 
 	async getOne(id) {
@@ -24,6 +52,7 @@ const userService = {
 			attributes: { exclude: ['password'] }
 		});
 		if (!user) throw createError(409, 'Người dùng không tồn tại');
+		return user;
 	},
 
 	async update(data, id) {
