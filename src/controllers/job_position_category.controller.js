@@ -2,6 +2,12 @@ import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
 import jobPositionCategoryService from '@src/services/job_position_category.service';
 
 const jobPositionCategoryController = {
+	async getAll(req, res) {
+		const { query } = req;
+		const [data, pagination] = await jobPositionCategoryService.getAll(query);
+
+		return res.apiResponse(data,pagination);
+	},
 	async create(req, res) {
 		const data = req.body;
 		const handleCreate = await jobPositionCategoryService.create(data);
@@ -26,7 +32,6 @@ const jobPositionCategoryController = {
 		await jobPositionCategoryService.delete(id);
 		return res.apiResponse();
 	}
-
 };
 
 export default asyncHandlerDecorator(jobPositionCategoryController);

@@ -1,12 +1,19 @@
 import createError from 'http-errors';
-import {job_position_category} from '@src/models'
-import { findByPkAndUpdate, findByPkAndDelete } from '@src/helpers/databaseHelpers';
+import { job_position_category } from '@src/models';
+import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
 
-
 dotenv.config();
-
 const jobPositionCategoryService = {
+	async getAll(query) {
+		const page = Number(query.page) || 1;
+		const limit = Number(query.limit) || 25;
+		const keyword = query.keyword ?? '';
+
+		const [data, pagination] =await handlePaginate({ model: job_position_category, page, keyword, limit });
+		return [data,pagination]
+	},
+
 	async getOne(id) {
 		const findResume = await job_position_category.findOne({
 			where: {
@@ -19,10 +26,7 @@ const jobPositionCategoryService = {
 	},
 
 	async create(data) {
-		const findResume = await job_position_category.create();
-		if (!findResume) throw createError(404, 'Không tìm thấy bản ghi');
-
-		return job_position_category.create(data);
+		return await job_position_category.create(data);
 	},
 
 	async update(id, data) {
@@ -34,4 +38,4 @@ const jobPositionCategoryService = {
 	}
 };
 
-export default jobPositionCategoryService
+export default jobPositionCategoryService;

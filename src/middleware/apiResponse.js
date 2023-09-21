@@ -2,11 +2,14 @@
 import responseStatus from '@src/constants/responseStatus';
 
 const apiResponse = (req, res, next) => {
-	res.apiResponse = function (data = [], statusObj = responseStatus.SUCCESS) {
+	// eslint-disable-next-line default-param-last, func-names
+	res.apiResponse = function (data = [], pagination, statusObj = responseStatus.SUCCESS) {
 		const response = {
 			...statusObj,
-			data
+			data,
+			pagination
 		};
+
 		const statusCode = response.status || 200;
 
 		return res.status(statusCode).json(response);
