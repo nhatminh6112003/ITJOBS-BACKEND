@@ -15,6 +15,7 @@ import resumeObjectiveRoutes from './resume_objective.route.js'
 import myAttachRoutes from "./my_attach.route.js"
 import JobPositionCategoryRoutes  from "./job_position_category.route.js"
 import JobWelfareRoutes from "./job_welfare.route.js"
+import ProfessionRoutes from "./profession.route.js"
 
 function route(app) {
 	const apiRoutes = express.Router();
@@ -22,6 +23,7 @@ function route(app) {
 	apiRoutes.use('/auth', AuthRoutes);
 	apiRoutes.use('/job_position_category',JobPositionCategoryRoutes);
 	apiRoutes.use('/job_welfare', JobWelfareRoutes)
+	apiRoutes.use("/profession", ProfessionRoutes);
 	apiRoutes.use('/cv_template',cvTemplateRoutes );
 	apiRoutes.use('/resume', resumeRoutes);
 	apiRoutes.use('/resume_title', resumeTitleRoutes);

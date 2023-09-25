@@ -18,10 +18,6 @@ module.exports = (sequelize, DataTypes) => {
 	}
 	profession.init(
 		{
-			id: {
-				type: DataTypes.INTEGER,
-				primaryKey: true
-			},
 			name: DataTypes.STRING
 		},
 		{
