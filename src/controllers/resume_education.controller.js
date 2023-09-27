@@ -2,6 +2,12 @@ import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
 import resumeEducationService from '@src/services/resume_education.service';
 
 const resumeEducationController = {
+	async getAll(req, res) {
+		const { id } = req.params;
+		const data = await resumeEducationService.getAllByResume(id);
+		return res.apiResponse(data);
+	},
+
 	async getOne(req, res) {
 		const { id } = req.params;
 		const data = await resumeEducationService.getOne(id);
