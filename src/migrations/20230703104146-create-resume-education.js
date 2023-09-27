@@ -19,7 +19,7 @@ module.exports = {
 				type: Sequelize.STRING
 			},
 			redu_degree: {
-				type: Sequelize.ENUM('0', '1', '2', '3', '4', '5')
+				type: Sequelize.ENUM('0', '1', '2', '3', '4', '5', '6')
 			},
 			redu_date: {
 				type: Sequelize.DATE
