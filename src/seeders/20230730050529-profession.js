@@ -3,11 +3,11 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    const data = [
-			{name: 'Tiếp thị / Marketing' },
-			{name: 'Bán lẻ / Bán sỉ ' },
-		];
-		await queryInterface.bulkInsert('profession', data);
+    // const data = [
+		// 	{name: 'Tiếp thị / Marketing' },
+		// 	{name: 'Bán lẻ / Bán sỉ ' },
+		// ];
+		// await queryInterface.bulkInsert('profession', data);
   },
 
   async down (queryInterface, Sequelize) {

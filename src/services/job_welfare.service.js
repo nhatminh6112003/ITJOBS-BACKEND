@@ -21,7 +21,7 @@ const jobWelfareService = {
 			model: job_welfare,
 			page,
 			limit,
-			query: queryCondition
+			condition: queryCondition
 		});
 		return [data, pagination];
 	},

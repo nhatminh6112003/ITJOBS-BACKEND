@@ -21,7 +21,7 @@ const jobPositionCategoryService = {
 			model: job_position_category,
 			page,
 			limit,
-			query: queryCondition
+			condition: queryCondition
 		});
 		return [data, pagination];
 	},
