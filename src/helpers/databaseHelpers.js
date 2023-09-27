@@ -1,6 +1,4 @@
 import createError from 'http-errors';
-
-
 // CREATE
 export const findByPkAndCreate = async (model, id, data) => {
 	const record = await model.findByPk(id);
@@ -74,17 +72,14 @@ export const findOneAndDelete = async (model, conditions) => {
 // 	return [data, pagination];
 // };
 
-export async function handlePaginate({ model, page, limit, query = {} }) {
-
-
-	const queries = {
-		offset: (page - 1) * limit,
-		limit
-	};
-
+export async function handlePaginate({ model, page, limit, condition = {}, queries }) {
 	const data = await model.findAndCountAll({
-		where: query,
-		...queries
+		where: condition,
+		...{
+			offset: (page - 1) * limit,
+			limit,
+			...queries
+		}
 	});
 
 	const pagination = {

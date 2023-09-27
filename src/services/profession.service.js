@@ -1,5 +1,5 @@
 import createError from 'http-errors';
-import { profession } from '@src/models';
+import { profession, job_position_category } from '@src/models';
 import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
@@ -16,12 +16,17 @@ const professionService = {
 		if (keyword) {
 			queryCondition.name = { [Op.substring]: keyword };
 		}
-
+		
 		const [data, pagination] = await handlePaginate({
 			model: profession,
 			page,
 			limit,
-			query: queryCondition
+			condition: queryCondition,
+			queries: {
+				raw: true,
+				nest: true,
+				include: { model: job_position_category, as: 'job_position_category' }
+			}
 		});
 		return [data, pagination];
 	},
@@ -31,6 +36,8 @@ const professionService = {
 			where: {
 				id
 			},
+			include: { model: job_position_category, as: 'job_position_category' },
+			nest: true,
 			raw: true
 		});
 		if (!findResume) throw createError(404, 'Không tìm thấy bản ghi');

@@ -14,11 +14,18 @@ module.exports = (sequelize, DataTypes) => {
 				otherKey: 'resume_id',
 				as: 'resumes'
 			});
+			profession.belongsTo(models.job_position_category, {
+				foreignKey: 'jobPositionCategoryId',
+				as: 'job_position_category'
+			});
 		}
 	}
 	profession.init(
 		{
-			name: DataTypes.STRING
+			name: DataTypes.STRING,
+			jobPositionCategoryId: {
+				type: DataTypes.UUID
+			}
 		},
 		{
 			sequelize,
