@@ -6,6 +6,7 @@ import ResumeController from '@src/controllers/resume.controller';
 import ResumeProfileController from '@src/controllers/resume_profile.controller';
 import ResumeValidation from '@src/validations/resume.validation';
 
+
 const router = express.Router();
 
 router.get('/', AuthMiddleWare.protect, AuthMiddleWare.authPage([UserRoleEnum.ADMIN]), ResumeController.getAll);

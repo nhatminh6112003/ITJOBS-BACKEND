@@ -56,28 +56,35 @@ const ResumeSchema = {
 			.required(),
 		ref_email: Joi.string().email({ minDomainSegments: 2 }).required()
 	}),
-	resume_template:{
-		updateTemplate:Joi.object({
+	resume_template: {
+		updateTemplate: Joi.object({
 			cv_template_id: Joi.number().required(),
 		}),
-		updateUi:Joi.object({
+		updateUi: Joi.object({
 			cv_color: Joi.string().required(),
 			cv_font: Joi.string().required(),
 			cv_language: Joi.string().required(),
 			cv_size: Joi.string().required()
 		}),
 	},
-	resume_desired_job:Joi.object({
-		position_id:Joi.number().required(),
-	 resume_id:Joi.string().required(),
-	 profession_id: Joi.array().items(Joi.number()).required(),
-	 salary_from:Joi.string().required(),
-	 salary_to:Joi.string().required(),
-	 work_type_id:Joi.array().items(Joi.number()).required(),
-    work_home:Joi.boolean().required(),
-   provinces:Joi.number().required(),
-   districts:Joi.number().required(),
-   welfare_id:Joi.array().items(Joi.number()).required(),
+	resume_work_type: Joi.object(
+		{
+			resume_id: Joi.string().required(),
+			work_type_id: Joi.number().required(),
+		}
+	)
+	,
+	resume_desired_job: Joi.object({
+		position_id: Joi.number().required(),
+		resume_id: Joi.string().required(),
+		profession_id: Joi.array().items(Joi.number()).required(),
+		salary_from: Joi.string().required(),
+		salary_to: Joi.string().required(),
+		work_type_id: Joi.array().items(Joi.number()).required(),
+		work_home: Joi.boolean().required(),
+		provinces: Joi.number().required(),
+		districts: Joi.number().required(),
+		welfare_id: Joi.array().items(Joi.number()).required(),
 	}),
 };
 export default ResumeSchema;
