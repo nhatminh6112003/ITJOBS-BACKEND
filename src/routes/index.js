@@ -9,6 +9,7 @@ import resumeCertificateRoutes from './resume_certificate.route.js';
 import resumeReferRoutes from './resume_refer.route.js';
 import resumeTemplateRoutes from "./resume_template.route"
 import resumeDesiredJobRoutes from "./resume_desired_job.route";
+import resumeWorkTypeRoutes from "./resume_work_type.route"
 import resumeTitleRoutes from "./resume_title.route"
 import cvTemplateRoutes from './cv_template.route.js';
 import resumeObjectiveRoutes from './resume_objective.route.js'
@@ -35,6 +36,7 @@ function route(app) {
 	apiRoutes.use('/resume_template', resumeTemplateRoutes);
 	apiRoutes.use('/resume_desired_job', resumeDesiredJobRoutes);
 	apiRoutes.use('/resume_objective', resumeObjectiveRoutes);
+	apiRoutes.use('/resume_work_type', resumeWorkTypeRoutes);
 	apiRoutes.use('/my_attach', myAttachRoutes);
 
 
