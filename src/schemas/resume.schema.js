@@ -43,8 +43,8 @@ const ResumeSchema = {
 		cer_title: Joi.string().required(),
 		cer_by: Joi.string().required(),
 		cer_limit: Joi.boolean(),
-		cer_form: Joi.date().required().format('YYYY-MM-DD').utc(),
-		cer_to: Joi.date().format('YYYY-MM-DD').utc()
+		cer_form: Joi.date().required(),
+		cer_to: Joi.date()
 	}),
 	resume_refer: Joi.object({
 		resume_id: Joi.string().required(),

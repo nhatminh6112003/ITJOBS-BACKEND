@@ -2,6 +2,11 @@ import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
 import resumeCertificateService from '@src/services/resume_certificate.service';
 
 const resumeCertificateController = {
+	async getAll(req, res) {
+		const { id } = req.params;
+		const data = await resumeCertificateService.getAllByResume(id);
+		return res.apiResponse(data);
+	},
 	async getOne(req, res) {
 		const { id } = req.params;
 		const data = await resumeCertificateService.getOne(id);
