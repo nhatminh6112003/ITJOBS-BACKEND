@@ -6,6 +6,16 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const resumeCertificateService = {
+	async getAllByResume(resume_id) {
+		const findResumeCertificate = await resume_certificate.findAll({
+			where: {
+				resume_id
+			},
+			raw: true
+		});
+		if (!findResumeCertificate) throw createError(404, 'Không tìm thấy bản ghi');
+		return findResumeCertificate;
+	},
 	async getOne(id) {
 		const findResume = await resume_certificate.findOne({
 			where: {
