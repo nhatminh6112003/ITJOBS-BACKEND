@@ -3,18 +3,15 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		await queryInterface.createTable('resume_objectives', {
+		await queryInterface.createTable('job_position_category', {
 			id: {
 				allowNull: false,
 				defaultValue: Sequelize.UUIDV4,
 				primaryKey: true,
 				type: Sequelize.UUID
 			},
-			objective_job: {
+			name: {
 				type: Sequelize.STRING
-			},
-			resume_id: {
-				type: Sequelize.UUID
 			},
 			createdAt: {
 				allowNull: false,
@@ -27,6 +24,6 @@ module.exports = {
 		});
 	},
 	async down(queryInterface, Sequelize) {
-		await queryInterface.dropTable('resume_objectives');
+		await queryInterface.dropTable('job_position_category');
 	}
 };
