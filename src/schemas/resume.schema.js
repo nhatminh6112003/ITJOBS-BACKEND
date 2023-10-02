@@ -23,7 +23,7 @@ const ResumeSchema = {
 	}),
 	resume_objective: Joi.object({
 		resume_id: Joi.string().required(),
-		objective_job: Joi.string().required(),
+		objective_job: Joi.string().required()
 	}),
 	resume_skill: Joi.object({
 		resume_id: Joi.string().required(),
@@ -58,22 +58,19 @@ const ResumeSchema = {
 	}),
 	resume_template: {
 		updateTemplate: Joi.object({
-			cv_template_id: Joi.number().required(),
+			cv_template_id: Joi.number().required()
 		}),
 		updateUi: Joi.object({
 			cv_color: Joi.string().required(),
 			cv_font: Joi.string().required(),
 			cv_language: Joi.string().required(),
 			cv_size: Joi.string().required()
-		}),
+		})
 	},
-	resume_work_type: Joi.object(
-		{
-			resume_id: Joi.string().required(),
-			work_type_id: Joi.number().required(),
-		}
-	)
-	,
+	resume_work_type: Joi.object({
+		resume_id: Joi.string().required(),
+		work_type_id: Joi.number().required()
+	}),
 	resume_desired_job: Joi.object({
 		position_id: Joi.number().required(),
 		resume_id: Joi.string().required(),
@@ -84,7 +81,17 @@ const ResumeSchema = {
 		work_home: Joi.boolean().required(),
 		provinces: Joi.number().required(),
 		districts: Joi.number().required(),
-		welfare_id: Joi.array().items(Joi.number()).required(),
+		welfare_id: Joi.array().items(Joi.number()).required()
 	}),
+	resume_activity: Joi.object({
+		resume_id: Joi.string().required(),
+		organization: Joi.string().required(),
+		role: Joi.string().required(),
+		start_date: Joi.date().required(),
+		end_date: Joi.date(),
+		activity_des: Joi.string(),
+		activity_current: Joi.boolean(),
+		status: Joi.boolean()
+	})
 };
 export default ResumeSchema;
