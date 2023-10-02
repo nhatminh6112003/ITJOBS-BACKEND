@@ -9,8 +9,11 @@ import ResumeValidation from '@src/validations/resume.validation';
 
 const router = express.Router();
 
-router.get('/', AuthMiddleWare.protect, AuthMiddleWare.authPage([UserRoleEnum.ADMIN]), ResumeController.getAll);
-router.get('/:id', AuthMiddleWare.protect, AuthMiddleWare.authPage([UserRoleEnum.ADMIN]), ResumeController.getOne);
+router.get('/', AuthMiddleWare.protect, ResumeController.getAll);
+router.get('/:id', AuthMiddleWare.protect, AuthMiddleWare.authPage([UserRoleEnum.JOBSEEKER]),ResumeController.getOne);
+router.post('', ResumeController.create);
+
+router.patch('/update-status/:id', ResumeController.updateResumeStatus);
 
 router.patch(
 	'/update-resume-title/:resume_id',
@@ -27,5 +30,6 @@ router.patch(
 	ResumeValidation.resume_profile,
 	ResumeProfileController.update
 );
+router.delete('/:id', ResumeController.delete);
 
 export default router;

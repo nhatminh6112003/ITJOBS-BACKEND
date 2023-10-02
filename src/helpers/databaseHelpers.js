@@ -1,4 +1,5 @@
 import createError from 'http-errors';
+
 // CREATE
 export const findByPkAndCreate = async (model, id, data) => {
 	const record = await model.findByPk(id);
@@ -50,29 +51,8 @@ export const findOneAndDelete = async (model, conditions) => {
 	return record;
 };
 
-// export const handlePaginate = async ({ model, page, limit, keyword }) => {
-// 	const searchPattern = `%${keyword}%`;
-// 	if (limit < 1) {
-// 		// Trường hợp không giới hạn số lượng bản ghi trả về
-// 		const result = await model.findAll({
-// 			where: { name: { [Op.like]: searchPattern } }
-// 		});
-
-// 		return [result, null]; // Trả về tất cả bản ghi và không có thông tin phân trang
-// 	}
-// 	const options = {
-// 		page, // Default 1
-// 		paginate: limit, // Default 25
-// 		where: { name: { [Op.like]: searchPattern } }
-// 	};
-
-// 	const { docs: data, pages: totalPages, total: totalItems } = await model.paginate(options);
-
-// 	const pagination = { totalPages, totalItems, itemsPerPage: limit, pageIndex: page };
-// 	return [data, pagination];
-// };
-
 export async function handlePaginate({ model, page, limit, condition = {}, queries }) {
+
 	const data = await model.findAndCountAll({
 		where: condition,
 		...{
