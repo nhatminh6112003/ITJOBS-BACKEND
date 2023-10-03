@@ -67,7 +67,6 @@ const ResumeSchema = {
 			cv_size: Joi.string().required()
 		})
 	},
-<<<<<<< HEAD
 	resume_work_type: Joi.object(
 		{
 			resume_id: Joi.string().required(),
@@ -81,12 +80,6 @@ const ResumeSchema = {
 		}
 	)
 	,
-=======
-	resume_work_type: Joi.object({
-		resume_id: Joi.string().required(),
-		work_type_id: Joi.number().required()
-	}),
->>>>>>> 48e33c4dd550753a5f2d935e35a4640a03e93933
 	resume_desired_job: Joi.object({
 		position_id: Joi.number().required(),
 		resume_id: Joi.string().required(),
