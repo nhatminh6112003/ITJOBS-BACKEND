@@ -7,6 +7,18 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const resumeObjectiveService = {
+
+	async getAllByResume(resume_id){
+		const findResumeRefer = await resume_objective.findAll({
+			where: {
+				resume_id
+			},
+			raw: true
+		});
+		if (!findResumeRefer) throw createError(404, 'Không tìm thấy bản ghi');
+		return findResumeRefer;
+	},
+
 	async getOne(id) {
 		const findResume = await resume_objective.findOne({
 			where: {
