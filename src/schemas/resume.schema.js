@@ -92,6 +92,16 @@ const ResumeSchema = {
 		activity_des: Joi.string(),
 		activity_current: Joi.boolean(),
 		status: Joi.boolean()
+	}),
+	resume_experience: Joi.object({
+		resume_id: Joi.string().required(),
+		rexp_worktype_id: Joi.number(),
+		rexp_title: Joi.string().required(),
+		rexp_company: Joi.string().required(),
+		rexp_workdesc: Joi.string().required(),
+		rexp_form: Joi.date().required(),
+		rexp_to: Joi.date(),
+		experCurrent: Joi.boolean()
 	})
 };
 export default ResumeSchema;
