@@ -72,6 +72,12 @@ const ResumeSchema = {
 			resume_id: Joi.string().required(),
 			work_type_id: Joi.number().required(),
 		}
+	),
+	resume_addioninfo: Joi.object(
+		{
+			resume_id: Joi.string().required(),
+			addioninfo: Joi.string().required(),
+		}
 	)
 	,
 	resume_desired_job: Joi.object({

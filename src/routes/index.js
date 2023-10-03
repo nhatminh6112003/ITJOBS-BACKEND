@@ -17,6 +17,7 @@ import myAttachRoutes from "./my_attach.route.js"
 import JobPositionCategoryRoutes  from "./job_position_category.route.js"
 import JobWelfareRoutes from "./job_welfare.route.js"
 import ProfessionRoutes from "./profession.route.js"
+import resumeAddioninfoRoutes from "./resume_addioninfo.route.js"
 
 function route(app) {
 	const apiRoutes = express.Router();
@@ -38,6 +39,7 @@ function route(app) {
 	apiRoutes.use('/resume_objective', resumeObjectiveRoutes);
 	apiRoutes.use('/resume_work_type', resumeWorkTypeRoutes);
 	apiRoutes.use('/my_attach', myAttachRoutes);
+	apiRoutes.use('/resume_addioninfo', resumeAddioninfoRoutes);
 
 
 	app.use('/api', apiRoutes);
