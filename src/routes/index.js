@@ -18,7 +18,7 @@ import resumeSkillRoutes from './resume_skill.route.js';
 import resumeTemplateRoutes from './resume_template.route';
 import resumeTitleRoutes from './resume_title.route';
 import resumeWorkTypeRoutes from './resume_work_type.route';
-
+import resumeAddioninfoRoutes from "./resume_addioninfo.route.js"
 function route(app) {
 	const apiRoutes = Router();
 	apiRoutes.use('/users', UserRoutes);
@@ -40,6 +40,7 @@ function route(app) {
 	apiRoutes.use('/resume_work_type', resumeWorkTypeRoutes);
 	apiRoutes.use('/resume_activity', resumeActivityRoutes);
 	apiRoutes.use('/my_attach', myAttachRoutes);
+	apiRoutes.use('/resume_addioninfo', resumeAddioninfoRoutes);
 
 	app.use('/api', apiRoutes);
 }

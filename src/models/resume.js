@@ -55,6 +55,10 @@ module.exports = (sequelize, DataTypes) => {
 				foreignKey: 'resume_id',
 				as: 'resume_title'
 			});
+			resume.hasOne(models.resume_addioninfo, {
+				foreignKey: 'resume_id',
+				as: 'resume_addioninfo'
+			});
 			resume.belongsToMany(models.job_welfare, {
 				through: models.welfare_desired_job,
 				foreignKey: 'welfare_id',

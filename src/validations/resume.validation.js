@@ -13,6 +13,7 @@ const {
 	resume_template,
 	resume_desired_job,
 	resume_work_type,
+	resume_addioninfo,
 	resume_activity
 } = ResumeSchema;
 
@@ -31,6 +32,7 @@ const ResumeValidation = {
 		updateUi: validateRequest(resume_template.updateUi)
 	},
 	resume_desired_job: validateRequest(resume_desired_job),
-	resume_activity: validateRequest(resume_activity)
+	resume_activity: validateRequest(resume_activity),
+	resume_addioninfo: validateRequest(resume_addioninfo),
 };
 export default ResumeValidation;
