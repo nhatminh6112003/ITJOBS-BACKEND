@@ -19,6 +19,9 @@ import resumeTemplateRoutes from './resume_template.route';
 import resumeTitleRoutes from './resume_title.route';
 import resumeWorkTypeRoutes from './resume_work_type.route';
 import resumeAddioninfoRoutes from "./resume_addioninfo.route.js"
+import resumeExperienceRoutes from './resume_experience.route.js';
+import workTypeRoutes from './work_type.route.js';
+
 function route(app) {
 	const apiRoutes = Router();
 	apiRoutes.use('/users', UserRoutes);
@@ -27,6 +30,7 @@ function route(app) {
 	apiRoutes.use('/job_welfare', JobWelfareRoutes);
 	apiRoutes.use('/profession', ProfessionRoutes);
 	apiRoutes.use('/cv_template', cvTemplateRoutes);
+	apiRoutes.use('/work_type', workTypeRoutes);
 	apiRoutes.use('/resume', resumeRoutes);
 	apiRoutes.use('/resume_title', resumeTitleRoutes);
 	apiRoutes.use('/resume_language', resumeLanguageRoutes);
@@ -39,6 +43,7 @@ function route(app) {
 	apiRoutes.use('/resume_objective', resumeObjectiveRoutes);
 	apiRoutes.use('/resume_work_type', resumeWorkTypeRoutes);
 	apiRoutes.use('/resume_activity', resumeActivityRoutes);
+	apiRoutes.use('/resume_experience', resumeExperienceRoutes);
 	apiRoutes.use('/my_attach', myAttachRoutes);
 	apiRoutes.use('/resume_addioninfo', resumeAddioninfoRoutes);
 
