@@ -82,7 +82,6 @@ const ResumeSchema = {
 	,
 	resume_desired_job: Joi.object({
 		position_id: Joi.number().required(),
-		resume_id: Joi.string().required(),
 		profession_id: Joi.array().items(Joi.number()).required(),
 		salary_from: Joi.string().required(),
 		salary_to: Joi.string().required(),

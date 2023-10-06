@@ -15,8 +15,9 @@ const resumeDesiredJob = {
 	},
 
 	async update(req, res) {
+		const { resume_id } = req.params;
 		const data = req.body;
-		const handleUpdate = await resumeDesiredJobService.update(data);
+		const handleUpdate = await resumeDesiredJobService.update(resume_id,data);
 		return res.apiResponse(handleUpdate);
 	},
 

@@ -33,29 +33,29 @@ const resumeDesiredJobService = {
 
 		return handlePromise;
 	},
-	async update({ welfare_id, work_type_id, profession_id, ...data }) {
+	async update(resume_id,{ welfare_id, work_type_id, profession_id, ...data }) {
 		// Xóa  tất cả  profession_id  trong table profession_desired_job nếu có resume_id bằng với resume_id update
 		await Promise.all([
 			profession_desired_job.destroy({
 				where: {
-					resume_id: data.resume_id
+					resume_id
 				}
 			}),
 			welfare_desired_job.destroy({
 				where: {
-					resume_id: data.resume_id
+					resume_id
 				}
 			}),
 			resume_work_type.destroy({
 				where: {
-					resume_id: data.resume_id
+					resume_id
 				}
 			})
 		]);
 
 		const professionPromises = profession_id.map((id) =>
 			profession_desired_job.create({
-				resume_id: data.resume_id,
+				resume_id,
 				profession_id: id
 			})
 		);
@@ -66,7 +66,7 @@ const resumeDesiredJobService = {
 			},
 			{
 				where: {
-					resume_id: data.resume_id
+					resume_id
 				}
 			}
 		);
@@ -75,13 +75,13 @@ const resumeDesiredJobService = {
 			resumeDesiredJobPromise,
 			welfare_id.map((id) =>
 				welfare_desired_job.create({
-					resume_id: data.resume_id,
+					resume_id,
 					welfare_id: id
 				})
 			),
 			work_type_id.map((id) =>
 				resume_work_type.create({
-					resume_id: data.resume_id,
+					resume_id,
 					work_type_id: id
 				})
 			)
