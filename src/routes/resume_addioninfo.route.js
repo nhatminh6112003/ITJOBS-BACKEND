@@ -3,6 +3,7 @@ import ResumeValidation from '@src/validations/resume.validation';
 import Express from 'express';
 
 const router = Express.Router();
+router.get('/getAll/:id', resumeAddioninfoController.getAll);
 router.get('/:id', resumeAddioninfoController.getOne);
 router.post('', ResumeValidation.resume_addioninfo, resumeAddioninfoController.create);
 router.patch('/:id', ResumeValidation.resume_addioninfo, resumeAddioninfoController.update);
