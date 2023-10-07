@@ -7,6 +7,16 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const resumeAddioninfoService = {
+	async getAllByResume(resume_id) {
+		const findResumeActivity = await resume_addioninfo.findAll({
+			where: {
+				resume_id
+			},
+			raw: true
+		});
+		if (!findResumeActivity) throw createError(404, 'Không tìm thấy bản ghi');
+		return findResumeActivity;
+	},
 	async getOne(id) {
 		const findResume = await resume_addioninfo.findOne({
 			where: {

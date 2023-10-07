@@ -2,6 +2,12 @@ import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
 import resumeAddioninfoService from '@src/services/resume_addioninfo.service';
 
 const resumeAddioninfoController = {
+	async getAll(req, res) {
+		const { id } = req.params;
+		const data = await resumeAddioninfoService.getAllByResume(id);
+		return res.apiResponse(data);
+	},
+
 	async getOne(req, res) {
 		const { id } = req.params;
 		const data = await resumeAddioninfoService.getOne(id);
