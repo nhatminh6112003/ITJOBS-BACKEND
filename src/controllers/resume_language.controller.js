@@ -4,7 +4,7 @@ import resumeLanguageService from '@src/services/resume_language.service';
 const resumeLanguageController = {
 	async getAll(req, res) {
 		const { id } = req.params;
-		const data = await resumeLanguageController.getAllByResume(id);
+		const data = await resumeLanguageService.getAllByResume(id);
 		return res.apiResponse(data);
 	},
 	async create(req, res) {
