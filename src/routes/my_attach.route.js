@@ -3,6 +3,7 @@ import Express from 'express';
 import uploadMulter from '@src/helpers/uploadMulter';
 
 const router = Express.Router();
+router.get('/getAll/:id', myAttachController.getAll);
 router.get('/:id', myAttachController.getOne);
 router.post('',uploadMulter.single('file'), myAttachController.create);
 router.patch('/:id',uploadMulter.single('file'), myAttachController.update);

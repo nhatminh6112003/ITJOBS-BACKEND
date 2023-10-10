@@ -6,6 +6,12 @@ import myAttachService from '@src/services/my_attach.service';
 dotenv.config();
 
 const MyAttachController = {
+
+	async getAll(req, res) {
+		const { id } = req.params;
+		const data = await myAttachService.getAllByResume(id);
+		return res.apiResponse(data);
+	},
    async getOne(req, res) {
 		const { id } = req.params;
 		const data = await myAttachService.getOne(id);

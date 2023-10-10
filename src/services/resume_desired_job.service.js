@@ -63,19 +63,36 @@ const resumeDesiredJobService = {
 			...findWorkType
 		};
 	},
-	async create({ profession_id, ...data }) {
-		const professionPromises = profession_id.map((id) =>
-			profession_desired_job.create({
-				resume_id: data.resume_id,
+	async create({resume_id,profession_id,welfare_id,work_type_id, ...data }) {
+		const professionPromises = profession_id.map(async (id) =>
+			await profession_desired_job.create({
+				resume_id,
 				profession_id: id
 			})
 		);
 
-		const resumeDesiredJobPromise = resume_desired_job.create({
+		const resumeDesiredJobPromise =await resume_desired_job.create({
+			resume_id,
 			...data,
 			status: resumeStatusEnum.SUCCESS
 		});
-		const handlePromise = await Promise.all([...professionPromises, resumeDesiredJobPromise]);
+		const handlePromise = await Promise.all([
+			...professionPromises,
+			resumeDesiredJobPromise,
+			welfare_id.map((id) =>
+				welfare_desired_job.create({
+					resume_id,
+					welfare_id: id
+				})
+			),
+			work_type_id.map((id) =>
+				resume_work_type.create({
+					resume_id,
+					work_type_id: id
+				})
+			)
+		]);
+		
 
 		return handlePromise;
 	},

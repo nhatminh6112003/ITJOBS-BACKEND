@@ -2,6 +2,12 @@ import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
 import resumeSkillService from '@src/services/resume_skill.service';
 
 const resumeSkillController = {
+	async getAll(req, res) {
+		const { id } = req.params;
+		const data = await resumeSkillService.getAllByResume(id);
+		return res.apiResponse(data);
+	},
+
 	async getOne(req, res) {
 		const { id } = req.params;
 		const data = await resumeSkillService.getOne(id);

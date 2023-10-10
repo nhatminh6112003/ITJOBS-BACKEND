@@ -1,41 +1,132 @@
 import createError from 'http-errors';
-import { resume, my_attach } from '@src/models';
-import { findByPkAndUpdate, findByPkAndDelete } from '@src/helpers/databaseHelpers';
+import { resume, my_attach, sequelize, resume_title } from '@src/models';
+import { findOneAndUpdate } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
+import { resumeStatusEnum } from '@src/constants/resumeStatus';
+import resumeDesiredJobService from './resume_desired_job.service';
 
 dotenv.config();
 
 const myAttachService = {
-	async getOne(id) {
-		const findMyAttach = await my_attach.findOne({
+	async getAllByResume(user_account_id) {
+		console.log('TCL: getAllByResume -> user_account_id', user_account_id);
+		const findResume = await resume.findAll({
 			where: {
-				id
+				user_account_id
 			},
-			raw: true
-		});
-		if (!findMyAttach) throw createError(404, 'Không tìm thấy bản ghi');
-		return findMyAttach;
-	},
-
-	async create(data) {
-		const findResume = await resume.findOne({
-			where: { id: data.resume_id },
+			include: [{ model: my_attach, as: 'attachments' }],
+			nest: true,
 			raw: true
 		});
 		if (!findResume) throw createError(404, 'Không tìm thấy bản ghi');
+		return findResume;
+	},
+	async getOne(id) {
+		const findResume = await resume.findOne({
+			where: {
+				id
+			},
+			include: [{ model: my_attach, as: 'attachments' }],
+			raw: true,
+			nest: true
+		});
+		console.log('TCL: getOne -> findResume', findResume);
 
-		return my_attach.create(data);
+		if (!findResume) throw createError(404, 'Không tìm thấy bản ghi');
+		return findResume;
 	},
 
-	async update(id, data) {
-		return await findByPkAndUpdate(my_attach, id, data);
+	async create(data) {
+		const { user_account_id, resume_active, file, title, profession_id, welfare_id } = data;
+		const createResume = await resume.create({
+			user_account_id,
+			resume_type_id: 2,
+			resume_active,
+			resume_complete: resumeStatusEnum.SUCCESS
+		});
+		console.log('TCL: create -> createResume', createResume.id);
+
+		const [createMyAttach, createResumeTitle] = await Promise.all([
+			my_attach.create({
+				file,
+				resume_id: createResume.id
+			}),
+			resume_title.create({
+				resume_id: createResume.id,
+				title
+			})
+		]);
+
+		const createResumeDesiredJob = await resumeDesiredJobService.create({
+			resume_id: createResume.id,
+			position_id: data.position_id,
+			profession_id,
+			salary_from: data.salary_from,
+			salary_to: data.salary_to,
+			work_type_id: data.work_type_id,
+			work_home: data.work_home,
+			provinces: data.provinces,
+			districts: data.districts,
+			welfare_id
+		});
+
+		return [createMyAttach, createResumeTitle, createResumeDesiredJob];
+	},
+
+	async update(resume_id, data) {
+		const { resume_active, file, title, profession_id, welfare_id } = data;
+		const updateResume = await resume.update(
+			{
+				resume_active
+			},
+			{
+				where: {
+					id: resume_id
+				}
+			}
+		);
+
+		const [updateMyAttach, updateResumeTitle] = await Promise.all([
+			my_attach.update(
+				{
+					file
+				},
+				{
+					where: {
+						resume_id
+					}
+				}
+			),
+			resume_title.update(
+				{
+					title
+				},
+				{
+					where: {
+						resume_id
+					}
+				}
+			)
+		]);
+
+		const updateResumeDesiredJob = await resumeDesiredJobService.update(resume_id, {
+			position_id: data.position_id,
+			profession_id,
+			salary_from: data.salary_from,
+			salary_to: data.salary_to,
+			work_type_id: data.work_type_id,
+			work_home: data.work_home,
+			provinces: data.provinces,
+			districts: data.districts,
+			welfare_id
+		});
+
+		return [updateResume, updateMyAttach, updateResumeTitle, updateResumeDesiredJob];
 	},
 
 	async delete(id) {
-		return await findByPkAndDelete(my_attach, id);
-	},
-
-
+		return await findOneAndUpdate(resume, { id }, { isDeleted: true });
+	}
 };
 
 export default myAttachService;
