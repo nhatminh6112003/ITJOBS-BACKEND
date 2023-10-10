@@ -37,7 +37,17 @@ const resumeLanguageService = {
 		});
 		if (!oneLanguage) throw createError(404, 'Không tìm thấy bản ghi');
 		return oneLanguage;
-	}
+	},
+	async getAllByResume(resume_id) {
+		const findResumeActivity = await resume_language.findAll({
+			where: {
+				resume_id
+			},
+			raw: true
+		});
+		if (!findResumeActivity) throw createError(404, 'Không tìm thấy bản ghi');
+		return findResumeActivity;
+	},
 };
 
 export default resumeLanguageService;
