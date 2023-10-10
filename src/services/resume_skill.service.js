@@ -7,6 +7,17 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const resumeSkillService = {
+	async getAllByResume(resume_id){
+		const findResumeSkill = await resume_skill.findAll({
+			where: {
+				resume_id
+			},
+			raw: true
+		});
+		if (!findResumeSkill) throw createError(404, 'Không tìm thấy bản ghi');
+		return findResumeSkill;
+	},
+
 	async getOne(id) {
 		const findResume = await resume_skill.findOne({
 			where: {
