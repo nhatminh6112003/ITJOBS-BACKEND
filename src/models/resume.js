@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
 				foreignKey: 'resume_id',
 				as: 'resume_language'
 			});
-			resume.hasOne(models.resume_objective,{
+			resume.hasOne(models.resume_objective, {
 				foreignKey: 'resume_id',
 				as: 'resume_objective'
 			});
@@ -84,6 +84,10 @@ module.exports = (sequelize, DataTypes) => {
 			resume.hasMany(models.resume_certificate, {
 				foreignKey: 'resume_id',
 				as: 'resume_certificate'
+			});
+			resume.hasMany(models.job_post_activity, {
+				foreignKey: 'resume_id',
+				as: 'job_post_activity'
 			});
 			resume.hasMany(models.my_attach, { foreignKey: 'resume_id', as: 'attachments' });
 		}
