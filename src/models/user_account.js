@@ -16,6 +16,14 @@ module.exports = (sequelize, DataTypes) => {
 				foreignKey: 'user_account_id',
 				as: 'resume'
 			});
+			user_account.hasMany(models.job_post_activity, {
+				foreignKey: 'user_account_id',
+				as: 'job_post_activity'
+			});
+			user_account.hasMany(models.company, {
+				foreignKey: 'user_account_id',
+				as: 'company'
+			});
 		}
 	}
 	user_account.init(
