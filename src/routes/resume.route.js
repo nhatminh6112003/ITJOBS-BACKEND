@@ -11,6 +11,7 @@ const router = express.Router();
 
 router.get('/', AuthMiddleWare.protect, ResumeController.getAll);
 router.get('/:id', AuthMiddleWare.protect, AuthMiddleWare.authPage([UserRoleEnum.JOBSEEKER]),ResumeController.getOne);
+router.get('/resume-profile/:user_id', AuthMiddleWare.protect, AuthMiddleWare.authPage([UserRoleEnum.JOBSEEKER]),ResumeProfileController.getOne);
 router.post('', ResumeController.create);
 
 router.patch('/update-status/:id', ResumeController.updateResumeStatus);
