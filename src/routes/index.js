@@ -22,6 +22,7 @@ import resumeAddioninfoRoutes from "./resume_addioninfo.route.js"
 import resumeExperienceRoutes from './resume_experience.route.js';
 import workTypeRoutes from './work_type.route.js';
 import companyRoutes from './company.route.js';
+import jobProfessionDetailRoutes from './job_profession_detail.route.js';
 
 function route(app) {
 	const apiRoutes = Router();
@@ -48,6 +49,7 @@ function route(app) {
 	apiRoutes.use('/my_attach', myAttachRoutes);
 	apiRoutes.use('/resume_addioninfo', resumeAddioninfoRoutes);
 	apiRoutes.use('/company', companyRoutes)
+	apiRoutes.use('/job_profession_detail',jobProfessionDetailRoutes)
 
 	app.use('/api', apiRoutes);
 }
