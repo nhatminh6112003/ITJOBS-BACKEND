@@ -8,7 +8,7 @@ import configViewEngine from './config/viewEngine.js';
 import errorHandler from './middleware/errorHandler.js';
 import apiResponse from './middleware/apiResponse.js';
 import { connectDb } from './config/connectDB.js';
-
+import * as path from 'path';
 
 const app = express();
 
@@ -36,6 +36,10 @@ app.use(express.json());
 app.use(morgan('combined'));
 // đường dẫn của dự án
 route(app);
+app.get('/uploads/:fileName', (req, res) => {
+	const { fileName } = req.params;
+	res.sendFile(path.join(__dirname, 'uploads', fileName));
+});
 app.all('*', (req, res, next) => {
 	const err = new Error('The route can not be found');
 	err.statusCode = 404;

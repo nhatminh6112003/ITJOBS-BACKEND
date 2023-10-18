@@ -64,7 +64,12 @@ const resumeDesiredJobService = {
 		};
 	},
 	async create({resume_id,profession_id,welfare_id,work_type_id, ...data }) {
-		const professionPromises = profession_id.map(async (id) =>
+		const professionIdItem=JSON.parse(profession_id);
+		const welfareIdItem=JSON.parse(welfare_id);
+		const workTypeId=JSON.parse(work_type_id);
+
+
+		const professionPromises = professionIdItem.map(async (id) =>
 			await profession_desired_job.create({
 				resume_id,
 				profession_id: id
@@ -79,13 +84,13 @@ const resumeDesiredJobService = {
 		const handlePromise = await Promise.all([
 			...professionPromises,
 			resumeDesiredJobPromise,
-			welfare_id.map((id) =>
+			welfareIdItem.map((id) =>
 				welfare_desired_job.create({
 					resume_id,
 					welfare_id: id
 				})
 			),
-			work_type_id.map((id) =>
+			workTypeId.map((id) =>
 				resume_work_type.create({
 					resume_id,
 					work_type_id: id
