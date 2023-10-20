@@ -66,7 +66,7 @@ const resumeDesiredJobService = {
 	async create({resume_id,profession_id,welfare_id,work_type_id, ...data }) {
 		const professionIdItem=JSON.parse(profession_id);
 		const welfareIdItem=JSON.parse(welfare_id);
-		const workTypeId=JSON.parse(work_type_id);
+		const workTypeIdItem=JSON.parse(work_type_id);
 
 
 		const professionPromises = professionIdItem.map(async (id) =>
@@ -90,7 +90,7 @@ const resumeDesiredJobService = {
 					welfare_id: id
 				})
 			),
-			workTypeId.map((id) =>
+			workTypeIdItem.map((id) =>
 				resume_work_type.create({
 					resume_id,
 					work_type_id: id
@@ -102,6 +102,10 @@ const resumeDesiredJobService = {
 		return handlePromise;
 	},
 	async update(resume_id, { welfare_id, work_type_id, profession_id, ...data }) {
+		const professionIdItem=JSON.parse(profession_id);
+		const welfareIdItem=JSON.parse(welfare_id);
+		const workTypeIdItem=JSON.parse(work_type_id);
+
 		// Xóa  tất cả  profession_id  trong table profession_desired_job nếu có resume_id bằng với resume_id update
 		await Promise.all([
 			profession_desired_job.destroy({
@@ -121,7 +125,7 @@ const resumeDesiredJobService = {
 			})
 		]);
 
-		const professionPromises = profession_id.map((id) =>
+		const professionPromises = professionIdItem.map((id) =>
 			profession_desired_job.create({
 				resume_id,
 				profession_id: id
@@ -141,13 +145,13 @@ const resumeDesiredJobService = {
 		const handlePromise = await Promise.all([
 			...professionPromises,
 			resumeDesiredJobPromise,
-			welfare_id.map((id) =>
+			welfareIdItem.map((id) =>
 				welfare_desired_job.create({
 					resume_id,
 					welfare_id: id
 				})
 			),
-			work_type_id.map((id) =>
+			workTypeIdItem.map((id) =>
 				resume_work_type.create({
 					resume_id,
 					work_type_id: id

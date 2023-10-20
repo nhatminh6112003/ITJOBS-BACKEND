@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
 				through: models.resume_work_type,
 				foreignKey: 'work_type_id',
 				otherKey: 'resume_id',
-				as: 'work_type_resume'
+				as: 'resume'
 			});
 		}
 	}

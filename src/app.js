@@ -36,7 +36,7 @@ app.use(express.json());
 app.use(morgan('combined'));
 // đường dẫn của dự án
 route(app);
-app.get('/uploads/:fileName', (req, res) => {
+app.get('/api/uploads/:fileName', (req, res) => {
 	const { fileName } = req.params;
 	res.sendFile(path.join(__dirname, 'uploads', fileName));
 });

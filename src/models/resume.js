@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
 			// sử dụng belongsTo thì  user_account_id phải nằm trong bảng resume
 			resume.belongsTo(models.user_account, {
 				foreignKey: 'user_account_id',
-				as: 'resume'
+				as: 'user_account'
 			});
 			resume.belongsTo(models.resume_type, {
 				foreignKey: 'resume_type_id',
@@ -73,8 +73,8 @@ module.exports = (sequelize, DataTypes) => {
 			});
 			resume.belongsToMany(models.work_type, {
 				through: models.resume_work_type,
-				foreignKey: 'work_type_id',
-				otherKey: 'resume_id',
+				foreignKey: 'resume_id',
+				otherKey: 'work_type_id',
 				as: 'work_type'
 			});
 			resume.hasMany(models.resume_education, {

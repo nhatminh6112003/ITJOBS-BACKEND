@@ -1,5 +1,16 @@
 import createError from 'http-errors';
-import { resume, my_attach, sequelize, resume_title,resume_desired_job } from '@src/models';
+import {
+	resume,
+	my_attach,
+	resume_profile,
+	sequelize,
+	resume_title,
+	resume_desired_job,
+	user_account,
+	resume_work_type,
+	profession_desired_job,
+	welfare_desired_job
+} from '@src/models';
 import { findOneAndUpdate } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
 import { resumeStatusEnum } from '@src/constants/resumeStatus';
@@ -16,7 +27,7 @@ const myAttachService = {
 			include: [
 				{ model: my_attach, as: 'attachments' },
 				{ model: resume_title, as: 'resume_title' },
-				{ model: resume_desired_job, as: 'resume_desired_job' },
+				{ model: resume_desired_job, as: 'resume_desired_job' }
 			],
 			nest: true,
 			raw: true
@@ -30,16 +41,37 @@ const myAttachService = {
 				id
 			},
 			include: [
+				{ model: resume_profile, as: 'resume_profile' },
+				{ model: user_account, as: 'user_account' },
 				{ model: my_attach, as: 'attachments' },
 				{ model: resume_title, as: 'resume_title' },
-				{ model: resume_desired_job, as: 'resume_desired_job' },
+				{ model: resume_desired_job, as: 'resume_desired_job' }
 			],
 			raw: true,
 			nest: true
 		});
+		const resumeWorkType = await resume_work_type.findAll({
+			where: {
+				resume_id: findResume.id
+			},
+			raw: true
+		});
+		const professionDesiredJob = await profession_desired_job.findAll({
+			where: {
+				resume_id: findResume.id
+			},
+			raw: true
+		});
 
+		const welfareDesiredJob = await welfare_desired_job.findAll({
+			where: {
+				resume_id: findResume.id
+			},
+			raw: true
+		});
+		const welfare_id=welfareDesiredJob?.map(item=>item.welfare_id)
 		if (!findResume) throw createError(404, 'Không tìm thấy bản ghi');
-		return findResume;
+		return { ...findResume, resume_work_type: resumeWorkType, profession_desired_job: professionDesiredJob,welfare_id };
 	},
 
 	async create(data) {
