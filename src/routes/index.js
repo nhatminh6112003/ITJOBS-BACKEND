@@ -26,6 +26,7 @@ import jobProfessionDetailRoutes from './job_profession_detail.route.js';
 import jobWelfareDetailRoutes from './job_welfare_detail.route.js'
 import jobPostActivityRoutes from './job_post_activity.route.js';
 import jobWorkTypeDetailRoutes from './job_work_type_detail.route.js';
+import jobSavedRoutes from './job_saved.route.js';
 
 function route(app) {
 	const apiRoutes = Router();
@@ -59,6 +60,7 @@ function route(app) {
 	apiRoutes.use('/company', companyRoutes);
 	apiRoutes.use('/job_post_activity', jobPostActivityRoutes);
 	apiRoutes.use('/job_work_type_detail', jobWorkTypeDetailRoutes);
+	apiRoutes.use('/job_saved', jobSavedRoutes);
 	app.use('/api', apiRoutes);
 }
 export default route;
