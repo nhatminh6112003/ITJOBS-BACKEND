@@ -23,10 +23,11 @@ import resumeExperienceRoutes from './resume_experience.route.js';
 import workTypeRoutes from './work_type.route.js';
 import companyRoutes from './company.route.js';
 import jobProfessionDetailRoutes from './job_profession_detail.route.js';
-import jobWelfareDetailRoutes from './job_welfare_detail.route.js'
+import jobWelfareDetailRoutes from './job_welfare_detail.route.js';
 import jobPostActivityRoutes from './job_post_activity.route.js';
 import jobWorkTypeDetailRoutes from './job_work_type_detail.route.js';
 import jobSavedRoutes from './job_saved.route.js';
+import jobPostRoutes from './job_post.route.js';
 
 function route(app) {
 	const apiRoutes = Router();
@@ -52,15 +53,16 @@ function route(app) {
 	apiRoutes.use('/resume_experience', resumeExperienceRoutes);
 	apiRoutes.use('/my_attach', myAttachRoutes);
 	apiRoutes.use('/resume_addioninfo', resumeAddioninfoRoutes);
-	apiRoutes.use('/company', companyRoutes)
-	apiRoutes.use('/job_profession_detail',jobProfessionDetailRoutes)
-	apiRoutes.use('/job_welfare_detail',jobWelfareDetailRoutes)
+	apiRoutes.use('/company', companyRoutes);
+	apiRoutes.use('/job_profession_detail', jobProfessionDetailRoutes);
+	apiRoutes.use('/job_welfare_detail', jobWelfareDetailRoutes);
 	apiRoutes.use('/company', companyRoutes);
 	apiRoutes.use('/job_profession_detail', jobProfessionDetailRoutes);
 	apiRoutes.use('/company', companyRoutes);
 	apiRoutes.use('/job_post_activity', jobPostActivityRoutes);
 	apiRoutes.use('/job_work_type_detail', jobWorkTypeDetailRoutes);
 	apiRoutes.use('/job_saved', jobSavedRoutes);
+	apiRoutes.use('/job_post', jobPostRoutes);
 	app.use('/api', apiRoutes);
 }
 export default route;
