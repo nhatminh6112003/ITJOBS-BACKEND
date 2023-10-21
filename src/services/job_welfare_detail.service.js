@@ -3,10 +3,9 @@ import { job_welfare_detail } from '@src/models';
 import { findByPkAndUpdate, findByPkAndDelete } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
 
-
 dotenv.config();
 const jobWelfareDetailService = {
-	async getAll(job_id){
+	async getAll(job_id) {
 		const findJobWelfareDetail = await job_welfare_detail.findAll({
 			where: {
 				job_id
@@ -20,7 +19,7 @@ const jobWelfareDetailService = {
 	async getOne(id) {
 		const findJobWelfareDetail = await job_welfare_detail.findOne({
 			where: {
-				id
+				id,
 			},
 			raw: true
 		});

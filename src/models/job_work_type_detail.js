@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
 				foreignKey: 'id',
 				as: 'work_type'
 			});
+			job_work_type_detail.belongsTo(models.job_post, {
+				foreignKey: 'job_id',
+				as: 'job_work_type_detail'
+			});
 		}
 	}
 	job_work_type_detail.init(
@@ -25,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
 				primaryKey: true
 			},
 			work_type_id: DataTypes.INTEGER,
-			post_id: DataTypes.UUID
+			job_id: DataTypes.UUID
 		},
 		{
 			sequelize,

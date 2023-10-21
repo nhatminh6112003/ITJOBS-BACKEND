@@ -17,7 +17,7 @@ module.exports = {
 					key: 'id'
 				}
 			},
-			post_id: {
+			job_id: {
 				type: Sequelize.UUID
 			},
 			createdAt: {

@@ -15,6 +15,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'job_welfare_id',
         as: 'job_welfare'
       })
+      job_welfare_detail.belongsTo(models.job_post, {
+				foreignKey: 'job_id',
+				as: 'c'
+			});
+			
       
     }
   }
@@ -25,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
     },
     job_id: DataTypes.UUID,
-    job_welfare_id: DataTypes.UUID
+    job_welfare_id: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'job_welfare_detail',
