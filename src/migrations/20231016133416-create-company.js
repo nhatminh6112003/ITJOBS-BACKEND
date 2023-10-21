@@ -23,20 +23,27 @@ module.exports = {
 			company_type: {
 				type: Sequelize.INTEGER
 			},
+			provinces: {
+				type: Sequelize.INTEGER
+			},
 			company_size: {
 				type: Sequelize.STRING
 			},
 			logo: {
-				type: Sequelize.STRING
+				type: Sequelize.STRING,
+				allowNull:true
 			},
 			company_website_url: {
-				type: Sequelize.STRING
+				type: Sequelize.STRING,
+				allowNull:true
 			},
 			banner: {
-				type: Sequelize.STRING
+				type: Sequelize.STRING,
+				allowNull:true
 			},
-			company_sumary: {
-				type: Sequelize.TEXT
+			company_summary: {
+				type: Sequelize.TEXT,
+				allowNull:true
 			},
 			tax_code: {
 				type: Sequelize.STRING
@@ -51,7 +58,8 @@ module.exports = {
 				type: Sequelize.STRING
 			},
 			position: {
-				type: Sequelize.STRING
+				type: Sequelize.STRING,
+				allowNull:true
 			},
 			createdAt: {
 				allowNull: false,
