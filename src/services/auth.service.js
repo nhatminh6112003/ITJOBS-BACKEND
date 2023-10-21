@@ -8,10 +8,12 @@ import {
 	resume_title,
 	sequelize,
 	resume_desired_job,
-	resume_template
+	resume_template,
+	company
 } from '@src/models';
 import createError from 'http-errors';
 import { colorsEnum } from '@src/constants/resumeTemplateEnum';
+import UserRoleEnum from '@src/constants/userRoles';
 
 dotenv.config();
 // nếu viết mỗi throw không thì nó sẽ trả về tương ứng ví dụ throw "lỗi"; thì nó sẽ trả về một string là lỗi còn với throw new Error("lỗi rồi") nó sẽ trả về một object có thuộc tính là name,message,stack
@@ -81,10 +83,11 @@ const AuthService = {
 					},
 					{ transaction }
 				),
-				resume_desired_job.create({
-					resume_id: createResume.id,
-				},
-				{ transaction }
+				resume_desired_job.create(
+					{
+						resume_id: createResume.id
+					},
+					{ transaction }
 				)
 			]);
 
@@ -102,12 +105,21 @@ const AuthService = {
 	},
 
 	async authentication({ email, password, user_type_id }) {
-		const user = await user_account.findOne({
+		const queryOptions = {
 			where: { email, user_type_id },
-			include: user_type_id === 1 ? [{ model: resume, as: 'resume', attributes: ['id'] }] : [],
 			raw: true,
 			nest: true
-		});
+		};
+
+		if (user_type_id === UserRoleEnum.JOBSEEKER) {
+			queryOptions.include = [{ model: resume, as: 'resume', attributes: ['id'] }];
+		} else if (user_type_id === UserRoleEnum.EMPLOYER) {
+			queryOptions.include = [{ model: company, as: 'company' }];
+		} else {
+			queryOptions.include = [];
+		}
+
+		const user = await user_account.findOne(queryOptions);
 		if (!user) throw createError(404, 'Email không tồn tại');
 
 		const isPasswordMatch = await bcrypt.compare(password, user.password);

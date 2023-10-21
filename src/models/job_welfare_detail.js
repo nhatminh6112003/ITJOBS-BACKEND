@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'job_welfare_id',
         as: 'job_welfare'
       })
+      
     }
   }
   job_welfare_detail.init({

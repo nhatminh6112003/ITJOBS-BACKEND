@@ -11,7 +11,7 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4
       },
       job_id: {
-        type: Sequelize.UUID
+        type: Sequelize.UUID,
       },
       job_welfare_id: {
         type: Sequelize.UUID
