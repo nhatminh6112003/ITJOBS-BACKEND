@@ -19,9 +19,17 @@ module.exports = (sequelize, DataTypes) => {
 				foreignKey: 'posted_by_id',
 				as: 'user_account'
 			});
-			job_post.belongsTo(models.job_welfare_detail, {
+			job_post.hasMany(models.job_welfare_detail, {
 				foreignKey: 'job_id',
-				as: 'job_welfare_details'
+				as: 'job_welfare_detail'
+			});
+			job_post.hasMany(models.job_profession_detail, {
+				foreignKey: 'job_id',
+				as: 'job_profession_detail'
+			});
+			job_post.hasMany(models.job_work_type_detail, {
+				foreignKey: 'job_id',
+				as: 'job_work_type_detail'
 			});
 			
 

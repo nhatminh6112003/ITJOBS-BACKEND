@@ -2,6 +2,9 @@ import Joi from 'joi';
 
 const jobPostSchema = {
 	jobPost: Joi.object({
+		job_welfare_id:Joi.array().items(Joi.number()),
+		job_work_type_id:Joi.array().items(Joi.number()),
+		job_profession_id:Joi.array().items(Joi.number()),
 		posted_by_id: Joi.string().required(),
 		company_id: Joi.string().required(),
 		job_degree_value: Joi.number().required(),

@@ -14,7 +14,7 @@ module.exports = {
         type: Sequelize.UUID,
       },
       job_welfare_id: {
-        type: Sequelize.UUID
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
