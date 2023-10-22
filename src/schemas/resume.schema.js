@@ -12,7 +12,7 @@ const ResumeSchema = {
 		phone_number: Joi.string()
 			.pattern(/^(?:\+84|0)(?:\d{9}|\d{10})$/)
 			.required(),
-		marial_status: Joi.string().valid(0, 1).required(),
+		marial_status: Joi.number().valid(0,1).required(),
 		provinces: Joi.string().required(),
 		districts: Joi.string().required(),
 		address: Joi.string().required(),

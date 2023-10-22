@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			gender: DataTypes.ENUM('Male', 'Female', 'Other'),
 			phone_number: DataTypes.STRING(20),
-			marial_status: DataTypes.INTEGER,
+			marial_status: DataTypes.BOOLEAN,
 			birthday: DataTypes.DATEONLY,
 			provinces: DataTypes.INTEGER,
 			districts: DataTypes.INTEGER,
