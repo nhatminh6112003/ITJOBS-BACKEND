@@ -31,8 +31,6 @@ module.exports = (sequelize, DataTypes) => {
 				foreignKey: 'job_id',
 				as: 'job_work_type_detail'
 			});
-			
-
 		}
 	}
 	job_post.init(
@@ -51,20 +49,18 @@ module.exports = (sequelize, DataTypes) => {
 			form_age: DataTypes.STRING,
 			to_age: DataTypes.STRING,
 			job_title: DataTypes.STRING,
-			gender: {
-				type: DataTypes.ENUM('0', '1', '2')
-			},
+			gender: DataTypes.TINYINT,
 			is_address_work_hidden: DataTypes.BOOLEAN,
 			min_salary: DataTypes.INTEGER,
 			max_salary: DataTypes.INTEGER,
 			posted_date: DataTypes.DATE,
 			job_desc: DataTypes.TEXT,
 			job_request: DataTypes.TEXT,
-			status: {
-				type: DataTypes.ENUM('0', '1', '2')
-			},
+			status: DataTypes.TINYINT,
 			work_home: DataTypes.BOOLEAN,
 			isDeleted: DataTypes.BOOLEAN,
+			provinces: DataTypes.INTEGER,
+			districts: DataTypes.INTEGER,
 			job_formExperience: DataTypes.INTEGER,
 			job_ToExperience: DataTypes.INTEGER
 		},

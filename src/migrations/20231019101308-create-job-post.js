@@ -46,7 +46,7 @@ module.exports = {
 				type: Sequelize.STRING
 			},
 			gender: {
-				type: Sequelize.ENUM('0', '1', '2')
+				type: Sequelize.TINYINT
 			},
 			is_address_work_hidden: {
 				type: Sequelize.BOOLEAN,
@@ -68,7 +68,8 @@ module.exports = {
 				type: Sequelize.TEXT
 			},
 			status: {
-				type: Sequelize.ENUM('0', '1', '2')
+				type: Sequelize.TINYINT,
+				defaultValue: 0
 			},
 			work_home: {
 				type: Sequelize.BOOLEAN,
@@ -82,6 +83,12 @@ module.exports = {
 				type: Sequelize.INTEGER
 			},
 			job_ToExperience: {
+				type: Sequelize.INTEGER
+			},
+			provinces: {
+				type: Sequelize.INTEGER
+			},
+			districts: {
 				type: Sequelize.INTEGER
 			},
 			createdAt: {
