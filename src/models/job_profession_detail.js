@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       job_profession_detail.belongsTo(models.profession, {
         foreignKey: 'profession_id',
-        as: 'profession',
       })
       job_profession_detail.belongsTo(models.job_post, {
 				foreignKey: 'job_id',

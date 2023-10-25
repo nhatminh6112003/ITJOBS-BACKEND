@@ -9,6 +9,11 @@ module.exports = (sequelize, DataTypes) => {
 				otherKey: 'resume_id',
 				as: 'resume'
 			});
+			job_welfare.belongsToMany(models.job_post, {
+				through: 'job_welfare_detail',
+				foreignKey: 'job_welfare_id', 
+				otherKey: 'job_id'
+			 });
 		}
 	}
 	job_welfare.init(
