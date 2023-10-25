@@ -15,7 +15,9 @@ import createError from 'http-errors';
 dotenv.config();
 const jobPostService = {
 	async getAll() {
-		return await job_post.findAll();
+		return await job_post.findAll({
+			include: { model: company },
+		});
 	},
 
 	async getOne(id) {
