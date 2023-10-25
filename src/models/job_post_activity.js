@@ -19,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
 				foreignKey: 'user_account_id',
 				as: 'user_account'
 			});
+			job_post_activity.belongsTo(models.job_post, {
+				foreignKey: 'job_id',
+			});
 		}
 	}
 	job_post_activity.init(

@@ -1,4 +1,4 @@
-import { resume } from '@src/models';
+import { resume, resume_title } from '@src/models';
 import createError from 'http-errors';
 import { findByPkAndUpdate, handlePaginate, findOneAndUpdate } from '@src/helpers/databaseHelpers';
 import { Sequelize } from 'sequelize';
@@ -15,12 +15,28 @@ const resumeService = {
 		if (keyword) {
 			queryCondition.name = { [Op.substring]: keyword };
 		}
-
+		if (query.user_account_id) {
+			const { user_account_id } = query;
+			queryCondition.user_account_id = { [Op.eq]: user_account_id };
+		}
+		if (query.isDeleted) {
+			const { isDeleted } = query;
+			queryCondition.isDeleted = { [Op.eq]: isDeleted };
+		}
+		if (query.resume_type_id) {
+			const { resume_type_id } = query;
+			queryCondition.resume_type_id = { [Op.eq]: resume_type_id };
+		}
 		const [data, pagination] = await handlePaginate({
 			model: resume,
 			page,
 			limit,
-			condition: queryCondition
+			condition: queryCondition,
+			queries: {
+				raw: true,
+				nest: true,
+				include: { model: resume_title, as: 'resume_title' }
+			}
 		});
 		return [data, pagination];
 	},

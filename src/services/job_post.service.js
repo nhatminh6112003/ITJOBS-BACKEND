@@ -15,7 +15,9 @@ import createError from 'http-errors';
 dotenv.config();
 const jobPostService = {
 	async getAll() {
-		return await job_post.findAll();
+		return await job_post.findAll({
+			include: { model: company }
+		});
 	},
 
 	async getOne(id) {
@@ -62,14 +64,14 @@ const jobPostService = {
 
 	async create({ job_welfare_id, job_work_type_id, job_profession_id, ...data }) {
 		const createJobPost = await job_post.create(data);
-		const createJobWelfareDetail = Promise.all(
+		Promise.all(
 			job_welfare_id.map(async (id) => job_welfare_detail.create({ job_id: createJobPost.id, job_welfare_id: id }))
 		);
-		const createJobWorkTypeDetail = Promise.all(
+		Promise.all(
 			job_work_type_id.map(async (id) => job_work_type_detail.create({ job_id: createJobPost.id, work_type_id: id }))
 		);
 
-		const createJobProfessionDetail = Promise.all(
+		Promise.all(
 			job_profession_id.map(async (id) =>
 				job_profession_detail.create({ job_id: createJobPost.id, profession_id: id })
 			)

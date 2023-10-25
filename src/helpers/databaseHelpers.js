@@ -51,8 +51,54 @@ export const findOneAndDelete = async (model, conditions) => {
 	return record;
 };
 
-export async function handlePaginate({ model, page, limit, condition = {}, queries }) {
+// export async function handlePaginate({ model, page, limit, condition = {}, queries }) {
 
+// 	const data = await model.findAndCountAll({
+// 		where: condition,
+// 		...{
+// 			offset: (page - 1) * limit,
+// 			limit,
+// 			...queries
+// 		}
+// 	});
+
+// 	const pagination = {
+// 		totalPages: Math.ceil(data.count / limit),
+// 		totalItems: data?.count,
+// 		itemsPerPage: limit,
+// 		pageIndex: page
+// 	};
+
+// 	return [data.rows, pagination];
+// }
+
+export async function handlePaginate({ model, page, limit, condition = {}, queries }) {
+	if (limit < 1) {
+		const data = await model.findAndCountAll({
+			where: condition,
+			...{
+				...queries
+			}
+		});
+
+		const pagination = {
+			totalPages: 1, // Tất cả dữ liệu nằm trong 1 trang
+			totalItems: data?.count,
+			itemsPerPage: data?.count, // Số lượng bản ghi
+			pageIndex: 1 // Trang đầu tiên
+		};
+
+		return [data.rows];
+	}
+	if (limit === 1) {
+		const data = await model.findOne({
+			where: condition,
+			...queries
+		});
+
+		// Trong trường hợp này, dữ liệu sẽ là một bản ghi duy nhất
+		return [data, null];
+	}
 	const data = await model.findAndCountAll({
 		where: condition,
 		...{
