@@ -12,12 +12,10 @@ module.exports = (sequelize, DataTypes) => {
 		static associate(models) {
 			// define association here
 			job_work_type_detail.belongsTo(models.work_type, {
-				foreignKey: 'id',
-				as: 'work_type'
+				foreignKey: 'work_type_id',
 			});
 			job_work_type_detail.belongsTo(models.job_post, {
 				foreignKey: 'job_id',
-				as: 'job_work_type_detail'
 			});
 		}
 	}
