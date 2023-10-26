@@ -4,8 +4,8 @@ import jobPostActivityService from '@src/services/job_post_activity.service';
 const jobPostActivityController = {
 	async getAll(req, res) {
 		const { query } = req;
-		const data = await jobPostActivityService.getAll(query);
-		return res.apiResponse(data);
+		const [data,pagination] = await jobPostActivityService.getAll(query);
+		return res.apiResponse(data,pagination);
 	},
 	async getOne(req, res) {
 		const { id } = req.params;

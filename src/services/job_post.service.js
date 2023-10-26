@@ -8,16 +8,46 @@ import {
 	work_type,
 	company
 } from '@src/models';
-import { findByPkAndUpdate, findOneAndUpdate } from '@src/helpers/databaseHelpers';
+import { findByPkAndUpdate, findOneAndUpdate, handlePaginate } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
 import createError from 'http-errors';
+import { Sequelize } from 'sequelize';
 
+const { Op } = Sequelize;
 dotenv.config();
 const jobPostService = {
-	async getAll() {
-		return await job_post.findAll({
-			include: { model: company },
+	async getAll(query) {
+		const page = Number(query.page) || 1;
+		const limit = Number(query.limit) || 25;
+		const queryCondition = {};
+
+		if (query.user_account_id) {
+			const { user_account_id } = query;
+			queryCondition.posted_by_id = { [Op.eq]: user_account_id };
+		}
+
+		if (query.isDeleted) {
+			const { isDeleted } = query;
+			queryCondition.isDeleted = { [Op.eq]: isDeleted };
+		}
+
+		if (query.status) {
+			const { status } = query;
+			queryCondition.status = { [Op.eq]: status };
+		}
+
+		const [data, pagination] = await handlePaginate({
+			model: job_post,
+			page,
+			limit,
+			condition: queryCondition,
+			queries: {
+				raw: true,
+				nest: true,
+				include: [{ model: company }]
+			}
 		});
+		return [data, pagination];
 	},
 
 	async getOne(id) {

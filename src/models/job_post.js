@@ -57,6 +57,7 @@ module.exports = (sequelize, DataTypes) => {
 			is_address_work_hidden: DataTypes.BOOLEAN,
 			min_salary: DataTypes.INTEGER,
 			max_salary: DataTypes.INTEGER,
+			expiry_date: DataTypes.DATE,
 			posted_date: DataTypes.DATE,
 			job_desc: DataTypes.TEXT,
 			job_request: DataTypes.TEXT,

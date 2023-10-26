@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
 			// define association here
 			job_post_activity.belongsTo(models.resume, {
 				foreignKey: 'resume_id',
-				as: 'resume'
 			});
 			job_post_activity.belongsTo(models.user_account, {
 				foreignKey: 'user_account_id',
