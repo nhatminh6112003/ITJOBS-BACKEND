@@ -28,7 +28,8 @@ module.exports = {
 				}
 			},
 			apply_date: {
-				type: Sequelize.DATE
+				type: Sequelize.DATE,
+				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
 			},
 			status: {
 				type: Sequelize.BOOLEAN

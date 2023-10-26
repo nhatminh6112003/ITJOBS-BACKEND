@@ -22,7 +22,9 @@ const myAttachService = {
 	async getAllByResume(user_account_id) {
 		const findResume = await resume.findAll({
 			where: {
-				user_account_id
+				user_account_id,
+				resume_type_id:2,
+				isDeleted:false
 			},
 			include: [
 				{ model: my_attach, as: 'attachments' },
@@ -50,6 +52,8 @@ const myAttachService = {
 			raw: true,
 			nest: true
 		});
+		console.log("TCL: getOne -> findResume", findResume)
+
 		const resumeWorkType = await resume_work_type.findAll({
 			where: {
 				resume_id: findResume.id

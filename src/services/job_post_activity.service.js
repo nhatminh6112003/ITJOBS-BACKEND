@@ -1,12 +1,34 @@
-import { job_post_activity } from '@src/models';
-import { findByPkAndUpdate, findByPkAndDelete } from '@src/helpers/databaseHelpers';
+import { job_post_activity, job_post, company } from '@src/models';
+import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
 import createError from 'http-errors';
+import { Sequelize } from 'sequelize';
+
+const { Op } = Sequelize;
 
 dotenv.config();
 const jobPostActivityService = {
-	async getAll() {
-		return await job_post_activity.findAll();
+	async getAll(query) {
+		const page = Number(query.page) || 1;
+		const limit = Number(query.limit) || 25;
+		const queryCondition = {};
+
+		if (query.user_account_id) {
+			const { user_account_id } = query;
+			queryCondition.user_account_id = { [Op.eq]: user_account_id };
+		}
+		const [data, pagination] = await handlePaginate({
+			model: job_post_activity,
+			page,
+			limit,
+			condition: queryCondition,
+			queries: {
+				raw: true,
+				nest: true,
+				include: [{ model: job_post, include: { model: company } }]
+			}
+		});
+		return [data, pagination];
 	},
 
 	async getOne(id) {
@@ -17,7 +39,7 @@ const jobPostActivityService = {
 			raw: true
 		});
 		if (!dataOne) {
-			throw createError(404, 'không tìm thấy bài viết đăng tuyển dụng');
+			throw createError(404, 'Không tìm thấy bản ghi');
 		}
 		return dataOne;
 	},
