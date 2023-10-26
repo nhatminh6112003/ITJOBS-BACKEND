@@ -58,6 +58,9 @@ module.exports = {
 			max_salary: {
 				type: Sequelize.INTEGER
 			},
+			expiry_date: {
+				type: Sequelize.DATE
+			},
 			posted_date: {
 				type: Sequelize.DATE
 			},

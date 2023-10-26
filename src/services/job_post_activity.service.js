@@ -1,4 +1,4 @@
-import { job_post_activity, job_post, company } from '@src/models';
+import { job_post_activity, job_post, company, resume } from '@src/models';
 import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
 import createError from 'http-errors';
@@ -25,7 +25,7 @@ const jobPostActivityService = {
 			queries: {
 				raw: true,
 				nest: true,
-				include: [{ model: job_post, include: { model: company } }]
+				include: [{ model: job_post, include: { model: company } }, { model: resume }]
 			}
 		});
 		return [data, pagination];

@@ -7,7 +7,7 @@ const router = Express.Router();
 router.get('', jobPostController.getAll);
 router.get('/:id', jobPostController.getOne);
 router.post('', jobPostValidation.jobPost, jobPostController.create);
-router.patch('/:id', jobPostValidation.jobPost, jobPostController.update);
+router.patch('/:id',jobPostController.update);
 router.delete('/:id', jobPostController.delete);
 
 export default router;

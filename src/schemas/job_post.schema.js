@@ -18,6 +18,7 @@ const jobPostSchema = {
 		is_address_work_hidden: Joi.boolean(),
 		min_salary: Joi.number().required(),
 		max_salary: Joi.number().required(),
+		expiry_date: Joi.date(),
 		posted_date: Joi.date(),
 		job_desc: Joi.string(),
 		job_request: Joi.string().required(),

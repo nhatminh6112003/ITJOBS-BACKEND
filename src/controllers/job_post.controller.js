@@ -3,8 +3,9 @@ import jobPostService from '@src/services/job_post.service';
 
 const jobPostController = {
 	async getAll(req, res) {
-		const data = await jobPostService.getAll();
-		return res.apiResponse(data);
+		const { query } = req;
+		const [data, pagination] = await jobPostService.getAll(query);
+		return res.apiResponse(data,pagination);
 	},
 	async getOne(req, res) {
 		const { id } = req.params;
