@@ -12,14 +12,16 @@ const jobPostActivityService = {
 		const page = Number(query.page) || 1;
 		const limit = Number(query.limit) || 25;
 		const queryCondition = {};
+		const queryConditionOther = {};
+
 
 		if (query.user_account_id) {
 			const { user_account_id } = query;
 			queryCondition.user_account_id = { [Op.eq]: user_account_id };
 		}
-		if(query.posted_by_id){
+		if (query.posted_by_id) {
 			const { posted_by_id } = query;
-			queryCondition.job_post.posted_by_id = { [Op.eq]: posted_by_id };
+			queryConditionOther.posted_by_id = { [Op.eq]: posted_by_id };
 		}
 		const [data, pagination] = await handlePaginate({
 			model: job_post_activity,
@@ -30,7 +32,7 @@ const jobPostActivityService = {
 				raw: true,
 				nest: true,
 				include: [
-					{ model: job_post, include: { model: company } },
+					{ model: job_post, where: queryConditionOther, include: { model: company } },
 					{ model: resume, include: [{ model: resume_title }, { model: my_attach }] }
 				]
 			}
