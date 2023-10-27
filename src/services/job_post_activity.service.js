@@ -1,4 +1,13 @@
-import { job_post_activity, job_post, company, resume, my_attach, resume_title } from '@src/models';
+import {
+	job_post_activity,
+	job_post,
+	company,
+	resume,
+	my_attach,
+	resume_title,
+	user_account,
+	resume_profile
+} from '@src/models';
 import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
 import createError from 'http-errors';
@@ -13,7 +22,6 @@ const jobPostActivityService = {
 		const limit = Number(query.limit) || 25;
 		const queryCondition = {};
 		const queryConditionOther = {};
-
 
 		if (query.user_account_id) {
 			const { user_account_id } = query;
@@ -33,7 +41,15 @@ const jobPostActivityService = {
 				nest: true,
 				include: [
 					{ model: job_post, where: queryConditionOther, include: { model: company } },
-					{ model: resume, include: [{ model: resume_title }, { model: my_attach }] }
+					{ model: user_account, as: 'user_account' },
+					{
+						model: resume,
+						include: [
+							{ model: resume_title },
+							{ model: my_attach },
+							{ model: resume_profile, as: 'resume_profile' }
+						]
+					}
 				]
 			}
 		});
