@@ -4,8 +4,8 @@ import resumeProfileService from '@src/services/resume_profile.service';
 const ResumeProfileController = {
 	async update(req, res) {
 		const data = req.body;
-		const { resume_id } = req.params;
-		const handleUpdate = await resumeProfileService.update(resume_id, data);
+		const { user_id } = req.params;
+		const handleUpdate = await resumeProfileService.update(user_id, data);
 		return res.apiResponse(handleUpdate);
 	},
 	

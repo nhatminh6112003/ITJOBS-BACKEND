@@ -41,14 +41,10 @@ const jobPostActivityService = {
 				nest: true,
 				include: [
 					{ model: job_post, where: queryConditionOther, include: { model: company } },
-					{ model: user_account, as: 'user_account' },
+					{ model: user_account, as: 'user_account', include: { model: resume_profile } },
 					{
 						model: resume,
-						include: [
-							{ model: resume_title },
-							{ model: my_attach },
-							{ model: resume_profile, as: 'resume_profile' }
-						]
+						include: [{ model: resume_title }, { model: my_attach }]
 					}
 				]
 			}

@@ -5,7 +5,6 @@ const ResumeSchema = {
 		title: Joi.string().required().max(400)
 	}),
 	resume_profile: Joi.object({
-		user_id: Joi.string().required(),
 		firstname: Joi.string().required(),
 		lastname: Joi.string().required(),
 		gender: Joi.string().valid('Male', 'Female', 'Other').required(),

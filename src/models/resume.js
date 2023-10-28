@@ -47,14 +47,8 @@ module.exports = (sequelize, DataTypes) => {
 				as: 'resume_refer'
 			});
 
-			resume.hasOne(models.resume_profile, {
-				foreignKey: 'resume_id',
-				as: 'resume_profile'
-			});
-			resume.hasOne(models.resume_title, {
-				foreignKey: 'resume_id',
-				as: 'resume_title'
-			});
+	
+	
 			resume.hasOne(models.resume_addioninfo, {
 				foreignKey: 'resume_id',
 				as: 'resume_addioninfo'
@@ -95,6 +89,16 @@ module.exports = (sequelize, DataTypes) => {
 			resume.hasOne(models.resume_title, {
 				foreignKey: 'resume_id',
 			});
+			resume.hasOne(models.resume_profile, {
+				foreignKey: 'resume_id',
+			});
+			resume.hasOne(models.resume_profile, {
+				foreignKey: 'resume_id',
+			});
+			resume.hasMany(models.resume_experience, {
+				foreignKey: 'resume_id',
+			});
+			
 			resume.hasMany(models.my_attach, { foreignKey: 'resume_id', as: 'attachments' });
 		}
 	}
