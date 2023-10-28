@@ -8,7 +8,6 @@ const storage = multer.diskStorage({
 		cb(null, uploadDir);
 	},
 	filename: (req, file, cb) => {
-		console.log("TCL: file", file)
 		const uniqueSuffix = `${Date.now()  }-${  Math.round(Math.random() * 1e9)}`;
 		cb(null, `${file.originalname}_${uniqueSuffix}.${file.mimetype.split('/')[1]}`);
 	}
