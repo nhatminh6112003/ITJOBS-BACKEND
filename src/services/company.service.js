@@ -27,6 +27,7 @@ const companyService = {
 	},
 
 	async update(id, data) {
+		console.log("TCL: update -> data", data)
 		return await findByPkAndUpdate(company, id, data);
 	},
 
