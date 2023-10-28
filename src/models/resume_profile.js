@@ -10,20 +10,28 @@ module.exports = (sequelize, DataTypes) => {
 		static associate(models) {
 			resume_profile.belongsTo(models.resume, {
 				foreignKey: 'resume_id',
-				as: 'resume_profile'
 			});
+			resume_profile.belongsTo(models.user_account,{
+				foreignKey: 'user_account_id',
+				as: 'user_account'
+			 })
 		}
 	}
 	resume_profile.init(
 		{
 			resume_id: {
-				primaryKey: true,
-				type: DataTypes.UUID
+				type: DataTypes.UUID,
+				defaultValue: DataTypes.UUIDV4,
+				primaryKey: true
+			},
+			user_account_id: {
+				type: DataTypes.UUID,
+				defaultValue: DataTypes.UUIDV4,
 			},
 			gender: DataTypes.ENUM('Male', 'Female', 'Other'),
 			phone_number: DataTypes.STRING(20),
 			marial_status: DataTypes.BOOLEAN,
-			birthday: DataTypes.DATEONLY,
+			birthday: DataTypes.DATE,
 			provinces: DataTypes.INTEGER,
 			districts: DataTypes.INTEGER,
 			address:DataTypes.STRING,

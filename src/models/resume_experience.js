@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
 			// define association here
 			resume_experience.belongsTo(models.resume, {
 				foreignKey: 'resume_id',
-				as: 'resume_experience'
 			});
 			resume_experience.belongsTo(models.resume_work_type, {
 				foreignKey: 'rexp_worktype_id',

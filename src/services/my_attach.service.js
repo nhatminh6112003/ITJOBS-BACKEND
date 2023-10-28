@@ -23,8 +23,8 @@ const myAttachService = {
 		const findResume = await resume.findAll({
 			where: {
 				user_account_id,
-				resume_type_id:2,
-				isDeleted:false
+				resume_type_id: 2,
+				isDeleted: false
 			},
 			include: [
 				{ model: my_attach, as: 'attachments' },
@@ -52,7 +52,7 @@ const myAttachService = {
 			raw: true,
 			nest: true
 		});
-		console.log("TCL: getOne -> findResume", findResume)
+		console.log('TCL: getOne -> findResume', findResume);
 
 		const resumeWorkType = await resume_work_type.findAll({
 			where: {
@@ -73,13 +73,18 @@ const myAttachService = {
 			},
 			raw: true
 		});
-		const welfare_id=welfareDesiredJob?.map(item=>item.welfare_id)
+		const welfare_id = welfareDesiredJob?.map((item) => item.welfare_id);
 		if (!findResume) throw createError(404, 'Không tìm thấy bản ghi');
-		return { ...findResume, resume_work_type: resumeWorkType, profession_desired_job: professionDesiredJob,welfare_id };
+		return {
+			...findResume,
+			resume_work_type: resumeWorkType,
+			profession_desired_job: professionDesiredJob,
+			welfare_id
+		};
 	},
 
 	async create(data) {
-		const { user_account_id, resume_active, file, title, profession_id, welfare_id } = data;
+		const { user_account_id, resume_active, yearOfExperience,job_degree_value, file, title, profession_id, welfare_id } = data;
 		const createResume = await resume.create({
 			user_account_id,
 			resume_type_id: 2,
@@ -90,7 +95,9 @@ const myAttachService = {
 		const [createMyAttach, createResumeTitle] = await Promise.all([
 			my_attach.create({
 				file,
-				resume_id: createResume.id
+				resume_id: createResume.id,
+				yearOfExperience,
+				job_degree_value
 			}),
 			resume_title.create({
 				resume_id: createResume.id,
@@ -115,7 +122,7 @@ const myAttachService = {
 	},
 
 	async update(resume_id, data) {
-		const { resume_active, file, title, profession_id, welfare_id } = data;
+		const { resume_active, file, title,yearOfExperience,job_degree_value, profession_id, welfare_id } = data;
 		const updateResume = await resume.update(
 			{
 				resume_active
@@ -130,7 +137,9 @@ const myAttachService = {
 		const [updateMyAttach, updateResumeTitle] = await Promise.all([
 			my_attach.update(
 				{
-					file
+					file,
+					yearOfExperience,
+					job_degree_value
 				},
 				{
 					where: {

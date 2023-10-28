@@ -18,14 +18,14 @@ const resumeProfileService = {
 
 		const findResume = await resume_profile.findOne({
 			where: {
-				resume_id: userAccount.resume.id
+				user_account_id: user_id
 			},
 			raw: true
 		});
 		return { ...findResume, firstname, lastname };
 	},
-	async update(resume_id, data) {
-		const { firstname, lastname, user_id, ...informationUser } = data;
+	async update(user_id, data) {
+		const { firstname, lastname, ...informationUser } = data;
 		await findOneAndUpdate(
 			user_account,
 			{
@@ -36,11 +36,16 @@ const resumeProfileService = {
 				lastname
 			}
 		);
-
-		return await findByPkAndUpdate(resume_profile, resume_id, {
-			...informationUser,
-			status: resumeStatusEnum.SUCCESS
-		});
+		return findOneAndUpdate(
+			resume_profile,
+			{
+				user_account_id: user_id
+			},
+			{
+				...informationUser,
+				status: resumeStatusEnum.SUCCESS
+			}
+		);
 	}
 };
 

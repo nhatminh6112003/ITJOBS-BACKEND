@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
 				foreignKey: 'user_type_id',
 				as: 'user_type'
 			});
+			user_account.hasOne(models.resume_profile, {
+				foreignKey: 'user_account_id',
+			});
 			user_account.hasMany(models.resume, {
 				foreignKey: 'user_account_id',
 				as: 'resume'

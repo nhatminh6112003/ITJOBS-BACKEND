@@ -11,6 +11,13 @@ module.exports = {
 				},
 				primaryKey: true
 			},
+			user_account_id:{
+				type: Sequelize.UUID,
+				references: {
+					model: 'user_account',
+					key: 'id'
+				}
+			},
 			gender: {
 				type: Sequelize.ENUM('Male', 'Female', 'Other')
 			},

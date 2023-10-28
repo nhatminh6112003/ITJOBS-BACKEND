@@ -54,7 +54,8 @@ const AuthService = {
 			await Promise.all([
 				resume_profile.create(
 					{
-						resume_id: createResume.id
+						resume_id: createResume.id,
+						user_account_id:newUser.id
 					},
 					{ transaction }
 				),
