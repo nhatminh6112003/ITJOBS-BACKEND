@@ -8,7 +8,7 @@ import {
 	user_account,
 	resume_profile
 } from '@src/models';
-import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '@src/helpers/databaseHelpers';
+import { findByPkAndUpdate, findByPkAndDelete, handlePaginate, findOneAndUpdate } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
 import createError from 'http-errors';
 import { Sequelize } from 'sequelize';
@@ -71,6 +71,20 @@ const jobPostActivityService = {
 
 	async update(id, data) {
 		return await findByPkAndUpdate(job_post_activity, id, data);
+	},
+
+	async updateStatusResume(resume_id, data) {
+		const { job_id, status } = data;
+		return await findOneAndUpdate(
+			job_post_activity,
+			{
+				job_id,
+				resume_id
+			},
+			{
+				status
+			}
+		);
 	},
 
 	async delete(id) {

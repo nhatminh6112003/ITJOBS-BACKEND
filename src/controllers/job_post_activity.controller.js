@@ -26,6 +26,14 @@ const jobPostActivityController = {
 		return res.apiResponse(handleUpdate);
 	},
 
+	async updateStatusResume(req, res) {
+		const data = req.body;
+		const { id } = req.params;
+		const handleUpdate = await jobPostActivityService.updateStatusResume(id, data);
+		return res.apiResponse(handleUpdate);
+	},
+	
+
 	async delete(req, res) {
 		const { id } = req.params;
 		await jobPostActivityService.delete(id);

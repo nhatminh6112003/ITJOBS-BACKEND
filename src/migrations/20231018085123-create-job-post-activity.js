@@ -32,7 +32,8 @@ module.exports = {
 				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
 			},
 			status: {
-				type: Sequelize.BOOLEAN
+				type: Sequelize.BOOLEAN,
+				defaultValue:0
 			},
 			resume_type: {
 				type: Sequelize.INTEGER

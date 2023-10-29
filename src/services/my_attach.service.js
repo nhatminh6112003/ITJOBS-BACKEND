@@ -9,7 +9,10 @@ import {
 	user_account,
 	resume_work_type,
 	profession_desired_job,
-	welfare_desired_job
+	welfare_desired_job,
+	work_type,
+	profession,
+	job_welfare
 } from '@src/models';
 import { findOneAndUpdate } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
@@ -56,12 +59,16 @@ const myAttachService = {
 			where: {
 				resume_id: findResume.id
 			},
+			include: { model: work_type, as: 'work_type' },
+			nest: true,
 			raw: true
 		});
 		const professionDesiredJob = await profession_desired_job.findAll({
 			where: {
 				resume_id: findResume.id
 			},
+			include: { model: profession, as: 'profession' },
+			nest: true,
 			raw: true
 		});
 
@@ -69,7 +76,9 @@ const myAttachService = {
 			where: {
 				resume_id: findResume.id
 			},
-			raw: true
+			nest: true,
+			raw: true,
+			include: { model: job_welfare, as: 'job_welfare' }
 		});
 		const welfare_id = welfareDesiredJob?.map((item) => item.welfare_id);
 		if (!findResume) throw createError(404, 'Không tìm thấy bản ghi');

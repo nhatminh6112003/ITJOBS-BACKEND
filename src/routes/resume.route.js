@@ -14,7 +14,7 @@ router.get('/:id', AuthMiddleWare.protect, AuthMiddleWare.authPage([UserRoleEnum
 router.get('/resume-profile/:user_id', AuthMiddleWare.protect, AuthMiddleWare.authPage([UserRoleEnum.JOBSEEKER]),ResumeProfileController.getOne);
 router.post('', ResumeController.create);
 
-router.patch('/update-status/:id', ResumeController.updateResumeStatus);
+router.patch('/:id',ResumeController.update);
 
 router.patch(
 	'/update-resume-title/:resume_id',

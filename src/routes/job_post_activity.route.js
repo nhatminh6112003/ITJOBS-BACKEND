@@ -8,6 +8,7 @@ router.post('', jobPostActivityValidation.jobPostActivity, jobPostActivityContro
 router.get('', jobPostActivityController.getAll);
 router.get('/:id', jobPostActivityController.getOne);
 router.patch('/:id', jobPostActivityValidation.jobPostActivity, jobPostActivityController.update);
+router.patch('/update-status-resume/:id', jobPostActivityController.updateStatusResume);
 router.delete('/:id', jobPostActivityController.delete);
 
 export default router;
