@@ -43,8 +43,7 @@ const myAttachService = {
 				id
 			},
 			include: [
-				{ model: resume_profile, as: 'resume_profile' },
-				{ model: user_account, as: 'user_account' },
+				{ model: user_account, as: 'user_account', include: { model: resume_profile } },
 				{ model: my_attach, as: 'attachments' },
 				{ model: resume_title, as: 'resume_title' },
 				{ model: resume_desired_job, as: 'resume_desired_job' }
@@ -52,7 +51,6 @@ const myAttachService = {
 			raw: true,
 			nest: true
 		});
-		console.log('TCL: getOne -> findResume', findResume);
 
 		const resumeWorkType = await resume_work_type.findAll({
 			where: {
@@ -84,7 +82,16 @@ const myAttachService = {
 	},
 
 	async create(data) {
-		const { user_account_id, resume_active, yearOfExperience,job_degree_value, file, title, profession_id, welfare_id } = data;
+		const {
+			user_account_id,
+			resume_active,
+			yearOfExperience,
+			job_degree_value,
+			file,
+			title,
+			profession_id,
+			welfare_id
+		} = data;
 		const createResume = await resume.create({
 			user_account_id,
 			resume_type_id: 2,
@@ -122,7 +129,7 @@ const myAttachService = {
 	},
 
 	async update(resume_id, data) {
-		const { resume_active, file, title,yearOfExperience,job_degree_value, profession_id, welfare_id } = data;
+		const { resume_active, file, title, yearOfExperience, job_degree_value, profession_id, welfare_id } = data;
 		const updateResume = await resume.update(
 			{
 				resume_active

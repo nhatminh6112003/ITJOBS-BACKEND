@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
 			});
 			profession_desired_job.belongsTo(models.resume, {
 				foreignKey: 'resume_id',
-				as: 'resume'
 			});
 		}
 	}

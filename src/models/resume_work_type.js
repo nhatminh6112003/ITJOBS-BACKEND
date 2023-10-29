@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       resume_work_type.belongsTo(models.work_type, {
-				foreignKey: 'id',
+				foreignKey: 'work_type_id',
 				as: 'work_type'
 			});
 			resume_work_type.belongsTo(models.resume, {
