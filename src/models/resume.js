@@ -61,10 +61,13 @@ module.exports = (sequelize, DataTypes) => {
 			});
 			resume.belongsToMany(models.profession, {
 				through: models.profession_desired_job,
-				foreignKey: 'profession_id',
-				otherKey: 'resume_id',
+				foreignKey: 'resume_id',
+				otherKey: 'profession_id',
 				as: 'profession'
 			});
+			resume.hasMany(models.profession_desired_job,{
+				foreignKey: 'resume_id',
+			})
 			resume.belongsToMany(models.work_type, {
 				through: models.resume_work_type,
 				foreignKey: 'resume_id',

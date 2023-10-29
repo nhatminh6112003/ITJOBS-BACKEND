@@ -1,9 +1,10 @@
 import createError from 'http-errors';
 import { resume_desired_job, profession_desired_job, welfare_desired_job, resume_work_type } from '@src/models';
-import { findByPkAndDelete, findByPkAndUpdate } from '@src/helpers/databaseHelpers';
+import { findByPkAndDelete } from '@src/helpers/databaseHelpers';
 import { resumeStatusEnum } from '@src/constants/resumeStatus';
 import dotenv from 'dotenv';
 import { sequelize } from '@src/config/connectDB';
+import isJson from '@src/helpers/isJson';
 
 dotenv.config();
 
@@ -63,20 +64,20 @@ const resumeDesiredJobService = {
 			...findWorkType
 		};
 	},
-	async create({resume_id,profession_id,welfare_id,work_type_id, ...data }) {
-		const professionIdItem=JSON.parse(profession_id);
-		const welfareIdItem=JSON.parse(welfare_id);
-		const workTypeIdItem=JSON.parse(work_type_id);
+	async create({ resume_id, profession_id, welfare_id, work_type_id, ...data }) {
+		const professionIdItem = isJson(profession_id) ? JSON.parse(profession_id) : profession_id;
+		const welfareIdItem = isJson(welfare_id) ? JSON.parse(welfare_id) : welfare_id;
+		const workTypeIdItem = isJson(work_type_id) ? JSON.parse(work_type_id) : work_type_id;
 
-
-		const professionPromises = professionIdItem.map(async (id) =>
-			await profession_desired_job.create({
-				resume_id,
-				profession_id: id
-			})
+		const professionPromises = professionIdItem.map(
+			async (id) =>
+				await profession_desired_job.create({
+					resume_id,
+					profession_id: id
+				})
 		);
 
-		const resumeDesiredJobPromise =await resume_desired_job.create({
+		const resumeDesiredJobPromise = await resume_desired_job.create({
 			resume_id,
 			...data,
 			status: resumeStatusEnum.SUCCESS
@@ -97,15 +98,13 @@ const resumeDesiredJobService = {
 				})
 			)
 		]);
-		
 
 		return handlePromise;
 	},
 	async update(resume_id, { welfare_id, work_type_id, profession_id, ...data }) {
-		const professionIdItem=JSON.parse(profession_id);
-		const welfareIdItem=JSON.parse(welfare_id);
-		const workTypeIdItem=JSON.parse(work_type_id);
-
+		const professionIdItem = isJson(profession_id) ? JSON.parse(profession_id) : profession_id;
+		const welfareIdItem = isJson(welfare_id) ? JSON.parse(welfare_id) : welfare_id;
+		const workTypeIdItem = isJson(work_type_id) ? JSON.parse(work_type_id) : work_type_id;
 		// Xóa  tất cả  profession_id  trong table profession_desired_job nếu có resume_id bằng với resume_id update
 		await Promise.all([
 			profession_desired_job.destroy({
