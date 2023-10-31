@@ -7,7 +7,7 @@ const jobPostActivitySchema = {
 		job_id: Joi.string().required(),
 		apply_date: Joi.date(),
 		resume_type: Joi.number().required(),
-		status: Joi.boolean()
+		status: Joi.number()
 	})
 };
 

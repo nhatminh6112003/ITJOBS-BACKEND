@@ -3,12 +3,12 @@ import morgan from 'morgan';
 import cors from 'cors';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
+import * as path from 'path';
 import route from './routes/index.js';
 import configViewEngine from './config/viewEngine.js';
 import errorHandler from './middleware/errorHandler.js';
 import apiResponse from './middleware/apiResponse.js';
 import { connectDb } from './config/connectDB.js';
-import * as path from 'path';
 
 const app = express();
 
@@ -37,6 +37,7 @@ app.use(morgan('combined'));
 // đường dẫn của dự án
 route(app);
 app.get('/api/uploads/:fileName', (req, res) => {
+	// sendMail('aolang69@gmail.com', "Reset password", `<a href=""> Reset Password </a>`)
 	const { fileName } = req.params;
 	res.sendFile(path.join(__dirname, 'uploads', fileName));
 });
