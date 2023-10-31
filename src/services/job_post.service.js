@@ -39,6 +39,10 @@ const jobPostService = {
 			if (dateType == DateTypeEnum.ExpiredDate) {
 				queryCondition.expiry_date = { [Op.between]: [fromDate, toDate] };
 			}
+			
+			if(dateType == DateTypeEnum.CreatedAt){
+				queryCondition.createdAt = { [Op.between]: [fromDate, toDate] };
+			}
 		}
 
 		if (query.user_account_id) {
