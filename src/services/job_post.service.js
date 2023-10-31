@@ -12,6 +12,7 @@ import { findByPkAndUpdate, findOneAndUpdate, handlePaginate } from '@src/helper
 import dotenv from 'dotenv';
 import createError from 'http-errors';
 import { Sequelize } from 'sequelize';
+import DateTypeEnum from '@src/constants/dateTypeEnum';
 
 const { Op } = Sequelize;
 dotenv.config();
@@ -19,7 +20,26 @@ const jobPostService = {
 	async getAll(query) {
 		const page = Number(query.page) || 1;
 		const limit = Number(query.limit) || 25;
+		const keyword = query.keyword ?? '';
 		const queryCondition = {};
+
+		if (keyword) {
+			queryCondition.job_title = {
+				[Op.substring]: query.keyword
+			};
+		}
+
+		if (query.dateType && query.fromDate && query.toDate) {
+			const { dateType, fromDate, toDate } = query;
+
+			if (dateType == DateTypeEnum.PostDate) {
+				queryCondition.posted_date = { [Op.between]: [fromDate, toDate] };
+			}
+
+			if (dateType == DateTypeEnum.ExpiredDate) {
+				queryCondition.expiry_date = { [Op.between]: [fromDate, toDate] };
+			}
+		}
 
 		if (query.user_account_id) {
 			const { user_account_id } = query;
