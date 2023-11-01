@@ -18,7 +18,11 @@ const jobPostActivityController = {
 		const handleCreate = await jobPostActivityService.create(data);
 		return res.apiResponse(handleCreate);
 	},
-
+	async sendMailJobSeeker(req, res) {
+		const data = req.body;
+		 await jobPostActivityService.sendMailJobSeeker(data);
+		return res.apiResponse();
+	},
 	async update(req, res) {
 		const data = req.body;
 		const { id } = req.params;
@@ -33,7 +37,7 @@ const jobPostActivityController = {
 		return res.apiResponse(handleUpdate);
 	},
 	
-
+	
 	async delete(req, res) {
 		const { id } = req.params;
 		await jobPostActivityService.delete(id);
