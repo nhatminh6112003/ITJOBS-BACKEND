@@ -13,6 +13,7 @@ import dotenv from 'dotenv';
 import createError from 'http-errors';
 import { Sequelize } from 'sequelize';
 import DateTypeEnum from '@src/constants/dateTypeEnum';
+import jobPostStatusEnum from '@src/constants/jobPostStatusEnum';
 
 const { Op } = Sequelize;
 dotenv.config();
@@ -140,6 +141,14 @@ const jobPostService = {
 
 	async delete(id) {
 		return await findOneAndUpdate(job_post, { id }, { isDeleted: true });
+	},
+
+	async analytic() {
+		const pendingStatus = await job_post.count({ where: { status: { [Op.eq]: jobPostStatusEnum.Pending } } });
+		const expiredStatus = await job_post.count({ where: { status: { [Op.eq]: jobPostStatusEnum.Expired } } });
+		const publishStatus = await job_post.count({ where: { status: { [Op.eq]: jobPostStatusEnum.Publish } } });
+		const pauseStatus = await job_post.count({ where: { status: { [Op.eq]: jobPostStatusEnum.Pause } } });
+		return {pendingStatus , expiredStatus , pauseStatus, publishStatus}
 	}
 };
 

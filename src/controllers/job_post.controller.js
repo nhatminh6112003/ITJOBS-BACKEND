@@ -13,6 +13,11 @@ const jobPostController = {
 		return res.apiResponse(data);
 	},
 
+	async analytic(req, res) {
+		const data = await jobPostService.analytic();
+		return res.apiResponse(data)
+	},
+
 	async create(req, res) {
 		const data = req.body;
 		const handleCreate = await jobPostService.create(data);
