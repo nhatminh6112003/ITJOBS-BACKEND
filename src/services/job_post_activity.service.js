@@ -12,6 +12,8 @@ import { findByPkAndUpdate, findByPkAndDelete, handlePaginate, findOneAndUpdate 
 import dotenv from 'dotenv';
 import createError from 'http-errors';
 import { Sequelize } from 'sequelize';
+import sendMail from '@src/helpers/mailer';
+import mailTemplate from '@src/helpers/emailTemplate';
 
 const { Op } = Sequelize;
 
@@ -66,7 +68,46 @@ const jobPostActivityService = {
 	},
 
 	async create(data) {
-		return await job_post_activity.create(data);
+		const createJobPostActivity = await job_post_activity.create(data);
+
+		const findJobPostActivity = await job_post_activity.findOne({
+			where: {
+				job_id: data.job_id,
+				user_account_id: data.user_account_id
+			},
+			include: [
+				{ model: job_post, include: { model: company } },
+				{ model: user_account, as: 'user_account' }
+			],
+			raw: true,
+			nest: true
+		});
+		sendMail(
+			findJobPostActivity.user_account.email,
+			'Ứng tuyển thành công',
+			mailTemplate(`<table style="border:1px solid black;color:rgb(0,0,0);" align="center" border="0" cellpadding="5" cellspacing="0" style="margin:0 auto" width="82%">
+			<tbody style="border:1px solid black;color:rgb(0,0,0);" >
+				<tr style="border:1px solid black;color:rgb(0,0,0);" >
+					<td style="border:1px solid black;color:rgb(0,0,0);" colspan="2" style="font-family:Arial;font-size:12px">Chào bạn <strong style="color:rgb(0,0,0);">${findJobPostActivity.user_account.lastname} ${findJobPostActivity.user_account.firstname},</strong></td>
+				</tr>
+				<tr style="border:1px solid black;color:rgb(0,0,0);" >
+					<td style="border:1px solid black;color:rgb(0,0,0);" align="left" colspan="2" style="font-family:Arial;font-size:12px;color:rgb(0,0,0);"><strong>Bạn vừa nộp hồ sơ ứng tuyển vào :</strong></td>
+				</tr>
+				<tr style="border:1px solid black;color:rgb(0,0,0);">
+					<td style="border:1px solid black;" align="left" style="font-family:Arial;font-size:12px" width="30%">Công ty :</td>
+					<td style="border:1px solid black;color:rgb(0,0,0);" align="left" style="font-family:Arial;font-size:12px">${findJobPostActivity.job_post.company.company_name}</td>
+				</tr>
+				<tr style="border:1px solid black;color:rgb(0,0,0);" >
+					<td style="border:1px solid black;color:rgb(0,0,0);" align="left" style="font-family:Arial;font-size:12px;border:1px solid black;color:rgb(0,0,0);" width="30%">Vị trí ứng tuyển:</td>
+					<td style="border:1px solid black;color:rgb(0,0,0);" align="left" style="font-family:Arial;font-size:12px"><p style="color:rgb(0,0,0);">${findJobPostActivity.job_post.job_title}</p></td>
+				</tr>
+				<tr style="border:1px solid black;color:rgb(0,0,0);">
+					<td style="border:1px solid black;color:rgb(0,0,0);" align="left" colspan="2" style="font-family:Arial;font-size:12px"><strong style="color:rgb(0,0,0);font-family:Arial">Chúc bạn thành công </strong></td>
+				</tr>
+			</tbody>
+		</table>`)
+		);
+		return createJobPostActivity;
 	},
 
 	async update(id, data) {
@@ -86,7 +127,15 @@ const jobPostActivityService = {
 			}
 		);
 	},
-
+	async sendMailJobSeeker(data) {
+		const { user_account_id, title, content } = data;
+		const user =await user_account.findOne({
+			where: {
+				id: user_account_id
+			}
+		});
+			sendMail(user.email, title, mailTemplate(content));
+	},
 	async delete(id) {
 		return await findByPkAndDelete(job_post_activity, id);
 	}
