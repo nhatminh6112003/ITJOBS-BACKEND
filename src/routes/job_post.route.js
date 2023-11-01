@@ -9,5 +9,6 @@ router.get('/:id', jobPostController.getOne);
 router.post('', jobPostValidation.jobPost, jobPostController.create);
 router.patch('/:id',jobPostController.update);
 router.delete('/:id', jobPostController.delete);
+router.get('/analytics', jobPostController.analytic);
 
 export default router;
