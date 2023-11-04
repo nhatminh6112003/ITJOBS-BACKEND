@@ -29,6 +29,7 @@ import jobWorkTypeDetailRoutes from './job_work_type_detail.route.js';
 import jobSavedRoutes from './job_saved.route.js';
 import jobPostRoutes from './job_post.route.js';
 import resumeProfile from './resume_profile.route.js';
+import serviceTypeRoutes from './service_type.route.js';
 
 function route(app) {
 	const apiRoutes = Router();
@@ -65,6 +66,7 @@ function route(app) {
 	apiRoutes.use('/job_saved', jobSavedRoutes);
 	apiRoutes.use('/job_post', jobPostRoutes);
 	apiRoutes.use('/resume_profile', resumeProfile);
+	apiRoutes.use('/service_type', serviceTypeRoutes);
 	app.use('/api', apiRoutes);
 }
 export default route;
