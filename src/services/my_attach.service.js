@@ -47,7 +47,7 @@ const myAttachService = {
 			},
 			include: [
 				{ model: user_account, as: 'user_account', include: { model: resume_profile } },
-				{ model: my_attach, as: 'attachments' },
+				{ model: my_attach, as: 'attachments', include: { model: resume,as:'resume' } },
 				{ model: resume_title, as: 'resume_title' },
 				{ model: resume_desired_job, as: 'resume_desired_job' }
 			],
