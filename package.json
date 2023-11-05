@@ -3,11 +3,19 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "src/index.js",
+	"bin": {
+		"generate": "./bin/index.js"
+	},
 	"scripts": {
 		"start": "nodemon  --exec ./node_modules/.bin/babel-node --inspect server.js",
+		"clean": "rm -rf build && mkdir build",
+		"build-babel": "babel ./src -d ./build/src",
+		"build": "npm run clean && npm run build-babel",
+		"production": "npm run build && node ./build/src/server.js",
 		"watch": "node-sass -w src/resources/scss/app.scss -o src/public/css/app.css",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"db": "cd src && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+		"generate-code": "generate make:controller --name $npm_config_name && generate make:route --name $npm_config_name  && generate make:service --name $npm_config_name",
 		"model:create": "cd src && cross-var npx sequelize-cli model:generate --name $npm_config_name --attributes $npm_config_attr",
 		"migration": "cd src && npx sequelize-cli db:migrate",
 		"migration:revert": "cd src && npx sequelize-cli db:migrate:undo",
@@ -47,7 +55,8 @@
 		"nodemon": "^2.0.20",
 		"puppeteer": "^19.4.1",
 		"sequelize": "^6.32.0",
-		"slugify": "^1.6.5"
+		"slugify": "^1.6.5",
+		"yargs": "^17.7.2"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.19.3",

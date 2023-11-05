@@ -31,6 +31,8 @@ import jobPostRoutes from './job_post.route.js';
 import resumeProfile from './resume_profile.route.js';
 import serviceTypeRoutes from './service_type.route.js';
 import serviceRoutes from './service.route.js';
+import benefitsRoutes from './benefits.route.js';
+import benefitsRoutes from './benefits.route.js';
 
 function route(app) {
 	const apiRoutes = Router();
@@ -69,6 +71,9 @@ function route(app) {
 	apiRoutes.use('/resume_profile', resumeProfile);
 	apiRoutes.use('/service_type', serviceTypeRoutes);
 	apiRoutes.use('/service', serviceRoutes);
+	apiRoutes.use('/benefits', benefitsRoutes);
+apiRoutes.use('/benefits', benefitsRoutes);
+
 	app.use('/api', apiRoutes);
 }
 export default route;
