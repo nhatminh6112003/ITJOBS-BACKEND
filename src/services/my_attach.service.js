@@ -1,22 +1,21 @@
-import createError from 'http-errors';
-import {
-	resume,
-	my_attach,
-	resume_profile,
-	sequelize,
-	resume_title,
-	resume_desired_job,
-	user_account,
-	resume_work_type,
-	profession_desired_job,
-	welfare_desired_job,
-	work_type,
-	profession,
-	job_welfare
-} from '@src/models';
-import { findOneAndUpdate } from '@src/helpers/databaseHelpers';
-import dotenv from 'dotenv';
 import { resumeStatusEnum } from '@src/constants/resumeStatus';
+import { findOneAndUpdate } from '@src/helpers/databaseHelpers';
+import {
+	job_welfare,
+	my_attach,
+	profession,
+	profession_desired_job,
+	resume,
+	resume_desired_job,
+	resume_profile,
+	resume_title,
+	resume_work_type,
+	user_account,
+	welfare_desired_job,
+	work_type
+} from '@src/models';
+import dotenv from 'dotenv';
+import createError from 'http-errors';
 import resumeDesiredJobService from './resume_desired_job.service';
 
 dotenv.config();
