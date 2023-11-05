@@ -32,6 +32,7 @@ import resumeProfile from './resume_profile.route.js';
 import serviceTypeRoutes from './service_type.route.js';
 import serviceRoutes from './service.route.js';
 import benefitsRoutes from './benefits.route.js';
+import userServiceRoutes from './user_service.route.js';
 
 function route(app) {
 	const apiRoutes = Router();
@@ -71,7 +72,7 @@ function route(app) {
 	apiRoutes.use('/service_type', serviceTypeRoutes);
 	apiRoutes.use('/service', serviceRoutes);
 	apiRoutes.use('/benefits', benefitsRoutes);
-
+	apiRoutes.use('/user_service', userServiceRoutes);
 	app.use('/api', apiRoutes);
 }
 export default route;
