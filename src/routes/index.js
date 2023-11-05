@@ -33,6 +33,7 @@ import serviceTypeRoutes from './service_type.route.js';
 import serviceRoutes from './service.route.js';
 import benefitsRoutes from './benefits.route.js';
 import userServiceRoutes from './user_service.route.js';
+import price_listRoutes from './price_list.route.js';
 
 function route(app) {
 	const apiRoutes = Router();
@@ -73,6 +74,8 @@ function route(app) {
 	apiRoutes.use('/service', serviceRoutes);
 	apiRoutes.use('/benefits', benefitsRoutes);
 	apiRoutes.use('/user_service', userServiceRoutes);
+	apiRoutes.use('/price_list', price_listRoutes);
+
 	app.use('/api', apiRoutes);
 }
 export default route;
