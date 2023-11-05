@@ -7,12 +7,12 @@ const fs = require('fs');
 
 // eslint-disable-next-line prefer-destructuring
 const argv = yargs(hideBin(process.argv)).argv;
-const [type, name] = argv._;
+const { name } = argv;
 
 function updateFileIndexRoute() {
 	const routeFilePath = 'src/routes/index.js';
 	const newImportStatement = `import ${name}Routes from './${name}.route.js';`;
-	const newApiRoute = `apiRoutes.use('/${name}', benefitsRoutes);`;
+	const newApiRoute = `apiRoutes.use('/${name}', ${name}Routes);`;
 	fs.readFile(routeFilePath, 'utf8', (err, data) => {
 		if (err) {
 			console.error(`Lỗi khi đọc tệp route: ${err}`);
@@ -38,7 +38,7 @@ function updateFileIndexRoute() {
 			const lastSemicolonIndex = data.indexOf(';', lastApiRouteIndex);
 			if (lastSemicolonIndex !== -1) {
 				const insertIndex = lastSemicolonIndex + 1;
-				data = `${data.slice(0, insertIndex)  }\n${  newApiRoute  }${data.slice(insertIndex)}`;
+				data = `${data.slice(0, insertIndex)}\n${newApiRoute}${data.slice(insertIndex)}`;
 			}
 		}
 
@@ -53,7 +53,7 @@ function updateFileIndexRoute() {
 	});
 }
 
-if (type === 'make:controller') {
+function createController() {
 	try {
 		fs.readFileSync(`src/controllers/${name}.controller.js`);
 
@@ -67,7 +67,8 @@ if (type === 'make:controller') {
 		console.log('Tạo Controller thành công');
 	}
 }
-if (type === 'make:route') {
+
+function createRoute() {
 	try {
 		fs.readFileSync(`src/routes/${name}.route.js`);
 		console.log('Route đã tồn tại');
@@ -82,7 +83,8 @@ if (type === 'make:route') {
 		updateFileIndexRoute(name);
 	}
 }
-if (type === 'make:service') {
+
+function createService() {
 	try {
 		fs.readFileSync(`src/services/${name}.route.js`);
 		console.log('Service đã tồn tại');
@@ -95,3 +97,7 @@ if (type === 'make:service') {
 		console.log('Tạo Service thành công');
 	}
 }
+
+createController();
+createRoute();
+createService();
