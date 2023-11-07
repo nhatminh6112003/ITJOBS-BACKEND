@@ -40,8 +40,8 @@ const jobPostService = {
 			if (dateType == DateTypeEnum.ExpiredDate) {
 				queryCondition.expiry_date = { [Op.between]: [fromDate, toDate] };
 			}
-			
-			if(dateType == DateTypeEnum.CreatedAt){
+
+			if (dateType == DateTypeEnum.CreatedAt) {
 				queryCondition.createdAt = { [Op.between]: [fromDate, toDate] };
 			}
 		}
@@ -60,7 +60,43 @@ const jobPostService = {
 			const { status } = query;
 			queryCondition.status = { [Op.eq]: status };
 		}
+		if (query.industry) {
+			const { industry } = query;
+			queryCondition.job_profession_detail.id = { [Op.eq]: industry };
+		}
 
+		// TỈnh thành phố
+		if (query.provinces) {
+			queryCondition.provinces = { [Op.eq]: query.provinces };
+		}
+		if (query.job_position_value) {
+			queryCondition.job_position_value = { [Op.eq]: query.job_position_value };
+		}
+		const currentDate = new Date();
+		const threeDaysAgo = new Date(currentDate);
+		threeDaysAgo.setDate(currentDate.getDate() - 3);
+
+		const sevenDaysAgo = new Date(currentDate);
+		sevenDaysAgo.setDate(currentDate.getDate() - 7);
+
+		const fourTeenDaysAgo = new Date(currentDate);
+		sevenDaysAgo.setDate(currentDate.getDate() - 14);
+
+		const thirtyDaysAgo = new Date(currentDate);
+		sevenDaysAgo.setDate(currentDate.getDate() - 30);
+
+		if (query.days) {
+			if (query.days === 3) {
+				queryCondition.posted_date = { [Op.gt]: threeDaysAgo };
+			} else if (query.days === 7) {
+				queryCondition.posted_date = { [Op.gt]: sevenDaysAgo };
+			} else if (query.days === 14) {
+				queryCondition.posted_date = { [Op.gt]: fourTeenDaysAgo };
+			} else if (query.days === 30) {
+				queryCondition.posted_date = { [Op.gt]: thirtyDaysAgo };
+			}
+		}
+		
 		const [data, pagination] = await handlePaginate({
 			model: job_post,
 			page,
@@ -69,9 +105,27 @@ const jobPostService = {
 			queries: {
 				raw: true,
 				nest: true,
-				include: [{ model: company }]
+				include: [
+					{ model: company },
+					{
+						model: profession,
+						as: 'job_profession_details'
+					}
+				]
 			}
 		});
+		// const test = await job_post.findAll({
+		// 	include: [
+		// 		{ model: company },
+		// 		{
+		// 			model: profession,
+		// 			as: 'job_profession_details'
+		// 		}
+		// 	],
+		// 	raw: true,
+		// 	nest: true
+		// });
+		// console.log(test);
 		return [data, pagination];
 	},
 
@@ -148,7 +202,7 @@ const jobPostService = {
 		const expiredStatus = await job_post.count({ where: { status: { [Op.eq]: jobPostStatusEnum.Expired } } });
 		const publishStatus = await job_post.count({ where: { status: { [Op.eq]: jobPostStatusEnum.Publish } } });
 		const pauseStatus = await job_post.count({ where: { status: { [Op.eq]: jobPostStatusEnum.Pause } } });
-		return {pendingStatus , expiredStatus , pauseStatus, publishStatus}
+		return { pendingStatus, expiredStatus, pauseStatus, publishStatus };
 	}
 };
 
