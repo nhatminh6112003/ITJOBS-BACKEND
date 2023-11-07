@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
 		static associate(models) {
 			// define association here
 			job_post.belongsTo(models.company, {
-				foreignKey: 'company_id',
+				foreignKey: 'company_id'
 			});
 			job_post.belongsTo(models.user_account, {
 				foreignKey: 'posted_by_id',
@@ -22,19 +22,23 @@ module.exports = (sequelize, DataTypes) => {
 			// 	foreignKey: 'job_id',
 			// 	as: 'job_welfare_detail'
 			// });
-			// job_post.hasMany(models.job_profession_detail, {
-			// 	foreignKey: 'job_id',
-			// 	as: 'job_profession_detail'
+			// job_post.belongsToMany(models.profession, {
+			// 	through: 'job_profession_detail',
 			// });
+			job_post.belongsToMany(models.profession, {
+				through: 'job_profession_detail',
+				as: 'job_profession_details',
+				foreignKey: 'job_id'
+			});
 			// job_post.hasMany(models.job_work_type_detail, {
 			// 	foreignKey: 'job_id',
 			// 	as: 'job_work_type_detail'
 			// });
 			job_post.belongsToMany(models.job_welfare, {
 				through: 'job_welfare_detail',
-				foreignKey: 'job_id', 
-				otherKey: 'job_welfare_id',
-			 });
+				foreignKey: 'job_id',
+				otherKey: 'job_welfare_id'
+			});
 		}
 	}
 	job_post.init(

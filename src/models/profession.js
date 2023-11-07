@@ -1,4 +1,5 @@
 const { Model } = require('sequelize');
+// const job_post = require('./job_post');
 
 module.exports = (sequelize, DataTypes) => {
 	class profession extends Model {
@@ -18,6 +19,14 @@ module.exports = (sequelize, DataTypes) => {
 				foreignKey: 'jobPositionCategoryId',
 				as: 'job_position_category'
 			});
+			// profession.belongsToMany(models.job_post, {
+			// 	through: 'job_profession_detail',
+			// });
+			profession.belongsToMany(models.job_post, {
+				through: "job_profession_detail",
+				as: "job_profession_details",
+				foreignKey: "profession_id",
+			 });
 		}
 	}
 	profession.init(
