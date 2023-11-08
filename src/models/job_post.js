@@ -25,11 +25,7 @@ module.exports = (sequelize, DataTypes) => {
 			// job_post.belongsToMany(models.profession, {
 			// 	through: 'job_profession_detail',
 			// });
-			job_post.belongsToMany(models.profession, {
-				through: 'job_profession_detail',
-				as: 'job_profession_details',
-				foreignKey: 'job_id'
-			});
+		
 			// job_post.hasMany(models.job_work_type_detail, {
 			// 	foreignKey: 'job_id',
 			// 	as: 'job_work_type_detail'
@@ -38,6 +34,12 @@ module.exports = (sequelize, DataTypes) => {
 				through: 'job_welfare_detail',
 				foreignKey: 'job_id',
 				otherKey: 'job_welfare_id'
+			});
+			job_post.belongsToMany(models.profession, {
+				through: 'job_profession_detail',
+				as: 'profession',
+				foreignKey: 'job_id',
+				otherKey: 'profession_id'
 			});
 		}
 	}

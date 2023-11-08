@@ -23,10 +23,11 @@ module.exports = (sequelize, DataTypes) => {
 			// 	through: 'job_profession_detail',
 			// });
 			profession.belongsToMany(models.job_post, {
-				through: "job_profession_detail",
-				as: "job_profession_details",
-				foreignKey: "profession_id",
-			 });
+				through: 'job_profession_detail',
+				as: 'job_post',
+				foreignKey: 'profession_id',
+				otherKey: 'job_id'
+			});
 		}
 	}
 	profession.init(
