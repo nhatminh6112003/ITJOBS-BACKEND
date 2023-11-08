@@ -66,11 +66,11 @@ const jobPostService = {
 			const { profession_id } = query;
 			queryProfessionCondition.id = { [Op.eq]: profession_id };
 		}
-		// nghề nghiệp
-		// if (query.profession_id) {
-		// const { profession_id } = query;
-		// queryCondition['$profession.id$'] = { [Op.eq]: profession_id };
-		// }
+		// salary
+		if (query.salary) {
+		const { salary } = query;
+		queryCondition.min_salary = { [Op.gte]: salary };
+		}
 
 		// TỈnh thành phố
 		if (query.provinces) {
