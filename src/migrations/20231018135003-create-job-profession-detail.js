@@ -11,10 +11,10 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4
       },
       profession_id: {
-        type: Sequelize.UUID
+        type: Sequelize.UUID,
       },
       job_id: {
-        type: Sequelize.UUID
+        type: Sequelize.UUID,
       },
       createdAt: {
         allowNull: false,

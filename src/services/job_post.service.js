@@ -23,6 +23,7 @@ const jobPostService = {
 		const limit = Number(query.limit) || 25;
 		const keyword = query.keyword ?? '';
 		const queryCondition = {};
+		const queryProfessionCondition = {};
 
 		if (keyword) {
 			queryCondition.job_title = {
@@ -60,10 +61,16 @@ const jobPostService = {
 			const { status } = query;
 			queryCondition.status = { [Op.eq]: status };
 		}
-		if (query.industry) {
-			const { industry } = query;
-			queryCondition.job_profession_detail.id = { [Op.eq]: industry };
+
+		if (query.profession_id) {
+			const { profession_id } = query;
+			queryProfessionCondition.id = { [Op.eq]: profession_id };
 		}
+		// nghề nghiệp
+		// if (query.profession_id) {
+		// const { profession_id } = query;
+		// queryCondition['$profession.id$'] = { [Op.eq]: profession_id };
+		// }
 
 		// TỈnh thành phố
 		if (query.provinces) {
@@ -96,36 +103,25 @@ const jobPostService = {
 				queryCondition.posted_date = { [Op.gt]: thirtyDaysAgo };
 			}
 		}
-		
+
 		const [data, pagination] = await handlePaginate({
 			model: job_post,
 			page,
 			limit,
 			condition: queryCondition,
 			queries: {
-				raw: true,
 				nest: true,
 				include: [
 					{ model: company },
 					{
 						model: profession,
-						as: 'job_profession_details'
+						as: 'profession',
+						where: Object.keys(queryProfessionCondition).length > 0 ? queryProfessionCondition : null
 					}
 				]
 			}
 		});
-		// const test = await job_post.findAll({
-		// 	include: [
-		// 		{ model: company },
-		// 		{
-		// 			model: profession,
-		// 			as: 'job_profession_details'
-		// 		}
-		// 	],
-		// 	raw: true,
-		// 	nest: true
-		// });
-		// console.log(test);
+
 		return [data, pagination];
 	},
 
