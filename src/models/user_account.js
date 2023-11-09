@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
 				as: 'user_type'
 			});
 			user_account.hasOne(models.resume_profile, {
-				foreignKey: 'user_account_id',
+				foreignKey: 'user_account_id'
 			});
 			user_account.hasMany(models.resume, {
 				foreignKey: 'user_account_id',
@@ -26,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
 			user_account.hasMany(models.company, {
 				foreignKey: 'user_account_id',
 				as: 'company'
+			});
+			user_account.hasMany(models.employer_resume, {
+				foreignKey: 'user_account_id'
 			});
 			user_account.hasMany(models.job_post, {
 				foreignKey: 'posted_by_id',
