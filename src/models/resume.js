@@ -101,6 +101,9 @@ module.exports = (sequelize, DataTypes) => {
 			resume.hasMany(models.resume_experience, {
 				foreignKey: 'resume_id',
 			});
+			resume.hasMany(models.employer_resume, {
+				foreignKey: 'resume_id',
+			});
 			
 			resume.hasMany(models.my_attach, { foreignKey: 'resume_id', as: 'attachments' });
 		}
