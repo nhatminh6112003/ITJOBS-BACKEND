@@ -57,7 +57,7 @@ const resumeService = {
 		}
 		// tìm theo trạng thái hồ sơ
 
-		if (query.resume_active === resumeActiveEnum.FLASH) {
+		if (query.resume_active == resumeActiveEnum.FLASH || query.resume_active == resumeActiveEnum.PUBLIC) {
 			queryCondition.resume_active = { [Op.eq]: query.resume_active };
 		}
 
@@ -79,8 +79,9 @@ const resumeService = {
 						where: Object.keys(queryProfessionCondition).length > 0 ? queryProfessionCondition : null
 					},
 					{
-						model: resume_profile,
-						where: Object.keys(queryResumeProfileCondition).length > 0 ? queryResumeProfileCondition : null
+						model: user_account,
+						as: 'user_account',
+						include: { model: resume_profile }
 					}
 				]
 			}

@@ -10,7 +10,7 @@ const JwtHelpers = {
 			// const results = await Promise.all([function1(), function2()]);
 			const accessToken = await jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
 				algorithm: 'HS256',
-				expiresIn: '1h'
+				expiresIn: '30d'
 			});
 
 			return accessToken;
