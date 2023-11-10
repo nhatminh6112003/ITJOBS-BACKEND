@@ -66,10 +66,11 @@ module.exports = (sequelize, DataTypes) => {
 				otherKey: 'work_type_id',
 				as: 'work_type'
 			});
+			
 			resume.belongsToMany(models.profession, {
 				through: 'profession_desired_job',
 				foreignKey: 'resume_id',
-				otherKey: 'profession_id'
+				otherKey: 'profession_id',
 			});
 
 			resume.hasMany(models.resume_education, {
