@@ -27,9 +27,10 @@ const resumeService = {
 		const queryCondition = {};
 		const queryProfessionCondition = {};
 		const queryResumeProfileCondition = {};
+		const queryResumeTitleCondition = {};
 
 		if (keyword) {
-			queryCondition.name = { [Op.substring]: keyword };
+			queryResumeTitleCondition.title = { [Op.substring]: keyword };
 		}
 		if (query.user_account_id) {
 			const { user_account_id } = query;
@@ -68,7 +69,11 @@ const resumeService = {
 			queries: {
 				nest: true,
 				include: [
-					{ model: resume_title, as: 'resume_title' },
+					{
+						model: resume_title,
+						as: 'resume_title',
+						where: Object.keys(queryResumeTitleCondition).length > 0 ? queryResumeTitleCondition : null
+					},
 					{
 						model: profession,
 						where: Object.keys(queryProfessionCondition).length > 0 ? queryProfessionCondition : null
