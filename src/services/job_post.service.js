@@ -25,6 +25,8 @@ const jobPostService = {
 		const queryCondition = {};
 		const queryProfessionCondition = {};
 
+
+		
 		if (keyword) {
 			queryCondition.job_title = {
 				[Op.substring]: query.keyword
