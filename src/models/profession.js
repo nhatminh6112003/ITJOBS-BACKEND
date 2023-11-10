@@ -28,6 +28,11 @@ module.exports = (sequelize, DataTypes) => {
 				foreignKey: 'profession_id',
 				otherKey: 'job_id'
 			});
+			profession.belongsToMany(models.resume, {
+				through: 'profession_desired_job',
+				foreignKey: 'profession_id',
+				otherKey: 'resume_id'
+			});
 		}
 	}
 	profession.init(

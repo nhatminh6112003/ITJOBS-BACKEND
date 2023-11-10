@@ -37,7 +37,6 @@ module.exports = (sequelize, DataTypes) => {
 			});
 			job_post.belongsToMany(models.profession, {
 				through: 'job_profession_detail',
-				as: 'profession',
 				foreignKey: 'job_id',
 				otherKey: 'profession_id'
 			});

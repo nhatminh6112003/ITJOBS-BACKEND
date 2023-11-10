@@ -47,8 +47,6 @@ module.exports = (sequelize, DataTypes) => {
 				as: 'resume_refer'
 			});
 
-	
-	
 			resume.hasOne(models.resume_addioninfo, {
 				foreignKey: 'resume_id',
 				as: 'resume_addioninfo'
@@ -59,21 +57,21 @@ module.exports = (sequelize, DataTypes) => {
 				otherKey: 'resume_id',
 				as: 'job_welfare'
 			});
-			resume.belongsToMany(models.profession, {
-				through: models.profession_desired_job,
-				foreignKey: 'resume_id',
-				otherKey: 'profession_id',
-				as: 'profession'
+			resume.hasMany(models.profession_desired_job, {
+				foreignKey: 'resume_id'
 			});
-			resume.hasMany(models.profession_desired_job,{
-				foreignKey: 'resume_id',
-			})
 			resume.belongsToMany(models.work_type, {
 				through: models.resume_work_type,
 				foreignKey: 'resume_id',
 				otherKey: 'work_type_id',
 				as: 'work_type'
 			});
+			resume.belongsToMany(models.profession, {
+				through: 'profession_desired_job',
+				foreignKey: 'resume_id',
+				otherKey: 'profession_id'
+			});
+
 			resume.hasMany(models.resume_education, {
 				foreignKey: 'resume_id',
 				as: 'resume_education'
@@ -87,24 +85,24 @@ module.exports = (sequelize, DataTypes) => {
 				as: 'job_post_activity'
 			});
 			resume.hasMany(models.my_attach, {
-				foreignKey: 'resume_id',
+				foreignKey: 'resume_id'
 			});
 			resume.hasOne(models.resume_title, {
-				foreignKey: 'resume_id',
+				foreignKey: 'resume_id'
 			});
 			resume.hasOne(models.resume_profile, {
-				foreignKey: 'resume_id',
+				foreignKey: 'resume_id'
 			});
 			resume.hasOne(models.resume_profile, {
-				foreignKey: 'resume_id',
+				foreignKey: 'resume_id'
 			});
 			resume.hasMany(models.resume_experience, {
-				foreignKey: 'resume_id',
+				foreignKey: 'resume_id'
 			});
 			resume.hasMany(models.employer_resume, {
-				foreignKey: 'resume_id',
+				foreignKey: 'resume_id'
 			});
-			
+
 			resume.hasMany(models.my_attach, { foreignKey: 'resume_id', as: 'attachments' });
 		}
 	}

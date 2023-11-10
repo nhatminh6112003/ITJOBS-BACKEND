@@ -15,7 +15,8 @@ import {
 import createError from 'http-errors';
 import { findByPkAndUpdate, handlePaginate, findOneAndUpdate } from '@src/helpers/databaseHelpers';
 import { Sequelize } from 'sequelize';
-import { resumeTypeEnum } from '@src/constants/resumeStatus';
+import { resumeActiveEnum } from '@src/constants/resumeStatus';
+
 const { Op } = Sequelize;
 
 const resumeService = {
@@ -24,6 +25,8 @@ const resumeService = {
 		const limit = Number(query.limit) || 25;
 		const keyword = query.keyword ?? '';
 		const queryCondition = {};
+		const queryProfessionCondition = {};
+		const queryResumeProfileCondition = {};
 
 		if (keyword) {
 			queryCondition.name = { [Op.substring]: keyword };
@@ -40,15 +43,41 @@ const resumeService = {
 			const { resume_type_id } = query;
 			queryCondition.resume_type_id = { [Op.eq]: resume_type_id };
 		}
+
+		// tìm theo ngành nghề
+		if (query.profession_id) {
+			const { profession_id } = query;
+			queryProfessionCondition.id = { [Op.eq]: profession_id };
+		}
+
+		// tìm theo tỉnh thành
+		if (query.provinces) {
+			queryResumeProfileCondition.provinces = { [Op.eq]: query.provinces };
+		}
+		// tìm theo trạng thái hồ sơ
+
+		if (query.resume_active === resumeActiveEnum.FLASH) {
+			queryCondition.resume_active = { [Op.eq]: query.resume_active };
+		}
+
 		const [data, pagination] = await handlePaginate({
 			model: resume,
 			page,
 			limit,
 			condition: queryCondition,
 			queries: {
-				raw: true,
 				nest: true,
-				include: { model: resume_title, as: 'resume_title' }
+				include: [
+					{ model: resume_title, as: 'resume_title' },
+					{
+						model: profession,
+						where: Object.keys(queryProfessionCondition).length > 0 ? queryProfessionCondition : null
+					},
+					{
+						model: resume_profile,
+						where: Object.keys(queryResumeProfileCondition).length > 0 ? queryResumeProfileCondition : null
+					}
+				]
 			}
 		});
 		return [data, pagination];
