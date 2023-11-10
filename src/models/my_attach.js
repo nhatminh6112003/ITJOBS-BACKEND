@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
 				primaryKey: true
 			},
 			yearOfExperience: DataTypes.INTEGER,
-      job_degree_value: DataTypes.INTEGER,
+			job_degree_value: DataTypes.INTEGER,
 			file: DataTypes.STRING,
 			resume_id: DataTypes.UUID
 		},

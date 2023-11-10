@@ -81,8 +81,12 @@ const resumeService = {
 					{
 						model: user_account,
 						as: 'user_account',
-						include: { model: resume_profile }
-					}
+						include: {
+							model: resume_profile,
+							where: Object.keys(queryResumeProfileCondition).length > 0 ? queryResumeProfileCondition : null
+						}
+					},
+					{ model: my_attach, as: 'attachments' }
 				]
 			}
 		});
