@@ -79,6 +79,10 @@ const resumeService = {
 						where: Object.keys(queryProfessionCondition).length > 0 ? queryProfessionCondition : null
 					},
 					{
+						model: resume_desired_job,
+						as: 'resume_desired_job'
+					},
+					{
 						model: user_account,
 						as: 'user_account',
 						include: {
