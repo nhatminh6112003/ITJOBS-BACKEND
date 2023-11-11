@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
 			// job_post.belongsToMany(models.profession, {
 			// 	through: 'job_profession_detail',
 			// });
-		
+
 			// job_post.hasMany(models.job_work_type_detail, {
 			// 	foreignKey: 'job_id',
 			// 	as: 'job_work_type_detail'
@@ -38,7 +38,8 @@ module.exports = (sequelize, DataTypes) => {
 			job_post.belongsToMany(models.profession, {
 				through: 'job_profession_detail',
 				foreignKey: 'job_id',
-				otherKey: 'profession_id'
+				otherKey: 'profession_id',
+				as: 'profession'
 			});
 		}
 	}
