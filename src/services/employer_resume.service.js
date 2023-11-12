@@ -22,6 +22,10 @@ const employer_resumeService = {
 		const keyword = query.keyword ?? '';
 		const queryCondition = {};
 
+		if (query.user_account_id) {
+			const { user_account_id } = query;
+			queryCondition.user_account_id = { [Op.eq]: user_account_id };
+		}
 		if (keyword) {
 			queryCondition.name = { [Op.substring]: keyword };
 		}
@@ -33,24 +37,27 @@ const employer_resumeService = {
 			condition: queryCondition,
 			queries: {
 				nest: true,
-				include: { model: resume, include: [
-					{
-						model: resume_title,
-						as: 'resume_title'
-					},
-					{
-						model: profession
-					},
-					{
-						model: resume_desired_job,
-						as: 'resume_desired_job'
-					},
-					{
-						model: user_account,
-						as: 'user_account'
-					},
-					{ model: my_attach, as: 'attachments' }
-				]}
+				include: {
+					model: resume,
+					include: [
+						{
+							model: resume_title,
+							as: 'resume_title'
+						},
+						{
+							model: profession
+						},
+						{
+							model: resume_desired_job,
+							as: 'resume_desired_job'
+						},
+						{
+							model: user_account,
+							as: 'user_account'
+						},
+						{ model: my_attach, as: 'attachments' }
+					]
+				}
 			}
 		});
 		return [data, pagination];
@@ -68,6 +75,16 @@ const employer_resumeService = {
 	},
 
 	async create(data) {
+		const findResume = await employer_resume.findOne({
+			where: {
+				user_account_id: data.user_account_id,
+				resume_id: data.resume_id
+			},
+			raw: true
+		});
+
+		if (findResume) throw createError(409, 'Bạn đã lưu hồ sơ này');
+
 		return await employer_resume.create(data);
 	},
 
