@@ -1,6 +1,14 @@
+import {
+	employer_resume,
+	my_attach,
+	profession,
+	resume_desired_job,
+	resume_title,
+	user_account
+} from '@src/models';
 import createError from 'http-errors';
-import { employer_resume } from '@src/models';
-import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '@src/helpers/databaseHelpers';
+
+import { findByPkAndDelete, findByPkAndUpdate, handlePaginate } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
 
@@ -12,16 +20,37 @@ const employer_resumeService = {
 		const limit = Number(query.limit) || 25;
 		const keyword = query.keyword ?? '';
 		const queryCondition = {};
-		
+
 		if (keyword) {
 			queryCondition.name = { [Op.substring]: keyword };
 		}
 
 		const [data, pagination] = await handlePaginate({
-			model:employer_resume,
+			model: employer_resume,
 			page,
 			limit,
-			condition: queryCondition
+			condition: queryCondition,
+			queries: {
+				nest: true,
+				include: [
+					{
+						model: resume_title,
+						as: 'resume_title'
+					},
+					{
+						model: profession
+					},
+					{
+						model: resume_desired_job,
+						as: 'resume_desired_job'
+					},
+					{
+						model: user_account,
+						as: 'user_account'
+					},
+					{ model: my_attach, as: 'attachments' }
+				]
+			}
 		});
 		return [data, pagination];
 	},
