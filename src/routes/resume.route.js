@@ -6,15 +6,19 @@ import ResumeController from '@src/controllers/resume.controller';
 import ResumeProfileController from '@src/controllers/resume_profile.controller';
 import ResumeValidation from '@src/validations/resume.validation';
 
-
 const router = express.Router();
 
 router.get('/', AuthMiddleWare.protect, ResumeController.getAll);
-router.get('/:id', AuthMiddleWare.protect, AuthMiddleWare.authPage([UserRoleEnum.JOBSEEKER]),ResumeController.getOne);
-router.get('/resume-profile/:user_id', AuthMiddleWare.protect, AuthMiddleWare.authPage([UserRoleEnum.JOBSEEKER]),ResumeProfileController.getOne);
+router.get('/:id', ResumeController.getOne);
+router.get(
+	'/resume-profile/:user_id',
+	AuthMiddleWare.protect,
+	AuthMiddleWare.authPage([UserRoleEnum.JOBSEEKER]),
+	ResumeProfileController.getOne
+);
 router.post('', ResumeController.create);
 
-router.patch('/:id',ResumeController.update);
+router.patch('/:id', ResumeController.update);
 
 router.patch(
 	'/update-resume-title/:resume_id',

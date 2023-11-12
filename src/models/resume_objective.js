@@ -10,8 +10,7 @@ module.exports = (sequelize, DataTypes) => {
 		static associate(models) {
 			// define association here
 			resume_objective.belongsTo(models.resume, {
-				foreignKey: 'resume_id',
-				as: 'resume_objective'
+				foreignKey: 'resume_id'
 			});
 		}
 	}

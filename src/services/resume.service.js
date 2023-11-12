@@ -10,7 +10,10 @@ import {
 	work_type,
 	welfare_desired_job,
 	job_welfare,
-	my_attach
+	my_attach,
+	resume_skill,
+	resume_language,
+	resume_objective
 } from '@src/models';
 import createError from 'http-errors';
 import { findByPkAndUpdate, handlePaginate, findOneAndUpdate } from '@src/helpers/databaseHelpers';
@@ -102,7 +105,6 @@ const resumeService = {
 			where: {
 				id
 			},
-
 			nest: true,
 			raw: true
 		});
@@ -114,6 +116,7 @@ const resumeService = {
 			},
 			include: { model: profession, as: 'profession' }
 		});
+
 		const resumeWorkType = await resume_work_type.findAll({
 			where: {
 				resume_id: id
@@ -152,6 +155,46 @@ const resumeService = {
 				profession_desired_job: professionDesired,
 				resume_work_type: resumeWorkType,
 				welfare_desired_job: welfareDesiredJob
+			};
+		}
+
+		if (resume_type_id == 1) {
+			// resume_type_id == 1 resume_profile
+			const resumeSkill = await resume_skill.findAll({
+				where: {
+					resume_id: id
+				}
+			});
+			const resumeLanguage = await resume_language.findAll({
+				where: {
+					resume_id: id
+				}
+			});
+			const findResumeByType = await resume.findOne({
+				where: {
+					id
+				},
+				include: [
+					{ model: resume_title, as: 'resume_title' },
+					{
+						model: user_account,
+						as: 'user_account',
+						include: { model: resume_profile }
+					},
+					{ model: resume_desired_job, as: 'resume_desired_job' },
+					{ model: resume_objective, as: 'resume_objective' }
+				],
+				nest: true,
+				raw: true
+			});
+
+			return {
+				...findResumeByType,
+				profession_desired_job: professionDesired,
+				resume_work_type: resumeWorkType,
+				welfare_desired_job: welfareDesiredJob,
+				resume_skill: resumeSkill,
+				resume_language: resumeLanguage
 			};
 		}
 

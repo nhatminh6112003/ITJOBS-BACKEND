@@ -4,7 +4,8 @@ import {
 	profession,
 	resume_desired_job,
 	resume_title,
-	user_account
+	user_account,
+	resume
 } from '@src/models';
 import createError from 'http-errors';
 
@@ -32,7 +33,7 @@ const employer_resumeService = {
 			condition: queryCondition,
 			queries: {
 				nest: true,
-				include: [
+				include: { model: resume, include: [
 					{
 						model: resume_title,
 						as: 'resume_title'
@@ -49,7 +50,7 @@ const employer_resumeService = {
 						as: 'user_account'
 					},
 					{ model: my_attach, as: 'attachments' }
-				]
+				]}
 			}
 		});
 		return [data, pagination];
