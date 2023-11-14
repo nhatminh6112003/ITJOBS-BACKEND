@@ -1,4 +1,3 @@
-import createError from 'http-errors';
 
 const fs = require('fs');
 const path = require('path');

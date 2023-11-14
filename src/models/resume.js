@@ -35,10 +35,10 @@ module.exports = (sequelize, DataTypes) => {
 				as: 'resume_language'
 			});
 			resume.hasOne(models.resume_objective, {
-				foreignKey: 'resume_id',
+				foreignKey: 'resume_id'
 			});
 			resume.hasMany(models.resume_skill, {
-				foreignKey: 'resume_id',
+				foreignKey: 'resume_id'
 			});
 			resume.hasMany(models.resume_refer, {
 				foreignKey: 'resume_id',
@@ -64,11 +64,11 @@ module.exports = (sequelize, DataTypes) => {
 				otherKey: 'work_type_id',
 				as: 'work_type'
 			});
-			
+
 			resume.belongsToMany(models.profession, {
 				through: 'profession_desired_job',
 				foreignKey: 'resume_id',
-				otherKey: 'profession_id',
+				otherKey: 'profession_id'
 			});
 
 			resume.hasMany(models.resume_education, {

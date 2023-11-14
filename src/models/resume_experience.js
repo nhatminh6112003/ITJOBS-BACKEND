@@ -14,10 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 			resume_experience.belongsTo(models.resume, {
 				foreignKey: 'resume_id',
 			});
-			resume_experience.belongsTo(models.resume_work_type, {
-				foreignKey: 'rexp_worktype_id',
-				as: 'resume_work_type'
-			});
+		
 		}
 	}
 	resume_experience.init(

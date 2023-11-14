@@ -58,11 +58,13 @@ const resumeService = {
 		if (query.provinces) {
 			queryResumeProfileCondition.provinces = { [Op.eq]: query.provinces };
 		}
-		// tìm theo trạng thái hồ sơ
 
+		// tìm theo trạng thái hồ sơ
 		if (query.resume_active == resumeActiveEnum.FLASH || query.resume_active == resumeActiveEnum.PUBLIC) {
 			queryCondition.resume_active = { [Op.eq]: query.resume_active };
 		}
+
+		
 
 		const [data, pagination] = await handlePaginate({
 			model: resume,
@@ -99,7 +101,6 @@ const resumeService = {
 		});
 		return [data, pagination];
 	},
-	// async getAllByResumeId
 	async getOne(id) {
 		const findResume = await resume.findOne({
 			where: {
@@ -159,17 +160,6 @@ const resumeService = {
 		}
 
 		if (resume_type_id == 1) {
-			// resume_type_id == 1 resume_profile
-			const resumeSkill = await resume_skill.findAll({
-				where: {
-					resume_id: id
-				}
-			});
-			const resumeLanguage = await resume_language.findAll({
-				where: {
-					resume_id: id
-				}
-			});
 			const findResumeByType = await resume.findOne({
 				where: {
 					id
@@ -182,20 +172,23 @@ const resumeService = {
 						include: { model: resume_profile }
 					},
 					{ model: resume_desired_job, as: 'resume_desired_job' },
-					{ model: resume_objective, as: 'resume_objective' }
+					{ model: resume_objective, as: 'resume_objective' },
+					{ model: resume_skill },
+					{ model: resume_language, as: 'resume_language' },
+					{ model: work_type, as: 'work_type' }
 				],
-				nest: true,
-				raw: true
+				nest: true
 			});
 
-			return {
-				...findResumeByType,
-				profession_desired_job: professionDesired,
-				resume_work_type: resumeWorkType,
-				welfare_desired_job: welfareDesiredJob,
-				resume_skill: resumeSkill,
-				resume_language: resumeLanguage
-			};
+			// return {
+			// 	...findResumeByType,
+			// 	profession_desired_job: professionDesired,
+			// 	resume_work_type: resumeWorkType,
+			// 	welfare_desired_job: welfareDesiredJob,
+			// 	resume_skill: resumeSkill,
+			// 	resume_language: resumeLanguage
+			// };
+			return findResumeByType;
 		}
 
 		return findResume;

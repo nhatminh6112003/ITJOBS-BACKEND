@@ -1,3 +1,6 @@
+// eslint-disable-next-line import/no-extraneous-dependencies, import/no-import-module-exports
+import { v4 as uuidv4 } from 'uuid';
+
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
@@ -18,7 +21,6 @@ module.exports = (sequelize, DataTypes) => {
 		{
 			id: {
 				type: DataTypes.UUID,
-				defaultValue: DataTypes.UUIDV4,
 				primaryKey: true
 			},
 			resume_id: DataTypes.UUID,

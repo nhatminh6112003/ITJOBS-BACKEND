@@ -14,6 +14,7 @@ import createError from 'http-errors';
 import { Sequelize } from 'sequelize';
 import sendMail from '@src/helpers/mailer';
 import mailTemplate from '@src/helpers/emailTemplate';
+import { resumeActiveEnum } from '@src/constants/resumeStatus';
 
 const { Op } = Sequelize;
 
@@ -24,6 +25,7 @@ const jobPostActivityService = {
 		const limit = Number(query.limit) || 25;
 		const queryCondition = {};
 		const queryConditionOther = {};
+		const queryConditionResume = {};
 
 		if (query.user_account_id) {
 			const { user_account_id } = query;
@@ -33,6 +35,16 @@ const jobPostActivityService = {
 			const { posted_by_id } = query;
 			queryConditionOther.posted_by_id = { [Op.eq]: posted_by_id };
 		}
+
+		if (query.resume_active == resumeActiveEnum.FLASH || query.resume_active == resumeActiveEnum.PUBLIC) {
+			queryConditionResume.resume_active = { [Op.eq]: query.resume_active };
+		}
+
+		if (query.fromDate && query.toDate) {
+			const { fromDate, toDate } = query;
+			queryCondition.apply_date = { [Op.between]: [fromDate, toDate] };
+		}
+		
 		const [data, pagination] = await handlePaginate({
 			model: job_post_activity,
 			page,
@@ -46,7 +58,8 @@ const jobPostActivityService = {
 					{ model: user_account, as: 'user_account', include: { model: resume_profile } },
 					{
 						model: resume,
-						include: [{ model: resume_title }, { model: my_attach }]
+						include: [{ model: resume_title }, { model: my_attach }],
+						where: Object.keys(queryConditionResume).length > 0 ? queryConditionResume : null
 					}
 				]
 			}
@@ -129,12 +142,12 @@ const jobPostActivityService = {
 	},
 	async sendMailJobSeeker(data) {
 		const { user_account_id, title, content } = data;
-		const user =await user_account.findOne({
+		const user = await user_account.findOne({
 			where: {
 				id: user_account_id
 			}
 		});
-			sendMail(user.email, title, mailTemplate(content));
+		sendMail(user.email, title, mailTemplate(content));
 	},
 	async delete(id) {
 		return await findByPkAndDelete(job_post_activity, id);
