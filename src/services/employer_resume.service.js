@@ -64,7 +64,7 @@ const employer_resumeService = {
 						{
 							model: resume_title,
 							as: 'resume_title',
-							where: Object.keys(queryConditionResumeTitle).length > 0 ? queryConditionResume : null,
+							where: Object.keys(queryConditionResumeTitle).length > 0 ? queryConditionResumeTitle : null,
 						},
 						{
 							model: profession

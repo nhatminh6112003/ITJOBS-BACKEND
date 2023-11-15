@@ -68,7 +68,7 @@ const jobPostActivityService = {
 						include: [
 							{
 								model: resume_title,
-								where: Object.keys(queryConditionResumeTitle).length > 0 ? queryConditionResume : null
+								where: Object.keys(queryConditionResumeTitle).length > 0 ? queryConditionResumeTitle : null
 							},
 							{ model: my_attach }
 						],
