@@ -1,5 +1,5 @@
 import createError from 'http-errors';
-import { job_saved, user_account, job_post } from '@src/models';
+import { job_saved, user_account, job_post,company } from '@src/models';
 import { findByPkAndUpdate, findByPkAndDelete } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
 
@@ -12,7 +12,7 @@ const jobSavedService = {
 			},
 			include: [
 				{ model: user_account, as: 'user_account' },
-				{ model: job_post, as: 'job_post_saved' }
+				{ model: job_post, include: { model: company }, as: 'job_post_saved' }
 			]
 		});
 		if (!findSaved) throw createError(404, 'Không tìm thấy bản ghi');
@@ -34,12 +34,12 @@ const jobSavedService = {
 		const findResume = await job_saved.findOne({
 			where: {
 				user_account_id: data.user_account_id,
-				resume_id: data.resume_id
+				job_id: data.job_id
 			},
 			raw: true
 		});
 
-		if (findResume) throw createError(409, 'Bạn đã lưu hồ sơ này');
+		if (findResume) throw createError(409, 'Bạn đã lưu việc làm này');
 
 		return await job_saved.create(data);
 	},

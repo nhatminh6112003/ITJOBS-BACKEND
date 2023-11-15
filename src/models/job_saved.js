@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
 			});
 
 			job_saved.belongsTo(models.job_post, {
-				foreignKey: 'job_post',
+				foreignKey: 'job_id',
 				as: 'job_post_saved',
 			});
 		}
