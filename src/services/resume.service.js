@@ -64,7 +64,11 @@ const resumeService = {
 			queryCondition.resume_active = { [Op.eq]: query.resume_active };
 		}
 
-		
+		if (query.isFindJobSeeker) {
+			queryCondition.resume_active = {
+				[Op.or]: [resumeActiveEnum.FLASH, resumeActiveEnum.PUBLIC]
+			};
+		}
 
 		const [data, pagination] = await handlePaginate({
 			model: resume,

@@ -26,6 +26,13 @@ const jobPostActivityService = {
 		const queryCondition = {};
 		const queryConditionOther = {};
 		const queryConditionResume = {};
+		const queryConditionResumeTitle = {};
+
+		if (query.keyword) {
+			queryConditionResumeTitle.title = {
+				[Op.substring]: query.keyword
+			};
+		}
 
 		if (query.user_account_id) {
 			const { user_account_id } = query;
@@ -44,7 +51,7 @@ const jobPostActivityService = {
 			const { fromDate, toDate } = query;
 			queryCondition.apply_date = { [Op.between]: [fromDate, toDate] };
 		}
-		
+
 		const [data, pagination] = await handlePaginate({
 			model: job_post_activity,
 			page,
@@ -58,7 +65,13 @@ const jobPostActivityService = {
 					{ model: user_account, as: 'user_account', include: { model: resume_profile } },
 					{
 						model: resume,
-						include: [{ model: resume_title }, { model: my_attach }],
+						include: [
+							{
+								model: resume_title,
+								where: Object.keys(queryConditionResumeTitle).length > 0 ? queryConditionResume : null
+							},
+							{ model: my_attach }
+						],
 						where: Object.keys(queryConditionResume).length > 0 ? queryConditionResume : null
 					}
 				]

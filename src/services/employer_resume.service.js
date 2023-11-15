@@ -12,6 +12,7 @@ import createError from 'http-errors';
 import { findByPkAndDelete, findByPkAndUpdate, handlePaginate } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
+import { resumeActiveEnum } from '@src/constants/resumeStatus';
 
 const { Op } = Sequelize;
 dotenv.config();
@@ -21,13 +22,32 @@ const employer_resumeService = {
 		const limit = Number(query.limit) || 25;
 		const keyword = query.keyword ?? '';
 		const queryCondition = {};
+		const queryConditionResume = {};
+		const queryConditionResumeTitle = {};
 
+
+		
+		if (keyword) {
+			queryConditionResumeTitle.title = {
+				[Op.substring]: query.keyword
+			};
+		}
+		
 		if (query.user_account_id) {
 			const { user_account_id } = query;
 			queryCondition.user_account_id = { [Op.eq]: user_account_id };
 		}
 		if (keyword) {
 			queryCondition.name = { [Op.substring]: keyword };
+		}
+
+		if (query.resume_active == resumeActiveEnum.FLASH || query.resume_active == resumeActiveEnum.PUBLIC) {
+			queryConditionResume.resume_active = { [Op.eq]: query.resume_active };
+		}
+
+		if (query.fromDate && query.toDate) {
+			const { fromDate, toDate } = query;
+			queryCondition.createdAt = { [Op.between]: [fromDate, toDate] };
 		}
 
 		const [data, pagination] = await handlePaginate({
@@ -39,10 +59,12 @@ const employer_resumeService = {
 				nest: true,
 				include: {
 					model: resume,
+					where: Object.keys(queryConditionResume).length > 0 ? queryConditionResume : null,
 					include: [
 						{
 							model: resume_title,
-							as: 'resume_title'
+							as: 'resume_title',
+							where: Object.keys(queryConditionResumeTitle).length > 0 ? queryConditionResume : null,
 						},
 						{
 							model: profession
