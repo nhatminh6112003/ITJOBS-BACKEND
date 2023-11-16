@@ -10,7 +10,12 @@ module.exports = (sequelize, DataTypes) => {
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-			// define association here
+			service.belongsTo(models.service_type, {
+				foreignKey: 'service_type_id'
+			});
+			service.belongsTo(models.benefits, {
+				foreignKey: 'benefits_id'
+			});
 		}
 	}
 	service.init(

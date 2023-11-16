@@ -1,16 +1,38 @@
 import createError from 'http-errors';
-import { service } from '@src/models';
-import { findByPkAndUpdate, findByPkAndDelete } from '@src/helpers/databaseHelpers';
+import { service, service_type, benefits } from '@src/models';
+import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
+import { Sequelize } from 'sequelize';
+
+const { Op } = Sequelize;
 
 dotenv.config();
 
 const serviceService = {
-	async getAll() {
-		const findResumeRefer = await service.findAll();
-		if (!findResumeRefer) throw createError(404, 'Không tìm thấy bản ghi');
-		return findResumeRefer;
+	async getAll(query) {
+		const page = Number(query.page) || 1;
+		const limit = Number(query.limit) || 25;
+		const keyword = query.keyword ?? '';
+		const queryCondition = {};
+
+		if (keyword) {
+			queryCondition.name = { [Op.substring]: keyword };
+		}
+
+		const [data, pagination] = await handlePaginate({
+			model: service,
+			page,
+			limit,
+			condition: queryCondition,
+			queries: {
+				nest: true,
+				include: [{ model: service_type }, { model: benefits }]
+			},
+			nest: true
+		});
+		return [data, pagination];
 	},
+
 	async getOne(id) {
 		const findResume = await service.findOne({
 			where: {
