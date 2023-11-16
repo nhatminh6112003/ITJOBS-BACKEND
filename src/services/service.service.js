@@ -32,6 +32,17 @@ const serviceService = {
 
 	async delete(id) {
 		return await findByPkAndDelete(service, id);
+	},
+
+	async getAllByServiceType(service_type_id) {
+		const findService = await service.findAll({
+			where: {
+				service_type_id
+			},
+			raw: true
+		});
+		if (!findService) throw createError(404, 'Không tìm thấy bản ghi');
+		return findService;
 	}
 };
 
