@@ -6,7 +6,9 @@ import {
 	job_profession_detail,
 	profession,
 	work_type,
-	company
+	company,
+	sequelize,
+	job_post_activity
 } from '@src/models';
 import { findByPkAndUpdate, findOneAndUpdate, handlePaginate } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
@@ -25,8 +27,6 @@ const jobPostService = {
 		const queryCondition = {};
 		const queryProfessionCondition = {};
 
-
-		
 		if (keyword) {
 			queryCondition.job_title = {
 				[Op.substring]: query.keyword
@@ -70,8 +70,8 @@ const jobPostService = {
 		}
 		// salary
 		if (query.salary) {
-		const { salary } = query;
-		queryCondition.min_salary = { [Op.gte]: salary };
+			const { salary } = query;
+			queryCondition.min_salary = { [Op.gte]: salary };
 		}
 
 		// TỈnh thành phố
@@ -201,6 +201,79 @@ const jobPostService = {
 		const publishStatus = await job_post.count({ where: { status: { [Op.eq]: jobPostStatusEnum.Publish } } });
 		const pauseStatus = await job_post.count({ where: { status: { [Op.eq]: jobPostStatusEnum.Pause } } });
 		return { pendingStatus, expiredStatus, pauseStatus, publishStatus };
+	},
+
+	async calculateCorrelationIndex(query) {
+		const { startDate, endDate, user_account_id } = query;
+		const results = await job_post.findAll({
+			attributes: [
+				[sequelize.fn('DATE_FORMAT', sequelize.col('posted_date'), '%d/%m'), 'day'],
+				[sequelize.literal('COUNT(*)'), 'total_jobs']
+			],
+			where: {
+				posted_date: {
+					[Sequelize.Op.between]: [startDate, endDate]
+				},
+				posted_by_id: user_account_id
+			},
+			group: ['day']
+		});
+		const resultJobPostActivity = await job_post_activity.findAll({
+			attributes: [
+				[sequelize.fn('DATE_FORMAT', sequelize.col('apply_date'), '%d/%m'), 'day'],
+				[sequelize.literal('COUNT(*)'), 'total_resume']
+			],
+			where: {
+				apply_date: {
+					[Sequelize.Op.between]: [startDate, endDate]
+				}
+			},
+			group: ['day']
+		});
+		const daysBetween = this.calculateDaysDifference(startDate, endDate);
+
+		const data_1 = Array(daysBetween).fill(0);
+		const data_2 = Array(daysBetween).fill(0);
+
+		const label = [];
+
+		const currentDate = new Date(startDate);
+		while (currentDate <= new Date(endDate)) {
+			const formattedDate = `${currentDate.getDate()}/${currentDate.getMonth() + 1}`;
+			label.push(formattedDate);
+			currentDate.setDate(currentDate.getDate() + 1);
+		}
+
+		results.forEach((result) => {
+			const { day } = result.dataValues;
+			const totalJobs = result.dataValues.total_jobs;
+			const dayIndex = label.indexOf(day);
+			data_1[dayIndex] = totalJobs;
+		});
+		resultJobPostActivity.forEach((result) => {
+			const { day } = result.dataValues;
+			const totalResume = result.dataValues.total_resume;
+			const dayIndex = label.indexOf(day);
+			data_2[dayIndex] = totalResume;
+		});
+
+		return {
+			data_1,
+			data_2,
+			label,
+			title_1: 'Việc làm',
+			title_2: 'Ứng tuyển'
+		};
+	},
+
+	calculateDaysDifference(start_date, end_date) {
+		const startDateObj = new Date(start_date);
+		const endDateObj = new Date(end_date);
+
+		const timeDifference = endDateObj - startDateObj;
+		const daysDifference = Math.ceil(timeDifference / (24 * 60 * 60 * 1000));
+
+		return daysDifference + 1;
 	}
 };
 

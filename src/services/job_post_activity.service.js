@@ -56,23 +56,23 @@ const jobPostActivityService = {
 			model: job_post_activity,
 			page,
 			limit,
-			condition: queryCondition,
 			queries: {
-				raw: true,
 				nest: true,
 				include: [
 					{ model: job_post, where: queryConditionOther, include: { model: company } },
 					{ model: user_account, as: 'user_account', include: { model: resume_profile } },
 					{
 						model: resume,
+						required: false,
+						where: Object.keys(queryConditionResume).length > 0 ? queryConditionResume : null,
 						include: [
 							{
 								model: resume_title,
-								where: Object.keys(queryConditionResumeTitle).length > 0 ? queryConditionResumeTitle : null
+								where: Object.keys(queryConditionResumeTitle).length > 0 ? queryConditionResumeTitle : null,
+								required: false
 							},
 							{ model: my_attach }
-						],
-						where: Object.keys(queryConditionResume).length > 0 ? queryConditionResume : null
+						]
 					}
 				]
 			}

@@ -5,7 +5,7 @@ const jobPostController = {
 	async getAll(req, res) {
 		const { query } = req;
 		const [data, pagination] = await jobPostService.getAll(query);
-		return res.apiResponse(data,pagination);
+		return res.apiResponse(data, pagination);
 	},
 	async getOne(req, res) {
 		const { id } = req.params;
@@ -15,9 +15,13 @@ const jobPostController = {
 
 	async analytic(req, res) {
 		const data = await jobPostService.analytic();
-		return res.apiResponse(data)
+		return res.apiResponse(data);
 	},
-
+	async calculateCorrelationIndex(req, res) {
+		const { query } = req;
+		const data = await jobPostService.calculateCorrelationIndex(query);
+		return res.apiResponse(data);
+	},
 	async create(req, res) {
 		const data = req.body;
 		const handleCreate = await jobPostService.create(data);
