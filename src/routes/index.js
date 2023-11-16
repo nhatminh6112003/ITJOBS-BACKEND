@@ -32,7 +32,7 @@ import resumeProfile from './resume_profile.route.js';
 import serviceTypeRoutes from './service_type.route.js';
 import serviceRoutes from './service.route.js';
 import benefitsRoutes from './benefits.route.js';
-import userServiceRoutes from './user_service.route.js';
+import companyServiceRoutes from './company_service.route.js';
 import price_listRoutes from './price_list.route.js';
 import employer_resumeRoutes from './employer_resume.route.js';
 
@@ -74,7 +74,7 @@ function route(app) {
 	apiRoutes.use('/service_type', serviceTypeRoutes);
 	apiRoutes.use('/service', serviceRoutes);
 	apiRoutes.use('/benefits', benefitsRoutes);
-	apiRoutes.use('/user_service', userServiceRoutes);
+	apiRoutes.use('/company_service', companyServiceRoutes);
 	apiRoutes.use('/price_list', price_listRoutes);
 	apiRoutes.use('/employer_resume', employer_resumeRoutes);
 
