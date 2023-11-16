@@ -228,7 +228,15 @@ const jobPostService = {
 					[Sequelize.Op.between]: [startDate, endDate]
 				}
 			},
-			group: ['day']
+			include: [
+				{
+					model: job_post,
+					where: {
+						posted_by_id: user_account_id
+					}
+				}
+			],
+			group: ['day', 'job_post.id']
 		});
 		const daysBetween = this.calculateDaysDifference(startDate, endDate);
 
@@ -265,7 +273,152 @@ const jobPostService = {
 			title_2: 'Ứng tuyển'
 		};
 	},
+	async analyticJobSeekerApplyByDay(query) {
+		const { startDate, endDate, user_account_id } = query;
 
+		const daysBetween = this.calculateDaysDifference(startDate, endDate);
+		const results = await job_post_activity.findAll({
+			attributes: [
+				[sequelize.fn('DATE_FORMAT', sequelize.col('apply_date'), '%d/%m'), 'day'],
+				[sequelize.literal('COUNT(*)'), 'total_resume']
+			],
+			where: {
+				apply_date: {
+					[Sequelize.Op.between]: [startDate, endDate]
+				}
+			},
+			include: [
+				{
+					model: job_post,
+					where: {
+						posted_by_id: user_account_id
+					}
+				}
+			],
+			group: ['day', 'job_post.id']
+		});
+		const data_1 = Array(daysBetween).fill(0);
+		const label = [];
+
+		const currentDate = new Date(startDate);
+		while (currentDate <= new Date(endDate)) {
+			const formattedDate = `${currentDate.getDate()}/${currentDate.getMonth() + 1}`;
+			label.push(formattedDate);
+			currentDate.setDate(currentDate.getDate() + 1);
+		}
+		results.forEach((result) => {
+			const { day } = result.dataValues;
+			const totalResume = result.dataValues.total_resume;
+			const dayIndex = label.indexOf(day);
+			data_1[dayIndex] = totalResume;
+		});
+		return {
+			data_1,
+			label
+		};
+	},
+
+	async analyticResumeStatus(query) {
+		const { startDate, endDate, user_account_id } = query;
+
+		const ResumeStatusEnum = {
+			UNDECIDED: 0, // Chưa quyết định
+			NOT_MATCHED: 1, // Không phù hợp
+			REJECTED: 2, // Từ chối
+			UNDER_REVIEW: 3, // Kiểm tra
+			INTERVIEW: 4, // Phỏng vấn
+			OFFERED: 5, // Đề nghị tuyển dụng
+			HIRED: 6 // Nhận việc
+		};
+		const ResumeStatusOptions = [
+			{ label: 'Chưa quyết định', value: ResumeStatusEnum.UNDECIDED },
+			{ label: 'Không phù hợp', value: ResumeStatusEnum.NOT_MATCHED },
+			{ label: 'Từ chối', value: ResumeStatusEnum.REJECTED },
+			{ label: 'Kiểm tra', value: ResumeStatusEnum.UNDER_REVIEW },
+			{ label: 'Phỏng vấn', value: ResumeStatusEnum.INTERVIEW },
+			{ label: 'Đề nghị tuyển dụng', value: ResumeStatusEnum.OFFERED },
+			{ label: 'Nhận việc', value: ResumeStatusEnum.HIRED }
+		];
+
+		const getStatusCount = async (status) =>
+			job_post_activity.count({
+				where: {
+					apply_date: {
+						[Sequelize.Op.between]: [startDate, endDate]
+					},
+					status
+				},
+				include: [
+					{
+						model: job_post,
+						where: {
+							posted_by_id: user_account_id
+						}
+					}
+				]
+			});
+		const statusCounts = [];
+
+		await Promise.all(
+			Object.values(ResumeStatusEnum).map(async (status) => {
+				const count = await getStatusCount(status);
+				statusCounts.push(count);
+			})
+		);
+
+		return {
+			data_1: statusCounts,
+			label: ResumeStatusOptions.map((item) => item.label)
+		};
+	},
+
+	async analyticDegreeValue(query) {
+		const { startDate, endDate, user_account_id } = query;
+
+		const DegreeEnum = {
+			CHUA_TOT_NGHIEP: 0, // Chưa tốt nghiệp
+			TRUNG_HOC: 1, // Trung học
+			TRUNG_CAP: 2, // Trung cấp
+			CAO_DANG: 3, // Cao đẳng
+			DAI_HOC: 4, // Đại học
+			SAU_DAI_HOC: 5, // Sau đại học
+			KHAC: 6 // Khác
+		};
+		const DegreeOptions = [
+			{ label: 'Chưa tốt nghiệp', value: 0 },
+			{ label: 'Trung học', value: 1 },
+			{ label: 'Trung cấp', value: 2 },
+			{ label: 'Cao đẳng', value: 3 },
+			{ label: 'Đại học', value: 4 },
+			{ label: 'Sau đại học', value: 5 },
+			{ label: 'Khác', value: 6 }
+		];
+
+		const getDegreeCount = async (degree) =>
+			job_post.count({
+				where: {
+					posted_date: {
+						[Sequelize.Op.between]: [startDate, endDate]
+					},
+					posted_by_id: user_account_id,
+					job_degree_value: degree
+				}
+			});
+
+		const degreeCounts = [];
+
+		await Promise.all(
+			Object.values(DegreeEnum).map(async (degree) => {
+				const count = await getDegreeCount(degree);
+				degreeCounts.push(count);
+			})
+		);
+
+		return {
+			data_1: degreeCounts,
+			label: DegreeOptions.map((item) => item.label)
+		};
+	},
 	calculateDaysDifference(start_date, end_date) {
 		const startDateObj = new Date(start_date);
 		const endDateObj = new Date(end_date);

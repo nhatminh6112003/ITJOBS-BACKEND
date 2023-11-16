@@ -22,6 +22,21 @@ const jobPostController = {
 		const data = await jobPostService.calculateCorrelationIndex(query);
 		return res.apiResponse(data);
 	},
+	async analyticJobSeekerApplyByDay(req, res) {
+		const { query } = req;
+		const data = await jobPostService.analyticJobSeekerApplyByDay(query);
+		return res.apiResponse(data);
+	},
+	async analyticResumeStatus(req, res) {
+		const { query } = req;
+		const data = await jobPostService.analyticResumeStatus(query);
+		return res.apiResponse(data);
+	},
+	async analyticDegreeValue(req, res) {
+		const { query } = req;
+		const data = await jobPostService.analyticDegreeValue(query);
+		return res.apiResponse(data);
+	},
 	async create(req, res) {
 		const data = req.body;
 		const handleCreate = await jobPostService.create(data);
