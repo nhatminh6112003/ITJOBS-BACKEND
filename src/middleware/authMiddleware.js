@@ -35,6 +35,7 @@ const AuthMiddleWare = {
 			}
 			next(error);
 		}
+		return token;
 	},
 
 	authPage(permission) {
@@ -42,10 +43,10 @@ const AuthMiddleWare = {
 			const { user_type_id } = req.user;
 			try {
 				if (!user_type_id) {
-					throw createError(401, 'You dont have permission');
+					throw createError(401, `You don't have permission`);
 				}
 				if (!permission.includes(user_type_id)) {
-					throw createError(401, 'You dont have permission');
+					throw createError(401, `You don't have permission`);
 				}
 				next();
 			} catch (error) {
