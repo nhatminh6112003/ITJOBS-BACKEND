@@ -1,34 +1,34 @@
 import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import companyService from '@src/services/company.service';
+import company_serviceService from '@src/services/company_service.service';
 
 const companyServiceController = {
 	async getAll(req, res) {
-		const data = await companyService.getAll();
+		const data = await company_serviceService.getAll();
 		return res.apiResponse(data);
 	},
 
 	async getOne(req, res) {
 		const { id } = req.params;
-		const data = await companyService.getOne(id);
+		const data = await company_serviceService.getOne(id);
 		return res.apiResponse(data);
 	},
 
 	async create(req, res) {
 		const data = req.body;
-		const handleCreate = await companyService.create(data);
+		const handleCreate = await company_serviceService.create(data);
 		return res.apiResponse(handleCreate);
 	},
 
 	async update(req, res) {
 		const data = req.body;
 		const { id } = req.params;
-		const handleUpdate = await companyService.update(id, data);
+		const handleUpdate = await company_serviceService.update(id, data);
 		return res.apiResponse(handleUpdate);
 	},
 
 	async delete(req, res) {
 		const { id } = req.params;
-		await companyService.delete(id);
+		await company_serviceService.delete(id);
 		return res.apiResponse();
 	}
 };
