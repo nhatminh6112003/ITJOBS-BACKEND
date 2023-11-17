@@ -35,6 +35,7 @@ import benefitsRoutes from './benefits.route.js';
 import companyServiceRoutes from './company_service.route.js';
 import price_listRoutes from './price_list.route.js';
 import employer_resumeRoutes from './employer_resume.route.js';
+import feedbackRoutes from './feedback.route.js';
 
 function route(app) {
 	const apiRoutes = Router();
@@ -77,6 +78,7 @@ function route(app) {
 	apiRoutes.use('/company_service', companyServiceRoutes);
 	apiRoutes.use('/price_list', price_listRoutes);
 	apiRoutes.use('/employer_resume', employer_resumeRoutes);
+apiRoutes.use('/feedback', feedbackRoutes);
 
 	app.use('/api', apiRoutes);
 }
