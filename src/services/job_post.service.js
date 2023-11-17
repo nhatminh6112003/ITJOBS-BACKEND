@@ -59,6 +59,12 @@ const jobPostService = {
 			queryCondition.isDeleted = { [Op.eq]: isDeleted };
 		}
 
+		if (query.company_id) {
+			const { company_id } = query;
+			queryCondition.company_id = { [Op.eq]: company_id };
+		}
+
+
 		if (query.status) {
 			const { status } = query;
 			queryCondition.status = { [Op.eq]: status };
