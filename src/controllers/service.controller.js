@@ -60,7 +60,7 @@ const serviceController = {
 		const orderId = moment(date).format('DDHHmmss');
 		const { amount } = req.body;
 		const { bankCode } = req.body;
-
+		const { info } = req.body;
 		let locale = req.body.language;
 		if (locale === null || locale === '') {
 			locale = 'vn';
@@ -73,7 +73,7 @@ const serviceController = {
 		vnp_Params.vnp_Locale = locale;
 		vnp_Params.vnp_CurrCode = currCode;
 		vnp_Params.vnp_TxnRef = orderId;
-		vnp_Params.vnp_OrderInfo = `Thanh toan cho ma GD:${orderId}`;
+		vnp_Params.vnp_OrderInfo = info;
 		vnp_Params.vnp_OrderType = 'other';
 		vnp_Params.vnp_Amount = amount * 100;
 		vnp_Params.vnp_ReturnUrl = returnUrl;
