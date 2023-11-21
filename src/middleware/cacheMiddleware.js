@@ -1,3 +1,9 @@
 import apicache from 'apicache';
 
-export const cacheMiddleware = apicache.middleware;
+apicache.options({
+	headers: {
+		'x-apicache-bypass': true
+	}
+});
+const cacheMiddleware = apicache.middleware;
+export default cacheMiddleware;

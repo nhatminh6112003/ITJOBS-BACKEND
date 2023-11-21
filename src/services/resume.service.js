@@ -6,14 +6,18 @@ import {
 	user_account,
 	profession_desired_job,
 	resume_desired_job,
-	resume_work_type,
 	work_type,
 	welfare_desired_job,
 	job_welfare,
 	my_attach,
 	resume_skill,
 	resume_language,
-	resume_objective
+	resume_objective,
+	resume_experience,
+	resume_addioninfo,
+	resume_education,
+	resume_certificate,
+	resume_work_type
 } from '@src/models';
 import createError from 'http-errors';
 import { findByPkAndUpdate, handlePaginate, findOneAndUpdate } from '@src/helpers/databaseHelpers';
@@ -87,6 +91,7 @@ const resumeService = {
 						model: profession,
 						where: Object.keys(queryProfessionCondition).length > 0 ? queryProfessionCondition : null
 					},
+					{model:work_type,as:'work_type'},
 					{
 						model: resume_desired_job,
 						as: 'resume_desired_job'
@@ -179,7 +184,12 @@ const resumeService = {
 					{ model: resume_objective, as: 'resume_objective' },
 					{ model: resume_skill },
 					{ model: resume_language, as: 'resume_language' },
-					{ model: work_type, as: 'work_type' }
+					{ model: work_type, as: 'work_type' },
+					{ model: resume_experience },
+					{ model: resume_addioninfo, as: 'resume_addioninfo' },
+					{ model: resume_education, as: 'resume_education' },
+					{ model: resume_certificate, as: 'resume_certificate' },
+					{model:profession}
 				],
 				nest: true
 			});

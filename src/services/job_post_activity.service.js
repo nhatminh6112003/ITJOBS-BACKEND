@@ -108,6 +108,8 @@ const jobPostActivityService = {
 			raw: true,
 			nest: true
 		});
+		console.log("TCL: create -> findJobPostActivity", findJobPostActivity)
+
 		sendMail(
 			findJobPostActivity.user_account.email,
 			'Ứng tuyển thành công',
