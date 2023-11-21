@@ -29,11 +29,8 @@ const UserController = {
 		await userService.delete(id);
 		return res.apiResponse();
 	},
-	async downloadCvProfile(req, res) {
-		await userService.generatePdf(res);
-	},
-	async dowloadPdf(req, res) {
-		await userService.dowloadPdf(req, res);
+	async downloadPdf(req, res) {
+		await userService.downloadPdf(req, res);
 	},
 	async viewPdf(req, res) {
 		res.render('template', { data: [1, 2, 3], layout: null });

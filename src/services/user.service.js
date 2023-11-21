@@ -68,27 +68,7 @@ const userService = {
 		return deleteUser;
 	},
 
-	async generatePdf(res) {
-		try {
-			const htmlFilePath = '../views/template.hbs';
-			const absoluteHtmlFilePath = path.resolve(__dirname, htmlFilePath);
-			const html = await fs.readFileSync(absoluteHtmlFilePath, 'utf8');
-			const browser = await puppeteer.launch();
-			const page = await browser.newPage();
-			await page.setContent(html);
-
-			const pdf = await page.pdf({ format: 'A4' });
-
-			res.contentType('application/pdf');
-
-			res.send(pdf);
-			await browser.close();
-		} catch (error) {
-			res.json(responseStatus.INTERNAL_SERVER_ERROR);
-		}
-	},
-
-	async dowloadPdf(req, res) {
+	async downloadPdf(req, res) {
 		const { url } = req.body;
 		try {
 			const browser = await puppeteer.launch();

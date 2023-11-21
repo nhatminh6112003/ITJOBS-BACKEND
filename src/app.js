@@ -5,7 +5,6 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import * as path from 'path';
 import route from './routes/index.js';
-import configViewEngine from './config/viewEngine.js';
 import errorHandler from './middleware/errorHandler.js';
 import apiResponse from './middleware/apiResponse.js';
 import { connectDb } from './config/connectDB.js';
@@ -49,6 +48,5 @@ app.all('*', (req, res, next) => {
 
 app.use(errorHandler);
 connectDb();
-configViewEngine(app);
 
 export default app;
