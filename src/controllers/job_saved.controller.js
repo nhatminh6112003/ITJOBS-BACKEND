@@ -30,6 +30,12 @@ const jobSavedlController = {
 		const { id } = req.params;
 		await jobSavedService.delete(id);
 		return res.apiResponse();
+	},
+	async analysis(req, res) {
+		const { id } = req.params;
+		console.log(id);
+		const data = await jobSavedService.analysis(id);
+		return res.apiResponse(data);
 	}
 };
 

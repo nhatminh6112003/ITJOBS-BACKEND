@@ -1,5 +1,5 @@
 import createError from 'http-errors';
-import { job_saved, user_account, job_post,company } from '@src/models';
+import { job_saved, user_account, job_post, company } from '@src/models';
 import { findByPkAndUpdate, findByPkAndDelete } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
 
@@ -50,6 +50,17 @@ const jobSavedService = {
 
 	async delete(id) {
 		return await findByPkAndDelete(job_saved, id);
+	},
+	async analysis(user_account_id) {
+		const countJobSaved = await job_saved.count({
+			where: {
+				user_account_id
+			}
+		});
+		if (!countJobSaved) {
+			throw createError(404, 'Không tìm thấy bản ghi');
+		}
+		return countJobSaved;
 	}
 };
 
