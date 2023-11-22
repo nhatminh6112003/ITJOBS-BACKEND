@@ -23,6 +23,7 @@ const jobPostService = {
 	async getAll(query) {
 		const page = Number(query.page) || 1;
 		const limit = Number(query.limit) || 25;
+		console.log("TCL: getAll -> limit", limit)
 		const keyword = query.keyword ?? '';
 		const queryCondition = {};
 		const queryProfessionCondition = {};
@@ -64,10 +65,9 @@ const jobPostService = {
 			queryCondition.company_id = { [Op.eq]: company_id };
 		}
 
-
 		if (query.status) {
 			const { status } = query;
-			queryCondition.status = { [Op.eq]: status };
+			queryCondition.status = { [Op.eq]: Number(status) };
 		}
 
 		if (query.profession_id) {
