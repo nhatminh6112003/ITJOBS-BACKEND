@@ -108,7 +108,7 @@ const jobPostActivityService = {
 			raw: true,
 			nest: true
 		});
-		console.log("TCL: create -> findJobPostActivity", findJobPostActivity)
+		console.log('TCL: create -> findJobPostActivity', findJobPostActivity);
 
 		sendMail(
 			findJobPostActivity.user_account.email,
@@ -166,6 +166,17 @@ const jobPostActivityService = {
 	},
 	async delete(id) {
 		return await findByPkAndDelete(job_post_activity, id);
+	},
+	async analysis(user_account_id) {
+		const countJobPostActivity = await job_post_activity.count({
+			where: {
+				user_account_id
+			}
+		});
+		if (!countJobPostActivity) {
+			throw createError(404, 'Không tìm thấy bản ghi');
+		}
+		return countJobPostActivity;
 	}
 };
 

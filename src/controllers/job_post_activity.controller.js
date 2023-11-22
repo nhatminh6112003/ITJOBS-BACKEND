@@ -4,8 +4,8 @@ import jobPostActivityService from '@src/services/job_post_activity.service';
 const jobPostActivityController = {
 	async getAll(req, res) {
 		const { query } = req;
-		const [data,pagination] = await jobPostActivityService.getAll(query);
-		return res.apiResponse(data,pagination);
+		const [data, pagination] = await jobPostActivityService.getAll(query);
+		return res.apiResponse(data, pagination);
 	},
 	async getOne(req, res) {
 		const { id } = req.params;
@@ -20,7 +20,7 @@ const jobPostActivityController = {
 	},
 	async sendMailJobSeeker(req, res) {
 		const data = req.body;
-		 await jobPostActivityService.sendMailJobSeeker(data);
+		await jobPostActivityService.sendMailJobSeeker(data);
 		return res.apiResponse();
 	},
 	async update(req, res) {
@@ -36,12 +36,17 @@ const jobPostActivityController = {
 		const handleUpdate = await jobPostActivityService.updateStatusResume(id, data);
 		return res.apiResponse(handleUpdate);
 	},
-	
-	
+
 	async delete(req, res) {
 		const { id } = req.params;
 		await jobPostActivityService.delete(id);
 		return res.apiResponse();
+	},
+
+	async analysis(req, res) {
+		const { id } = req.params;
+		const data = await jobPostActivityService.analysis(id);
+		return res.apiResponse(data);
 	}
 };
 
