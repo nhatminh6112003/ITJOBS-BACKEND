@@ -3,8 +3,10 @@ import company_serviceService from '@src/services/company_service.service';
 
 const companyServiceController = {
 	async getAll(req, res) {
-		const data = await company_serviceService.getAll();
-		return res.apiResponse(data);
+		const { query } = req;
+		const [data, pagination] = await company_serviceService.getAll(query);
+
+		return res.apiResponse(data, pagination);
 	},
 
 	async getOne(req, res) {

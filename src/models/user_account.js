@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
 				foreignKey: 'posted_by_id',
 				as: 'job_post'
 			});
+			
 		}
 	}
 	user_account.init(

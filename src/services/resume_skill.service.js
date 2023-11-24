@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const resumeSkillService = {
-	async getAllByResume(resume_id){
+	async getAllByResume(resume_id) {
 		const findResumeSkill = await resume_skill.findAll({
 			where: {
 				resume_id
