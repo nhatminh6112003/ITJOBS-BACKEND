@@ -1,10 +1,10 @@
 import express from 'express';
-import UserRoleEnum from '@src/constants/userRoles';
-import AuthMiddleWare from '@src/middleware/authMiddleware';
-import ResumeTitleController from '@src/controllers/resume_title.controller';
-import ResumeController from '@src/controllers/resume.controller';
-import ResumeProfileController from '@src/controllers/resume_profile.controller';
-import ResumeValidation from '@src/validations/resume.validation';
+import UserRoleEnum from '../constants/userRoles';
+import AuthMiddleWare from '../middleware/authMiddleware';
+import ResumeTitleController from '../controllers/resume_title.controller';
+import ResumeController from '../controllers/resume.controller';
+import ResumeProfileController from '../controllers/resume_profile.controller';
+import ResumeValidation from '../validations/resume.validation';
 
 const router = express.Router();
 

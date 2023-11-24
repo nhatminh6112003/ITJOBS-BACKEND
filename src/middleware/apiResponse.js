@@ -1,5 +1,5 @@
 // Tạo middleware để xử lý việc trả về dữ liệu API
-import responseStatus from '@src/constants/responseStatus';
+import responseStatus from '../constants/responseStatus';
 
 const apiResponse = (req, res, next) => {
 	// eslint-disable-next-line default-param-last, func-names

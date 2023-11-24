@@ -1,9 +1,9 @@
-import UserRoleEnum from '@src/constants/userRoles';
-import job_positionCategoryController from '@src/controllers/job_position_category.controller';
-import AuthMiddleWare from '@src/middleware/authMiddleware';
-import job_positionCategoryValidation from '@src/validations/job_positionCategory.validation';
+import UserRoleEnum from '../constants/userRoles';
+import job_positionCategoryController from '../controllers/job_position_category.controller';
+import job_positionCategoryValidation from '../validations/job_positionCategory.validation';
 
 import Express from 'express';
+import AuthMiddleWare from '../middleware/authMiddleware';
 
 const router = Express.Router();
 router.get('', job_positionCategoryController.getAll);

@@ -1,9 +1,9 @@
-import professionController from '@src/controllers/profession.controller';
-import ProfessionValidation from '@src/validations/profession.validation';
-import AuthMiddleWare from '@src/middleware/authMiddleware';
+import professionController from '../controllers/profession.controller';
+import ProfessionValidation from '../validations/profession.validation';
 
 import Express from 'express';
-import UserRoleEnum from '@src/constants/userRoles';
+import UserRoleEnum from '../constants/userRoles';
+import AuthMiddleWare from '../middleware/authMiddleware';
 
 const router = Express.Router();
 router.get('', professionController.getAll);

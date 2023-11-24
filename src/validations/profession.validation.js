@@ -1,5 +1,5 @@
-import ProfessionSchema from '@src/schemas/profession.schema';
-import validateRequest from '@src/middleware/validateRequest';
+import ProfessionSchema from '../schemas/profession.schema';
+import validateRequest from '../middleware/validateRequest';
 
 const { profession } = ProfessionSchema;
 

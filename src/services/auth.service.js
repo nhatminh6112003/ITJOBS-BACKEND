@@ -1,4 +1,4 @@
-import bcryptHelpers from '@src/helpers/bcrypt';
+import bcryptHelpers from '../helpers/bcrypt';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import {
@@ -10,10 +10,10 @@ import {
 	resume_desired_job,
 	resume_template,
 	company
-} from '@src/models';
+} from '../models';
 import createError from 'http-errors';
-import { colorsEnum } from '@src/constants/resumeTemplateEnum';
-import UserRoleEnum from '@src/constants/userRoles';
+import { colorsEnum } from '../constants/resumeTemplateEnum';
+import UserRoleEnum from '../constants/userRoles';
 
 dotenv.config();
 // nếu viết mỗi throw không thì nó sẽ trả về tương ứng ví dụ throw "lỗi"; thì nó sẽ trả về một string là lỗi còn với throw new Error("lỗi rồi") nó sẽ trả về một object có thuộc tính là name,message,stack

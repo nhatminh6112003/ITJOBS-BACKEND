@@ -1,7 +1,7 @@
 import createError from 'http-errors';
-import { job_welfare_detail } from '@src/models';
-import { findByPkAndUpdate, findByPkAndDelete } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
+import { job_welfare_detail } from '../models';
+import { findByPkAndUpdate, findByPkAndDelete } from '../helpers/databaseHelpers';
 
 dotenv.config();
 const jobWelfareDetailService = {

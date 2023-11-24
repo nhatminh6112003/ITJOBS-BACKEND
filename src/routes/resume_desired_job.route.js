@@ -1,6 +1,6 @@
-import resumeDesiredJobController from "@src/controllers/resume_desired_job.controller";
+import resumeDesiredJobController from "../controllers/resume_desired_job.controller";
 import Express from 'express';
-import ResumeValidation from "@src/validations/resume.validation";
+import ResumeValidation from "../validations/resume.validation";
 
 const router = Express.Router();
 router.get('/:id', resumeDesiredJobController.getOne);

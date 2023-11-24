@@ -1,5 +1,5 @@
-import resumeTitleService from '@src/services/resume_title.service';
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
+import resumeTitleService from '../services/resume_title.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
 
 const ResumeTitleController = {
 	async getOne(req, res) {

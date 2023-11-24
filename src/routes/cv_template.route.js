@@ -1,6 +1,6 @@
 import express from 'express';
-import cv_templateController from '@src/controllers/cv_template.controller';
-import cacheMiddleware from '@src/middleware/cacheMiddleware';
+import cv_templateController from '../controllers/cv_template.controller';
+import cacheMiddleware from '../middleware/cacheMiddleware';
 
 const router = express.Router();
 

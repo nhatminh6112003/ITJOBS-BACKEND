@@ -1,8 +1,8 @@
 import createError from 'http-errors';
-import { resume_skill, resume } from '@src/models';
-import { resumeStatusEnum } from '@src/constants/resumeStatus';
-import { findByPkAndUpdate, findByPkAndDelete } from '@src/helpers/databaseHelpers';
+import { resumeStatusEnum } from '../constants/resumeStatus';
 import dotenv from 'dotenv';
+import { resume_skill, resume } from '../models';
+import { findByPkAndUpdate, findByPkAndDelete } from '../helpers/databaseHelpers';
 
 dotenv.config();
 

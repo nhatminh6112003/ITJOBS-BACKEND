@@ -1,6 +1,6 @@
 import createError from 'http-errors';
-import { {{serviceName}} } from '@src/models';
-import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '@src/helpers/databaseHelpers';
+import { {{serviceName}} } from '../models';
+import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '../helpers/databaseHelpers';
 import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
 

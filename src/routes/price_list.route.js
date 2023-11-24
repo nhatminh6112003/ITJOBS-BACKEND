@@ -1,7 +1,7 @@
-import price_listController from '@src/controllers/price_list.controller';
-import AuthMiddleWare from '@src/middleware/authMiddleware';
-
+import price_listController from '../controllers/price_list.controller';
 import Express from 'express';
+import AuthMiddleWare from '../middleware/authMiddleware';
+
 
 const router = Express.Router();
 router.get('', price_listController.getAll);

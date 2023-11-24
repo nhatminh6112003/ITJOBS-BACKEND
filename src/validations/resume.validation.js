@@ -1,5 +1,5 @@
-import ResumeSchema from '@src/schemas/resume.schema';
-import validateRequest from '@src/middleware/validateRequest';
+import ResumeSchema from '../schemas/resume.schema';
+import validateRequest from '../middleware/validateRequest';
 
 const {
 	resume_title,

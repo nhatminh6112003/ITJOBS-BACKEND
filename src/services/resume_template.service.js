@@ -1,8 +1,8 @@
-import { resume_template, cv_template } from '@src/models';
-
-import { findOneAndUpdate } from '@src/helpers/databaseHelpers';
-
 import createError from 'http-errors';
+import { resume_template, cv_template } from '../models';
+
+import { findOneAndUpdate } from '../helpers/databaseHelpers';
+
 
 const resumeTemplateService = {
 	async getOne(resume_id) {

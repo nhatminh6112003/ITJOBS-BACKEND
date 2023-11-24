@@ -1,8 +1,8 @@
-import authService from '@src/services/auth.service.js';
-import responseStatus from '@src/constants/responseStatus';
-import JwtHelpers from '@src/helpers/jwt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import authService from '../services/auth.service.js';
+import responseStatus from '../constants/responseStatus';
+import JwtHelpers from '../helpers/jwt';
 
 dotenv.config();
 const AuthController = {

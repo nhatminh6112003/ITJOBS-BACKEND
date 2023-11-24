@@ -1,5 +1,5 @@
-import asyncHandlerDecorator from "@src/helpers/asyncHandlerDecorator";
-import cvTemplateService from "@src/services/cv_template.service";
+import asyncHandlerDecorator from "../helpers/asyncHandlerDecorator";
+import cvTemplateService from "../services/cv_template.service";
 
 const cvTemplateController = {
 

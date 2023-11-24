@@ -1,5 +1,5 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import resumeWorkTypeService from '@src/services/resume_work_type.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import resumeWorkTypeService from '../services/resume_work_type.service';
 
 const resumeWorkTypeController = {
 	async getOne(req, res) {

@@ -1,3 +1,7 @@
+import createError from 'http-errors';
+import { Sequelize } from 'sequelize';
+import { resumeActiveEnum } from '../constants/resumeStatus';
+import { findByPkAndUpdate, handlePaginate, findOneAndUpdate } from '../helpers/databaseHelpers';
 import {
 	resume,
 	profession,
@@ -18,11 +22,7 @@ import {
 	resume_education,
 	resume_certificate,
 	resume_work_type
-} from '@src/models';
-import createError from 'http-errors';
-import { findByPkAndUpdate, handlePaginate, findOneAndUpdate } from '@src/helpers/databaseHelpers';
-import { Sequelize } from 'sequelize';
-import { resumeActiveEnum } from '@src/constants/resumeStatus';
+} from '../models';
 
 const { Op } = Sequelize;
 

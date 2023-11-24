@@ -1,5 +1,5 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import resumeActivityService from '@src/services/resume_activity.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import resumeActivityService from '../services/resume_activity.service';
 
 const resumeActivityController = {
 	async getAll(req, res) {

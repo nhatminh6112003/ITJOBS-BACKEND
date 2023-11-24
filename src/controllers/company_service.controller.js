@@ -1,5 +1,5 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import company_serviceService from '@src/services/company_service.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import company_serviceService from '../services/company_service.service';
 
 const companyServiceController = {
 	async getAll(req, res) {

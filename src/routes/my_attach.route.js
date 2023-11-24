@@ -1,6 +1,6 @@
-import myAttachController from '@src/controllers/my_attach.controller';
+import myAttachController from '../controllers/my_attach.controller';
 import Express from 'express';
-import uploadMulter from '@src/helpers/uploadMulter';
+import uploadMulter from '../helpers/uploadMulter';
 
 const router = Express.Router();
 router.get('/getAll/:id', myAttachController.getAll);

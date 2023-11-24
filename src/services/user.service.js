@@ -1,12 +1,12 @@
-import responseStatus from '@src/constants/responseStatus';
+import responseStatus from '../constants/responseStatus';
 import dotenv from 'dotenv';
 import puppeteer from 'puppeteer';
 import fs from 'fs';
 import path from 'path';
 import createError from 'http-errors';
-import { user_account } from '@src/models';
-
 import { Sequelize } from 'sequelize';
+import { user_account } from '../models';
+
 
 const { Op } = Sequelize;
 

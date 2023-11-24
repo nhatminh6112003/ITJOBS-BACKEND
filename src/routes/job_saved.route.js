@@ -1,4 +1,4 @@
-import job_savedController from '@src/controllers/job_saved.controller';
+import job_savedController from '../controllers/job_saved.controller';
 import Express from 'express';
 
 const router = Express.Router();

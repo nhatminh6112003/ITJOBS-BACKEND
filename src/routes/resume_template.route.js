@@ -1,6 +1,6 @@
-import resumeTemplateController from '@src/controllers/resume_template.controller';
+import resumeTemplateController from '../controllers/resume_template.controller';
 import Express from 'express';
-import ResumeValidation from '@src/validations/resume.validation';
+import ResumeValidation from '../validations/resume.validation';
 
 const { resume_template } = ResumeValidation;
 const router = Express.Router();

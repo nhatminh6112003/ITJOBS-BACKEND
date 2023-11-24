@@ -1,7 +1,7 @@
-import { job_work_type_detail } from '@src/models';
-import { findByPkAndUpdate, findByPkAndDelete } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
 import createError from 'http-errors';
+import { job_work_type_detail } from '../models';
+import { findByPkAndUpdate, findByPkAndDelete } from '../helpers/databaseHelpers';
 
 dotenv.config();
 const jobWorkTypeDetailService = {

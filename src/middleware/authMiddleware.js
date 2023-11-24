@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import createError from 'http-errors';
-import { user_account } from '@src/models';
 import responseStatus from '../constants/responseStatus';
+import { user_account } from '../models';
 
 const AuthMiddleWare = {
 	async protect(req, res, next) {

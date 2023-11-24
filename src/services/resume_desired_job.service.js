@@ -1,10 +1,10 @@
 import createError from 'http-errors';
-import { resume_desired_job, profession_desired_job, welfare_desired_job, resume_work_type } from '@src/models';
-import { findByPkAndDelete } from '@src/helpers/databaseHelpers';
-import { resumeStatusEnum } from '@src/constants/resumeStatus';
 import dotenv from 'dotenv';
-import { sequelize } from '@src/config/connectDB';
-import isJson from '@src/helpers/isJson';
+import { resumeStatusEnum } from '../constants/resumeStatus';
+import { sequelize } from '../config/connectDB';
+import { findByPkAndDelete } from '../helpers/databaseHelpers';
+import { resume_desired_job, profession_desired_job, welfare_desired_job, resume_work_type } from '../models';
+import isJson from '../helpers/isJson';
 
 dotenv.config();
 

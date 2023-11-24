@@ -1,5 +1,5 @@
-import {{controllerName}}Controller from '@src/controllers/{{controllerName}}.controller';
-import AuthMiddleWare from '@src/middleware/authMiddleware';
+import {{controllerName}}Controller from '../controllers/{{controllerName}}.controller';
+import AuthMiddleWare from '../middleware/authMiddleware';
 
 import Express from 'express';
 
