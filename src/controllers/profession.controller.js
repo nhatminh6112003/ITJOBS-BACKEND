@@ -1,5 +1,5 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import professionService from '@src/services/profession.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import professionService from '../services/profession.service';
 
 const professionController = {
 	async getAll(req, res) {

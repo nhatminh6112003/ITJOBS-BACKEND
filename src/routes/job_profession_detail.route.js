@@ -1,4 +1,4 @@
-import job_profession_detailController from '@src/controllers/job_profession_detail.controller';
+import job_profession_detailController from '../controllers/job_profession_detail.controller';
 import Express from 'express';
 
 const router = Express.Router();

@@ -1,5 +1,5 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import serviceTypeService from '@src/services/service_type.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import serviceTypeService from '../services/service_type.service';
 
 const serviceTypeController = {
 	async getAll(req, res) {
@@ -20,8 +20,8 @@ const serviceTypeController = {
 
 	async update(req, res) {
 		const { id } = req.params;
-        const data = req.body;
-		const handleUpdate = await serviceTypeService.update(id,data);
+		const data = req.body;
+		const handleUpdate = await serviceTypeService.update(id, data);
 		return res.apiResponse(handleUpdate);
 	},
 

@@ -1,5 +1,5 @@
-import serviceSchema from '@src/schemas/service.schema';
-import validateRequest from '@src/middleware/validateRequest';
+import serviceSchema from '../schemas/service.schema';
+import validateRequest from '../middleware/validateRequest';
 
 const { service } = serviceSchema;
 

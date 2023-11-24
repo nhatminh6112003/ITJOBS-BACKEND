@@ -1,5 +1,5 @@
-import jobWelfareSchema from '@src/schemas/job_welfare.schema';
-import validateRequest from '@src/middleware/validateRequest';
+import jobWelfareSchema from '../schemas/job_welfare.schema';
+import validateRequest from '../middleware/validateRequest';
 
 const { jobWelfare } = jobWelfareSchema;
 

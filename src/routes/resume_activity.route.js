@@ -1,6 +1,6 @@
 import Express from 'express';
-import ResumeValidation from '@src/validations/resume.validation';
-import resumeActivityController from '@src/controllers/resume_activity.controller';
+import ResumeValidation from '../validations/resume.validation';
+import resumeActivityController from '../controllers/resume_activity.controller';
 
 const router = Express.Router();
 router.get('/getAll/:id', resumeActivityController.getAll);

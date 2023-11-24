@@ -1,7 +1,7 @@
-import { service_type } from '@src/models';
-import { findByPkAndUpdate, findByPkAndDelete} from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
 import createError from "http-errors";
+import { service_type } from '../models';
+import { findByPkAndUpdate, findByPkAndDelete} from '../helpers/databaseHelpers';
 
 dotenv.config();
 const serviceTypeService = {

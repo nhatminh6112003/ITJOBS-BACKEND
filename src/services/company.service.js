@@ -1,5 +1,5 @@
-import { company } from '@src/models';
-import { findByPkAndUpdate, findByPkAndDelete} from '@src/helpers/databaseHelpers';
+import { company } from '../models';
+import { findByPkAndUpdate, findByPkAndDelete} from '../helpers/databaseHelpers';
 import dotenv from 'dotenv';
 import createError from "http-errors";
 

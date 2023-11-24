@@ -1,6 +1,6 @@
 import createError from 'http-errors';
-import { work_type } from '@src/models';
 import dotenv from 'dotenv';
+import { work_type } from '../models';
 
 dotenv.config();
 const workTypeService = {

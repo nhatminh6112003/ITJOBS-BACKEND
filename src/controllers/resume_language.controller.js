@@ -1,5 +1,5 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import resumeLanguageService from '@src/services/resume_language.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import resumeLanguageService from '../services/resume_language.service';
 
 const resumeLanguageController = {
 	async getAll(req, res) {

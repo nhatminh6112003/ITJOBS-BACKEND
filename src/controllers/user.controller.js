@@ -1,8 +1,8 @@
-import userService from '@src/services/user.service.js';
-import responseStatus from '@src/constants/responseStatus';
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
 import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
+import userService from '../services/user.service.js';
+import responseStatus from '../constants/responseStatus';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
 
 dotenv.config();
 const UserController = {

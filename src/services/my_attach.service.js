@@ -1,5 +1,7 @@
-import { resumeStatusEnum } from '@src/constants/resumeStatus';
-import { findOneAndUpdate } from '@src/helpers/databaseHelpers';
+import { resumeStatusEnum } from '../constants/resumeStatus';
+import dotenv from 'dotenv';
+import createError from 'http-errors';
+import { findOneAndUpdate } from '../helpers/databaseHelpers';
 import {
 	job_welfare,
 	my_attach,
@@ -13,9 +15,7 @@ import {
 	user_account,
 	welfare_desired_job,
 	work_type
-} from '@src/models';
-import dotenv from 'dotenv';
-import createError from 'http-errors';
+} from '../models';
 import resumeDesiredJobService from './resume_desired_job.service';
 
 dotenv.config();

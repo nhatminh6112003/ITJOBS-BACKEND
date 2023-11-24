@@ -1,7 +1,7 @@
-import employer_resumeController from '@src/controllers/employer_resume.controller';
-import AuthMiddleWare from '@src/middleware/authMiddleware';
-
+import employer_resumeController from '../controllers/employer_resume.controller';
 import Express from 'express';
+import AuthMiddleWare from '../middleware/authMiddleware';
+
 
 const router = Express.Router();
 router.get('', employer_resumeController.getAll);

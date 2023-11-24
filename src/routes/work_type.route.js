@@ -1,5 +1,5 @@
-import workTypeController from '@src/controllers/work_type.controller';
 import Express from 'express';
+import workTypeController from "../controllers/work_type.controller";
 
 const router = Express.Router();
 router.get('/', workTypeController.getAll);

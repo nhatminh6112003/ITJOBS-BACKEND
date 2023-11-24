@@ -1,7 +1,7 @@
-import { company_service } from '@src/models';
-import { findByPkAndUpdate, findByPkAndDelete} from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
 import createError from "http-errors";
+import { company_service } from '../models';
+import { findByPkAndUpdate, findByPkAndDelete} from '../helpers/databaseHelpers';
 
 dotenv.config();
 const companyServiceService = {

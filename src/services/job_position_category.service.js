@@ -1,8 +1,8 @@
 import createError from 'http-errors';
-import { job_position_category } from '@src/models';
-import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
+import { job_position_category } from '../models';
+import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '../helpers/databaseHelpers';
 
 const { Op } = Sequelize;
 dotenv.config();

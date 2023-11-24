@@ -1,4 +1,4 @@
-import job_welfare_detailController from '@src/controllers/job_welfare_detail.controller';
+import job_welfare_detailController from '../controllers/job_welfare_detail.controller';
 import Express from 'express';
 
 const router = Express.Router();

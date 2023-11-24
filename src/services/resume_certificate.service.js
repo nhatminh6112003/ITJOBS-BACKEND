@@ -1,7 +1,7 @@
 import createError from 'http-errors';
-import { resume_certificate, resume } from '@src/models';
-import { findByPkAndUpdate, findByPkAndDelete } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
+import { resume_certificate, resume } from '../models';
+import { findByPkAndUpdate, findByPkAndDelete } from '../helpers/databaseHelpers';
 
 dotenv.config();
 

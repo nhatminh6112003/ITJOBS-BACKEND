@@ -1,4 +1,4 @@
-import ValidationError from '@src/errors/ValidationError';
+import ValidationError from '../errors/ValidationError';
 import asyncHandler from 'express-async-handler';
 
 const validateRequest = (schema) =>

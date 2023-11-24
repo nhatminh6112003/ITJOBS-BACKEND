@@ -1,9 +1,9 @@
-import { findByPkAndDelete, findByPkAndUpdate } from '@src/helpers/databaseHelpers';
-import { resume, resume_activity } from '@src/models';
 
 import createError from 'http-errors';
 import dotenv from 'dotenv';
-import { resumeStatusEnum } from '@src/constants/resumeStatus';
+import { resumeStatusEnum } from '../constants/resumeStatus';
+import { resume, resume_activity } from '../models';
+import { findByPkAndDelete, findByPkAndUpdate } from '../helpers/databaseHelpers';
 
 dotenv.config();
 

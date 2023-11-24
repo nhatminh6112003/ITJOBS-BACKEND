@@ -1,6 +1,6 @@
-import jobPostActivityController from '@src/controllers/job_post_activity.controller';
+import jobPostActivityController from '../controllers/job_post_activity.controller';
 import Express from 'express';
-import jobPostActivityValidation from '@src/validations/job_post_activity.validation';
+import jobPostActivityValidation from '../validations/job_post_activity.validation';
 
 const router = Express.Router();
 

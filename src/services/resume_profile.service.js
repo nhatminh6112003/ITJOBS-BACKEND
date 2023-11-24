@@ -1,7 +1,7 @@
-import { resume_profile, user_account, resume } from '@src/models';
-import { resumeStatusEnum } from '@src/constants/resumeStatus';
-import { findByPkAndUpdate, findOneAndUpdate } from '@src/helpers/databaseHelpers';
+import { resumeStatusEnum } from '../constants/resumeStatus';
 import createError from 'http-errors';
+import { resume_profile, user_account, resume } from '../models';
+import { findByPkAndUpdate, findOneAndUpdate } from '../helpers/databaseHelpers';
 
 const resumeProfileService = {
 	async getOne(user_id) {

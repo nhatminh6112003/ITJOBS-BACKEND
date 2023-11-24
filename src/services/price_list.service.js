@@ -1,8 +1,8 @@
 import createError from 'http-errors';
-import { price_list } from '@src/models';
-import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
+import { price_list } from '../models';
+import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '../helpers/databaseHelpers';
 
 const { Op } = Sequelize;
 dotenv.config();

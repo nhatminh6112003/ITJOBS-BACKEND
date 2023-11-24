@@ -1,6 +1,6 @@
-import companyController from '@src/controllers/company.controller';
+import companyController from '../controllers/company.controller';
 import Express from 'express';
-import uploadMulter from '@src/helpers/uploadMulter';
+import uploadMulter from '../helpers/uploadMulter';
 
 const router = Express.Router();
 

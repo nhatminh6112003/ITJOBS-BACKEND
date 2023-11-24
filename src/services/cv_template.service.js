@@ -1,5 +1,5 @@
-import {cv_template} from "@src/models";
 import createError from "http-errors";
+import {cv_template} from "../models";
 
 
 

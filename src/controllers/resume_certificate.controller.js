@@ -1,5 +1,5 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import resumeCertificateService from '@src/services/resume_certificate.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import resumeCertificateService from '../services/resume_certificate.service';
 
 const resumeCertificateController = {
 	async getAll(req, res) {

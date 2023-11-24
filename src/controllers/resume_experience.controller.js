@@ -1,5 +1,5 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import resumeExperienceService from '@src/services/resume_experience.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import resumeExperienceService from '../services/resume_experience.service';
 
 const resumeExperienceController = {
 	async getAll(req, res) {

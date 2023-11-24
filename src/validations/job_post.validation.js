@@ -1,5 +1,5 @@
-import jobPostSchema from '@src/schemas/job_post.schema';
-import validateRequest from '@src/middleware/validateRequest';
+import jobPostSchema from '../schemas/job_post.schema';
+import validateRequest from '../middleware/validateRequest';
 
 const { jobPost } = jobPostSchema;
 

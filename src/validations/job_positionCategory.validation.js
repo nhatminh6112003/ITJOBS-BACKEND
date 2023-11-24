@@ -1,5 +1,5 @@
-import job_positionCategorySchema from '@src/schemas/job_positionCategory.schema';
-import validateRequest from '@src/middleware/validateRequest';
+import job_positionCategorySchema from '../schemas/job_positionCategory.schema';
+import validateRequest from '../middleware/validateRequest';
 
 const { job_positionCategory } = job_positionCategorySchema;
 

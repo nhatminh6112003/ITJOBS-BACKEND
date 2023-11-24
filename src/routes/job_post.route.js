@@ -1,7 +1,7 @@
-import jobPostController from '@src/controllers/job_post.controller';
+import jobPostController from '../controllers/job_post.controller';
 import Express from 'express';
-import jobPostValidation from '@src/validations/job_post.validation';
-import cacheMiddleware from '@src/middleware/cacheMiddleware';
+import jobPostValidation from '../validations/job_post.validation';
+import cacheMiddleware from '../middleware/cacheMiddleware';
 
 const router = Express.Router();
 router.get('/analytics', jobPostController.analytic);

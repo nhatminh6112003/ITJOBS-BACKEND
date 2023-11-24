@@ -1,7 +1,7 @@
 import createError from 'http-errors';
-import { resume_language, resume } from '@src/models';
-import { resumeStatusEnum } from '@src/constants/resumeStatus';
-import { findByPkAndUpdate, findByPkAndDelete } from '@src/helpers/databaseHelpers';
+import { resumeStatusEnum } from '../constants/resumeStatus';
+import { resume_language, resume } from '../models';
+import { findByPkAndUpdate, findByPkAndDelete } from '../helpers/databaseHelpers';
 
 
 const resumeLanguageService = {

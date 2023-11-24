@@ -1,7 +1,7 @@
-import benefitsController from '@src/controllers/benefits.controller';
-import AuthMiddleWare from '@src/middleware/authMiddleware';
-
+import benefitsController from '../controllers/benefits.controller';
 import Express from 'express';
+import AuthMiddleWare from '../middleware/authMiddleware';
+
 
 const router = Express.Router();
 router.get('', benefitsController.getAll);

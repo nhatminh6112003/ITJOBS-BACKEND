@@ -1,9 +1,9 @@
-import UserRoleEnum from '@src/constants/userRoles';
-import job_welfareController from '@src/controllers/job_welfare.controller';
-import AuthMiddleWare from '@src/middleware/authMiddleware';
-import jobWelfareValidation from '@src/validations/job_welfare.validation';
+import UserRoleEnum from '../constants/userRoles';
+import job_welfareController from '../controllers/job_welfare.controller';
+import jobWelfareValidation from '../validations/job_welfare.validation';
 
 import Express from 'express';
+import AuthMiddleWare from '../middleware/authMiddleware';
 
 const router = Express.Router();
 router.get('', job_welfareController.getAll);

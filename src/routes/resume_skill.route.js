@@ -1,5 +1,5 @@
-import resumeSkillController from '@src/controllers/resume_skill.controller';
-import ResumeValidation from '@src/validations/resume.validation';
+import resumeSkillController from '../controllers/resume_skill.controller';
+import ResumeValidation from '../validations/resume.validation';
 import Express from 'express';
 
 const router = Express.Router();

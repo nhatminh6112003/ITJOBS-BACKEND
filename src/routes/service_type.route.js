@@ -1,5 +1,5 @@
-import service_typeController from '@src/controllers/service_type.controller';
 import Express from 'express';
+import service_typeController from '../controllers/service_type.controller';
 
 const router = Express.Router();
 
