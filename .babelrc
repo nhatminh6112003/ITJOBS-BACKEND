@@ -10,15 +10,15 @@
 		]
 	],
 	"plugins": [
-		["@babel/plugin-transform-runtime"],
 		[
-			"module-resolver",
-			{
-				"root": ["./src"],
-				"alias": {
-					"@src": "./src"
-				}
-			}
-		]
-	]
+		  "module-resolver",
+		  {
+			 "root": ["./src"],
+			 "alias": {
+				"@src": "./src"
+			 }
+		  }
+		],
+		"@babel/plugin-transform-runtime"
+	 ]
 }
