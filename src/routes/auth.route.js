@@ -1,5 +1,4 @@
 import express from 'express';
-import AuthMiddleWare from '@src/middleware/authMiddleware';
 import AuthController from '@src/controllers/auth.controller';
 import AuthValidation from '@src/validations/auth.validation';
 import asyncHandler from 'express-async-handler';

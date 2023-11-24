@@ -36,7 +36,6 @@ app.use(morgan('combined'));
 // đường dẫn của dự án
 route(app);
 app.get('/api/uploads/:fileName', (req, res) => {
-	// sendMail('aolang69@gmail.com', "Reset password", `<a href=""> Reset Password </a>`)
 	const { fileName } = req.params;
 	res.sendFile(path.join(__dirname, 'uploads', fileName));
 });
