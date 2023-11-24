@@ -16,9 +16,16 @@ if (env === 'production') {
 		password: process.env.DB_PRODUCTION_PASSWORD,
 		database: process.env.DB_PRODUCTION_NAME,
 		host: process.env.DB_PRODUCTION_HOST,
-		dialect: 'mysql'
+		dialect: 'mysql',
+		// eslint-disable-next-line global-require
+		dialectModule: require('mysql2')
 	};
-	sequelize = new Sequelize(process.env.DB_PRODUCTION_NAME, process.env.DB_PRODUCTION_USERNAME, process.env.DB_PRODUCTION_PASSWORD, configProduction);
+	sequelize = new Sequelize(
+		process.env.DB_PRODUCTION_NAME,
+		process.env.DB_PRODUCTION_USERNAME,
+		process.env.DB_PRODUCTION_PASSWORD,
+		configProduction
+	);
 } else {
 	sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, config);
 }
