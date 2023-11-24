@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import responseStatus from '@src/constants/responseStatus';
+import responseStatus from '../constants/responseStatus';
 
 const bcryptHelpers = {
 	hashPassword(password) {

@@ -1,3 +1,9 @@
+import createError from 'http-errors';
+
+import dotenv from 'dotenv';
+import { Sequelize } from 'sequelize';
+import { resumeActiveEnum } from '../constants/resumeStatus';
+import { findByPkAndDelete, findByPkAndUpdate, handlePaginate } from '../helpers/databaseHelpers';
 import {
 	employer_resume,
 	my_attach,
@@ -6,13 +12,7 @@ import {
 	resume_title,
 	user_account,
 	resume
-} from '@src/models';
-import createError from 'http-errors';
-
-import { findByPkAndDelete, findByPkAndUpdate, handlePaginate } from '@src/helpers/databaseHelpers';
-import dotenv from 'dotenv';
-import { Sequelize } from 'sequelize';
-import { resumeActiveEnum } from '@src/constants/resumeStatus';
+} from '../models';
 
 const { Op } = Sequelize;
 dotenv.config();

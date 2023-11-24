@@ -1,5 +1,5 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import jobPostService from '@src/services/job_post.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import jobPostService from '../services/job_post.service';
 
 const jobPostController = {
 	async getAll(req, res) {

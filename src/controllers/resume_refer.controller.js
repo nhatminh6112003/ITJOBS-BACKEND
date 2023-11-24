@@ -1,5 +1,5 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import resumeReferService from '@src/services/resume_refer.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import resumeReferService from '../services/resume_refer.service';
 
 const resumeReferController = {
 	async getAll(req, res) {

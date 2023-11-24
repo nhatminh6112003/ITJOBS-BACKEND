@@ -1,5 +1,5 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import resumeObjectiveService from '@src/services/resume_objective.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import resumeObjectiveService from '../services/resume_objective.service';
 
 const resumeObjectiveController = {
 	async create(req, res) {

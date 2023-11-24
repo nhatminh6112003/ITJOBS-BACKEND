@@ -1,5 +1,5 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import employer_resumeService from '@src/services/employer_resume.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import employer_resumeService from '../services/employer_resume.service';
 
 const employer_resumeController = {
 	async getAll(req, res) {

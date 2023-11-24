@@ -1,5 +1,5 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import feedbackService from '@src/services/feedback.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import feedbackService from '../services/feedback.service';
 
 const feedbackController = {
 	async getAll(req, res) {

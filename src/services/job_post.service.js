@@ -1,3 +1,9 @@
+import dotenv from 'dotenv';
+import createError from 'http-errors';
+import { Sequelize } from 'sequelize';
+import DateTypeEnum from '../constants/dateTypeEnum';
+import jobPostStatusEnum from '../constants/jobPostStatusEnum';
+import { findByPkAndUpdate, findOneAndUpdate, handlePaginate } from '../helpers/databaseHelpers';
 import {
 	job_post,
 	job_welfare_detail,
@@ -9,13 +15,7 @@ import {
 	company,
 	sequelize,
 	job_post_activity
-} from '@src/models';
-import { findByPkAndUpdate, findOneAndUpdate, handlePaginate } from '@src/helpers/databaseHelpers';
-import dotenv from 'dotenv';
-import createError from 'http-errors';
-import { Sequelize } from 'sequelize';
-import DateTypeEnum from '@src/constants/dateTypeEnum';
-import jobPostStatusEnum from '@src/constants/jobPostStatusEnum';
+} from '../models';
 
 const { Op } = Sequelize;
 dotenv.config();

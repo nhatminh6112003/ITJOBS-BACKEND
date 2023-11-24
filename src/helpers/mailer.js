@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import nodemailer from 'nodemailer';
-import mailConfig from '@src/config/mailConfig';
+import mailConfig from '../config/mailConfig';
 
 const sendMail = (to, subject, htmlContent) => {
 	console.log(mailConfig.USERNAME);

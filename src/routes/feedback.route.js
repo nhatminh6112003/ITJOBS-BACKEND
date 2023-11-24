@@ -1,4 +1,4 @@
-import feedbackController from '@src/controllers/feedback.controller';
+import feedbackController from '../controllers/feedback.controller';
 
 import Express from 'express';
 

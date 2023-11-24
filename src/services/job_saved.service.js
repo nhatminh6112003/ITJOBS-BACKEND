@@ -1,7 +1,7 @@
 import createError from 'http-errors';
-import { job_saved, user_account, job_post, company } from '@src/models';
-import { findByPkAndUpdate, findByPkAndDelete } from '@src/helpers/databaseHelpers';
 import dotenv from 'dotenv';
+import { job_saved, user_account, job_post, company } from '../models';
+import { findByPkAndUpdate, findByPkAndDelete } from '../helpers/databaseHelpers';
 
 dotenv.config();
 const jobSavedService = {

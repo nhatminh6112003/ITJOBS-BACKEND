@@ -1,6 +1,5 @@
-import UserController from '@src/controllers/user.controller';
-import cacheMiddleware from '@src/middleware/cacheMiddleware';
 import express from 'express';
+import UserController from '../controllers/user.controller';
 
 const router = express.Router();
 
@@ -8,7 +7,7 @@ router.get(
 	'',
 	// AuthMiddleWare.protect,
 	// AuthMiddleWare.authPage([UserRoleEnum.ADMIN]),
-	cacheMiddleware('2 minutes'),
+
 	UserController.getAll
 );
 router.get('/:id', UserController.getOne);

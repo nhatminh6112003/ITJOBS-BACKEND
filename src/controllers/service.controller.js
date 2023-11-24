@@ -1,7 +1,7 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import serviceService from '@src/services/service.service';
 import moment from 'moment/moment';
-import sortObject from '@src/helpers/sortObject';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import serviceService from '../services/service.service';
+import sortObject from '../helpers/sortObject';
 
 const serviceController = {
 	async getAll(req, res) {

@@ -1,7 +1,7 @@
 import createError from 'http-errors';
-import { resume_title } from '@src/models';
-import { resumeStatusEnum } from '@src/constants/resumeStatus';
-import { findByPkAndUpdate } from '@src/helpers/databaseHelpers';
+import { resumeStatusEnum } from '../constants/resumeStatus';
+import { resume_title } from '../models';
+import { findByPkAndUpdate } from '../helpers/databaseHelpers';
 
 const resumeTitleService = {
 	async getOne(resume_id) {

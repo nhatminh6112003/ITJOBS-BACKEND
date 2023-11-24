@@ -1,3 +1,7 @@
+import dotenv from 'dotenv';
+import createError from 'http-errors';
+import { Sequelize } from 'sequelize';
+import { resumeActiveEnum } from '../constants/resumeStatus';
 import {
 	job_post_activity,
 	job_post,
@@ -7,14 +11,10 @@ import {
 	resume_title,
 	user_account,
 	resume_profile
-} from '@src/models';
-import { findByPkAndUpdate, findByPkAndDelete, handlePaginate, findOneAndUpdate } from '@src/helpers/databaseHelpers';
-import dotenv from 'dotenv';
-import createError from 'http-errors';
-import { Sequelize } from 'sequelize';
-import sendMail from '@src/helpers/mailer';
-import mailTemplate from '@src/helpers/emailTemplate';
-import { resumeActiveEnum } from '@src/constants/resumeStatus';
+} from '../models';
+import { findByPkAndUpdate, findByPkAndDelete, handlePaginate, findOneAndUpdate } from '../helpers/databaseHelpers';
+import sendMail from '../helpers/mailer';
+import mailTemplate from '../helpers/emailTemplate';
 
 const { Op } = Sequelize;
 

@@ -1,5 +1,5 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import jobProfessionDetailService from '@src/services/job_profession_detail.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import jobProfessionDetailService from '../services/job_profession_detail.service';
 
 const jobProfessionDetailController = {
 	async getAll(req, res) {

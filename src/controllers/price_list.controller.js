@@ -1,5 +1,5 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import price_listService from '@src/services/price_list.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import price_listService from '../services/price_list.service';
 
 const price_listController = {
 	async getAll(req, res) {

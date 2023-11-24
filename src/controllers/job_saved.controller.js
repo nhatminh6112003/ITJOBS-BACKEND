@@ -1,5 +1,5 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import jobSavedService from '@src/services/job_saved.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import jobSavedService from '../services/job_saved.service';
 
 const jobSavedlController = {
 	async getAll(req, res) {

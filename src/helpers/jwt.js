@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import responseStatus from '@src/constants/responseStatus';
+import responseStatus from '../constants/responseStatus';
 
 dotenv.config();
 const JwtHelpers = {

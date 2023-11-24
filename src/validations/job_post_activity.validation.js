@@ -1,5 +1,5 @@
-import jobPostActivitySchema from '@src/schemas/job_post_activity.schema';
-import validateRequest from '@src/middleware/validateRequest';
+import jobPostActivitySchema from '../schemas/job_post_activity.schema';
+import validateRequest from '../middleware/validateRequest';
 
 const { jobPostActivity } = jobPostActivitySchema;
 

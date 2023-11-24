@@ -1,5 +1,5 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import resumeAddioninfoService from '@src/services/resume_addioninfo.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import resumeAddioninfoService from '../services/resume_addioninfo.service';
 
 const resumeAddioninfoController = {
 	async getAll(req, res) {

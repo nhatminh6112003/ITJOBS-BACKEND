@@ -1,13 +1,13 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import resumeService from '@src/services/resume.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import resumeService from '../services/resume.service';
 
 const ResumeController = {
 	async getAll(req, res) {
 		const { query } = req;
 		const [data, pagination] = await resumeService.getAll(query);
-		return res.apiResponse(data,pagination);
+		return res.apiResponse(data, pagination);
 	},
-	async updateResumeStatus(req,res){
+	async updateResumeStatus(req, res) {
 		const data = req.body;
 		const { id } = req.params;
 		const handleUpdateStatus = await resumeService.update(id, data);

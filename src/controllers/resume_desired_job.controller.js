@@ -1,5 +1,5 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import resumeDesiredJobService from '@src/services/resume_desired_job.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import resumeDesiredJobService from '../services/resume_desired_job.service';
 
 const resumeDesiredJob = {
 	async getOne(req, res) {

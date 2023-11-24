@@ -1,7 +1,7 @@
 
 import dotenv from 'dotenv';
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import myAttachService from '@src/services/my_attach.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import myAttachService from '../services/my_attach.service';
 
 dotenv.config();
 

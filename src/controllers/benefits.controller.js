@@ -1,5 +1,5 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import benefitsService from '@src/services/benefits.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import benefitsService from '../services/benefits.service';
 
 const benefitsController = {
 	async getAll(req, res) {

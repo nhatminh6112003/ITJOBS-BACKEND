@@ -1,5 +1,5 @@
-import asyncHandlerDecorator from '@src/helpers/asyncHandlerDecorator';
-import jobWelfareDetailService from '@src/services/job_welfare_detail.service';
+import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
+import jobWelfareDetailService from '../services/job_welfare_detail.service';
 
 const jobWelfareDetailController = {
 	async getAll(req, res) {
