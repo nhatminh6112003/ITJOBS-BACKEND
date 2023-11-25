@@ -5,7 +5,6 @@ const process = require('process');
 
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-const config = require(`../config/config.json`)[env];
 const db = {};
 require('dotenv').config();
 
@@ -26,7 +25,9 @@ if (env === 'production') {
 		process.env.DB_PRODUCTION_PASSWORD,
 		configProduction
 	);
-} else {
+} else if (env == 'development') {
+	// eslint-disable-next-line global-require
+	const config = require(`../config/config.json`)[env];
 	sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, config);
 }
 

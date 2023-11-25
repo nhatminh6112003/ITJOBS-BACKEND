@@ -1,8 +1,8 @@
 {
 	"development": {
 		"username": "root",
-		"password": "",
-		"database": "du_an_tot_nghiep",
+		"password": "12345678",
+		"database": "websitejob",
 		"host": "127.0.0.1",
 		"dialect": "mysql",
 		"logging": false,
