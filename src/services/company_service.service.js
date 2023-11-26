@@ -1,13 +1,24 @@
+import moment from 'moment/moment';
 import dotenv from 'dotenv';
 import createError from 'http-errors';
-import { company_service } from '../models';
+import { company_service, service } from '../models';
 import { findByPkAndUpdate, findByPkAndDelete } from '../helpers/databaseHelpers';
-import moment from 'moment/moment';
 
 dotenv.config();
 const companyServiceService = {
-	async getAll() {
-		return await company_service.findAll();
+	async getAll(req) {
+		const queries = {};
+		if (req.company_id) {
+			queries.company_id = req.company_id;
+		}
+		return await company_service.findAll({
+			where: queries,
+			include: [
+				{
+					model: service
+				}
+			]
+		});
 	},
 
 	async getOne(id) {
@@ -35,9 +46,15 @@ const companyServiceService = {
 			raw: true
 		});
 		if (!dataOne) {
-			const register_date = moment(date).format('YYYYMMDD');
-			const expiration_date = moment(register_date, 'YYYYMMDD').add(30, 'days').format('YYYYMMDD');
-			return await company_service.create({ user_account_id, company_id, service_id, register_date, expiration_date });
+			const register_date = moment(date).format('YYYY-MM-DD');
+			const expiration_date = moment(register_date).add(30, 'days').format('YYYY-MM-DD');
+			return await company_service.create({
+				user_account_id,
+				company_id,
+				service_id,
+				register_date,
+				expiration_date
+			});
 		}
 		const { expiration_date, id } = dataOne;
 		const newExiration_date = moment(expiration_date, 'YYYYMMDD').add(30, 'days').format('YYYYMMDD');
