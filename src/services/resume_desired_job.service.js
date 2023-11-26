@@ -80,6 +80,7 @@ const resumeDesiredJobService = {
 		const resumeDesiredJobPromise = await resume_desired_job.create({
 			resume_id,
 			...data,
+			work_home: !!data.work_home,
 			status: resumeStatusEnum.SUCCESS
 		});
 		const handlePromise = await Promise.all([
