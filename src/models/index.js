@@ -26,8 +26,13 @@ if (env === 'production') {
 		configProduction
 	);
 } else if (env == 'development') {
-	// eslint-disable-next-line global-require
-	const config = require(`../config/config.json`)[env];
+	const config = {
+		username: process.env.DB_USERNAME,
+		password: process.env.DB_PASSWORD,
+		database: process.env.DB_NAME,
+		host: process.env.DB_HOST,
+		dialect: 'mysql'
+	};
 	sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, config);
 }
 
