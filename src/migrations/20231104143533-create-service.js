@@ -11,10 +11,11 @@ module.exports = {
 				defaultValue: Sequelize.UUIDV4
 			},
 			service_type_id: {
-				type: Sequelize.UUID
+				type: Sequelize.UUID,
+				allowNull: true
 			},
-			price_list: {
-				type: Sequelize.UUID
+			price: {
+				type: Sequelize.INTEGER
 			},
 			description: {
 				type: Sequelize.STRING
@@ -22,9 +23,11 @@ module.exports = {
 			name: {
 				type: Sequelize.STRING
 			},
-			benefits_id: {
-				type: Sequelize.UUID
+			slug: {
+				type: Sequelize.STRING,
+				unique: true
 			},
+			
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,

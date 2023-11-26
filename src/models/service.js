@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
 			service.belongsTo(models.service_type, {
 				foreignKey: 'service_type_id'
 			});
-			service.belongsTo(models.benefits, {
-				foreignKey: 'benefits_id'
+			service.hasMany(models.company_service, {
+				foreignKey: 'service_id'
 			});
 		}
 	}
@@ -25,11 +25,11 @@ module.exports = (sequelize, DataTypes) => {
 				defaultValue: DataTypes.UUIDV4,
 				primaryKey: true
 			},
-			service_type_id: DataTypes.UUID,
-			price_list: DataTypes.UUID,
-			description: DataTypes.STRING,
 			name: DataTypes.STRING,
-			benefits_id: DataTypes.UUID
+			price: DataTypes.INTEGER,
+			description: DataTypes.STRING,
+			slug: DataTypes.STRING,
+			service_type_id: DataTypes.UUID
 		},
 		{
 			sequelize,

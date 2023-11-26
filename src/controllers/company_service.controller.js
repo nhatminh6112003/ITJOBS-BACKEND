@@ -3,7 +3,8 @@ import company_serviceService from '../services/company_service.service';
 
 const companyServiceController = {
 	async getAll(req, res) {
-		const data = await company_serviceService.getAll();
+		const { query } = req;
+		const data = await company_serviceService.getAll(query);
 		return res.apiResponse(data);
 	},
 

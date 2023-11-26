@@ -1,3 +1,4 @@
+import slugify from 'slugify';
 import createError from 'http-errors';
 import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
@@ -26,7 +27,7 @@ const serviceService = {
 			condition: queryCondition,
 			queries: {
 				nest: true,
-				include: [{ model: service_type }, { model: benefits }]
+				include: [{ model: service_type }]
 			},
 			nest: true
 		});
@@ -45,11 +46,25 @@ const serviceService = {
 	},
 
 	async create(data) {
-		return await service.create(data);
+		const slug = slugify(data.name, {
+			lower: true
+		});
+
+		return await service.create({
+			...data,
+			slug
+		});
 	},
 
 	async update(id, data) {
-		return await findByPkAndUpdate(service, id, data);
+		const slug = slugify(data.name, {
+			lower: true
+		});
+
+		return await findByPkAndUpdate(service, id, {
+			...data,
+			slug
+		});
 	},
 
 	async delete(id) {
