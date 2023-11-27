@@ -10,7 +10,7 @@ const UserController = {
 		const { query } = req;
 		const [data, pagination] = await userService.getAll(query);
 
-		return res.apiResponse(data,pagination);
+		return res.apiResponse(data, pagination);
 	},
 	async getOne(req, res) {
 		const { id } = req.params;
@@ -19,9 +19,9 @@ const UserController = {
 	},
 
 	async update(req, res) {
-		const {id}=req.params
+		const { id } = req.params;
 		const data = req.body;
-		await userService.update(data,id);
+		await userService.update(data, id);
 		return res.apiResponse(data);
 	},
 	async delete(req, res) {
@@ -37,6 +37,12 @@ const UserController = {
 	},
 	async uploadFile(req, res) {
 		const file = req.files.image;
+	},
+	async changePassword(req, res) {
+		const { id } = req.params;
+		const data = req.body;
+		const response = await userService.changePassword(data, id);
+		return res.apiResponse(response);
 	}
 };
 export default asyncHandlerDecorator(UserController);

@@ -11,6 +11,7 @@ router.get(
 	UserController.getAll
 );
 router.get('/:id', UserController.getOne);
+router.patch('/changePassword/:id', UserController.changePassword);
 router.patch('/:id', UserController.update);
 router.delete('/:id', UserController.delete);
 
