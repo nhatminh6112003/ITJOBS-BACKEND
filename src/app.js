@@ -14,7 +14,7 @@ const app = express();
 app.use(cookieParser());
 app.use(
 	cors({
-		origin: ['http://127.0.0.1:5173', 'http://localhost:3000'],
+		origin: ['http://127.0.0.1:5173', 'http://localhost:3000', 'https://itjobs-backend-teal.vercel.app'],
 		credentials: true,
 		optionsSuccessStatus: 200
 	})
