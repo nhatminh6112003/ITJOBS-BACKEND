@@ -36,6 +36,10 @@ const companyServiceController = {
 		const { id } = req.params;
 		const data = await company_serviceService.analysis(id);
 		return res.apiResponse(data);
+	},
+	async calculateTotalRevenue(req, res) {
+		const data = await company_serviceService.calculateTotalRevenue(req.query);
+		return res.apiResponse(data);
 	}
 };
 

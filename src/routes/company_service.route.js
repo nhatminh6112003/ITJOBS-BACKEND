@@ -5,6 +5,7 @@ const router = Express.Router();
 router.get('/', companyServiceController.getAll);
 
 router.get('/analysis/:id', companyServiceController.analysis);
+router.get('/calculateTotalRevenue', companyServiceController.calculateTotalRevenue);
 router.get('/:id', companyServiceController.getOne);
 router.post('', companyServiceController.create);
 router.patch('/:id', companyServiceController.update);
