@@ -31,6 +31,11 @@ const companyServiceController = {
 		const { id } = req.params;
 		await company_serviceService.delete(id);
 		return res.apiResponse();
+	},
+	async analysis(req, res) {
+		const { id } = req.params;
+		const data = await company_serviceService.analysis(id);
+		return res.apiResponse(data);
 	}
 };
 

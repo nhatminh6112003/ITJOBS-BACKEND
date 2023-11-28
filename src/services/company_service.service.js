@@ -67,6 +67,17 @@ const companyServiceService = {
 
 	async delete(id) {
 		return await findByPkAndDelete(company_service, id);
+	},
+	async analysis(company_id) {
+		const countCompanyService = await company_service.count({
+			where: {
+				company_id
+			}
+		});
+		if (!countCompanyService) {
+			throw createError(404, 'Không tìm thấy bản ghi');
+		}
+		return countCompanyService;
 	}
 };
 
