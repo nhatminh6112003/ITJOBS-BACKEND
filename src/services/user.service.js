@@ -1,12 +1,14 @@
-import responseStatus from '../constants/responseStatus';
 import dotenv from 'dotenv';
 import puppeteer from 'puppeteer';
-import fs from 'fs';
-import path from 'path';
+// import fs from 'fs';
+// import path from 'path';
 import createError from 'http-errors';
 import { Sequelize } from 'sequelize';
+import bcrypt from 'bcrypt';
+// import responseStatus from '../constants/responseStatus';
 import { user_account } from '../models';
-
+import bcryptHelpers from '../helpers/bcrypt';
+import { findByPkAndUpdate } from '../helpers/databaseHelpers';
 
 const { Op } = Sequelize;
 
@@ -24,8 +26,8 @@ const userService = {
 			queryCondition.name = { [Op.substring]: keyword };
 		}
 
-		if(user_type_id){
-			queryCondition.user_type_id = user_type_id
+		if (user_type_id) {
+			queryCondition.user_type_id = user_type_id;
 		}
 
 		const data = await user_account.findAndCountAll({
@@ -93,6 +95,27 @@ const userService = {
 		} catch (error) {
 			res.status(500).json({ message: 'Failed to generate PDF' });
 		}
+	},
+
+	async changePassword(data, id) {
+		const { password, newPassword, confirmPassword } = data;
+		const user = await user_account.findOne({
+			where: { id },
+			raw: true
+		});
+		if (!user) throw createError(409, 'Người dùng không tồn tại');
+
+		const isMatch = await bcrypt.compare(password, user.password);
+
+		if (!isMatch) throw createError(401, 'Mật không chính xác');
+
+		if (confirmPassword !== newPassword) {
+			throw createError(400, 'Mật khẩu không giống nhau');
+		}
+
+		const hashedPassword = await bcryptHelpers.hashPassword(newPassword);
+
+		return await findByPkAndUpdate(user_account, id, { password: hashedPassword });
 	}
 };
 export default userService;
