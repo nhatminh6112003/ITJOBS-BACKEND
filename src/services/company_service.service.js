@@ -1,7 +1,7 @@
 import moment from 'moment/moment';
 import dotenv from 'dotenv';
 import createError from 'http-errors';
-import { company_service, service } from '../models';
+import { Sequelize, company_service, sequelize, service } from '../models';
 import { findByPkAndUpdate, findByPkAndDelete } from '../helpers/databaseHelpers';
 
 dotenv.config();
@@ -68,6 +68,7 @@ const companyServiceService = {
 	async delete(id) {
 		return await findByPkAndDelete(company_service, id);
 	},
+
 	async analysis(company_id) {
 		const countCompanyService = await company_service.count({
 			where: {
@@ -78,6 +79,68 @@ const companyServiceService = {
 			throw createError(404, 'Không tìm thấy bản ghi');
 		}
 		return countCompanyService;
+	},
+
+	async calculateTotalRevenue(query) {
+		const { startDate, endDate } = query;
+		const daysBetween = this.calculateDaysDifference(startDate, endDate);
+		const results = await company_service.findAll({
+			attributes: [
+				[sequelize.fn('SUM', sequelize.col('service.price')), 'total_revenue'],
+				[sequelize.col('service.name'), 'service_name'],
+				[sequelize.fn('DATE_FORMAT', sequelize.col('company_service.createdAt'), '%d/%m'), 'day']
+			],
+
+			where: {
+				createdAt: {
+					[Sequelize.Op.between]: [startDate, endDate]
+				}
+			},
+
+			include: [
+				{
+					model: service,
+					attributes: []
+				}
+			],
+
+			group: ['day', 'service.name'],
+			raw: true
+		});
+
+		const label = [];
+		const service_name = [];
+
+		const currentDate = new Date(startDate);
+		while (currentDate <= new Date(endDate)) {
+			const formattedDate = `${currentDate.getDate()}/${currentDate.getMonth() + 1}`;
+			label.push(formattedDate);
+			currentDate.setDate(currentDate.getDate() + 1);
+		}
+		const data = Array(daysBetween).fill(0);
+
+		results.forEach((result) => {
+			const dayIndex = label.indexOf(result.day);
+			data[dayIndex] = Number(result.total_revenue);
+		});
+		results.forEach((result) => {
+			service_name.push(result.service_name);
+		});
+		return {
+			service_name,
+			data,
+			label
+		};
+	},
+
+	calculateDaysDifference(start_date, end_date) {
+		const startDateObj = new Date(start_date);
+		const endDateObj = new Date(end_date);
+
+		const timeDifference = endDateObj - startDateObj;
+		const daysDifference = Math.ceil(timeDifference / (24 * 60 * 60 * 1000));
+
+		return daysDifference;
 	}
 };
 
