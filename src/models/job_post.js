@@ -74,7 +74,7 @@ module.exports = (sequelize, DataTypes) => {
 			districts: DataTypes.INTEGER,
 			job_formExperience: DataTypes.INTEGER,
 			job_ToExperience: DataTypes.INTEGER,
-			isAgreement: DataTypes.BOOLEAN
+			// isAgreement: DataTypes.BOOLEAN
 		},
 		{
 			sequelize,

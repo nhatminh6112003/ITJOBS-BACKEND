@@ -17,13 +17,13 @@ import {
 	job_post_activity
 } from '../models';
 
+
 const { Op } = Sequelize;
 dotenv.config();
 const jobPostService = {
 	async getAll(query) {
 		const page = Number(query.page) || 1;
 		const limit = Number(query.limit) || 25;
-		console.log("TCL: getAll -> limit", limit)
 		const keyword = query.keyword ?? '';
 		const queryCondition = {};
 		const queryProfessionCondition = {};
