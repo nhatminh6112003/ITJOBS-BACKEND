@@ -5,10 +5,10 @@ import express from 'express';
 import morgan from 'morgan';
 import * as path from 'path';
 import { connectDb } from './config/connectDB.js';
-import cronJob from './cron-job/cron-job.js';
 import apiResponse from './middleware/apiResponse.js';
 import errorHandler from './middleware/errorHandler.js';
 import route from './routes/index.js';
+import cronJob from './cron-job/cron-job.js';
 
 const app = express();
 cronJob();
