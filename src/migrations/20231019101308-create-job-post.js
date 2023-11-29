@@ -94,6 +94,10 @@ module.exports = {
 			districts: {
 				type: Sequelize.INTEGER
 			},
+			isAgreement: {
+				type: Sequelize.BOOLEAN,
+				defaultValue: false
+			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,

@@ -16,8 +16,8 @@ const jobPostSchema = {
 		job_title: Joi.string(),
 		gender: Joi.number().valid(0, 1, 2),
 		is_address_work_hidden: Joi.boolean(),
-		min_salary: Joi.number().required(),
-		max_salary: Joi.number().required(),
+		min_salary: Joi.number(),
+		max_salary: Joi.number(),
 		expiry_date: Joi.date(),
 		posted_date: Joi.date(),
 		job_desc: Joi.string(),
@@ -28,7 +28,8 @@ const jobPostSchema = {
 		job_formExperience: Joi.number(),
 		job_ToExperience: Joi.number(),
 		provinces: Joi.number().required(),
-		districts: Joi.number().required()
+		districts: Joi.number().required(),
+		isAgreement: Joi.boolean().default(false)
 	})
 };
 

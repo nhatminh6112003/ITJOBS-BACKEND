@@ -70,15 +70,21 @@ const companyServiceService = {
 	},
 
 	async analysis(company_id) {
-		const countCompanyService = await company_service.count({
+		const nowDay = moment().endOf('day').format('YYYY-MM-DD HH:mm:ss');
+		const results = await company_service.findAll({
 			where: {
-				company_id
-			}
+				company_id,
+				expiration_date: {
+					[Sequelize.Op.gte]: nowDay
+				}
+			},
+			raw: true
 		});
-		if (!countCompanyService) {
+		console.log(results);
+		if (!results) {
 			throw createError(404, 'Không tìm thấy bản ghi');
 		}
-		return countCompanyService;
+		return results;
 	},
 
 	async calculateTotalRevenue(query) {
