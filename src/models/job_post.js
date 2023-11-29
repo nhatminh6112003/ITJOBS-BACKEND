@@ -73,7 +73,8 @@ module.exports = (sequelize, DataTypes) => {
 			provinces: DataTypes.INTEGER,
 			districts: DataTypes.INTEGER,
 			job_formExperience: DataTypes.INTEGER,
-			job_ToExperience: DataTypes.INTEGER
+			job_ToExperience: DataTypes.INTEGER,
+			isAgreement: DataTypes.BOOLEAN
 		},
 		{
 			sequelize,

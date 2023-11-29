@@ -177,6 +177,33 @@ const jobPostActivityService = {
 			throw createError(404, 'Không tìm thấy bản ghi');
 		}
 		return countJobPostActivity;
+	},
+	async analysisCandidateCompany(company_id) {
+		const candidateCompanyList = await job_post_activity.findAll({
+			where: {
+				'$job_post.company_id$': company_id
+			},
+			include: [
+				{
+					model: job_post,
+					as: 'job_post',
+					include: [
+						{
+							model: company,
+							as: 'company',
+							where: {
+								id: company_id
+							}
+						}
+					]
+				}
+			]
+		});
+		if (!candidateCompanyList) {
+			throw createError(404, 'Không tìm thấy bản ghi');
+		}
+
+		return candidateCompanyList;
 	}
 };
 

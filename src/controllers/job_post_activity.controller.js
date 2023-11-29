@@ -47,6 +47,11 @@ const jobPostActivityController = {
 		const { id } = req.params;
 		const data = await jobPostActivityService.analysis(id);
 		return res.apiResponse(data);
+	},
+	async analysisCandidateCompany(req, res) {
+		const { id } = req.params;
+		const data = await jobPostActivityService.analysisCandidateCompany(id);
+		return res.apiResponse(data);
 	}
 };
 
