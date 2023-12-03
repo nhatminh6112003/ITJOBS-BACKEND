@@ -116,6 +116,19 @@ const userService = {
 		const hashedPassword = await bcryptHelpers.hashPassword(newPassword);
 
 		return await findByPkAndUpdate(user_account, id, { password: hashedPassword });
+	},
+
+	async analysis(query) {
+		const { user_type_id } = query;
+		const count = await user_account.count({
+			where: {
+				user_type_id
+			}
+		});
+		if (!count) {
+			throw createError(404, 'Không tìm thấy bản ghi');
+		}
+		return count;
 	}
 };
 export default userService;

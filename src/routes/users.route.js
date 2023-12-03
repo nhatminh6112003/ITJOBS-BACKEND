@@ -10,6 +10,7 @@ router.get(
 
 	UserController.getAll
 );
+router.get('/analysis', UserController.analysis);
 router.get('/:id', UserController.getOne);
 router.patch('/changePassword/:id', UserController.changePassword);
 router.patch('/:id', UserController.update);

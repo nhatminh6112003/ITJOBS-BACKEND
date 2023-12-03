@@ -147,7 +147,9 @@ const companyServiceService = {
 		const daysDifference = Math.ceil(timeDifference / (24 * 60 * 60 * 1000));
 
 		return daysDifference;
-	}
+	},
+
+	
 };
 
 export default companyServiceService;
