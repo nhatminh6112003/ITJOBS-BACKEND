@@ -31,6 +31,11 @@ const professionController = {
 		const { id } = req.params;
 		await professionService.delete(id);
 		return res.apiResponse();
+	},
+
+	async analysisProfession(req, res) {
+		const data = await professionService.analysisProfession();
+		return res.apiResponse(data);
 	}
 };
 

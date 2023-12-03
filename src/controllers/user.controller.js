@@ -43,6 +43,10 @@ const UserController = {
 		const data = req.body;
 		const response = await userService.changePassword(data, id);
 		return res.apiResponse(response);
+	},
+	async analysis(req, res) {
+		const data = await userService.analysis(req.query);
+		return res.apiResponse(data);
 	}
 };
 export default asyncHandlerDecorator(UserController);
