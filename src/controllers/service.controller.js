@@ -42,6 +42,7 @@ const serviceController = {
 	},
 
 	async createPaymentUrl(req, res) {
+		console.log('TCL: createPaymentUrl -> req', req.body);
 		process.env.TZ = 'Asia/Ho_Chi_Minh';
 
 		const date = new Date();
@@ -59,8 +60,11 @@ const serviceController = {
 		const returnUrl = 'http://localhost:3000/employers/vnpay_return';
 		const orderId = moment(date).format('DDHHmmss');
 		const { amount } = req.body;
+		console.log('TCL: createPaymentUrl -> amount', amount);
 		const { bankCode } = req.body;
+		console.log('TCL: createPaymentUrl -> bankCode', bankCode);
 		const { info } = req.body;
+		console.log('TCL: createPaymentUrl -> info', info);
 		let locale = req.body.language;
 		if (locale === null || locale === '') {
 			locale = 'vn';
@@ -79,7 +83,6 @@ const serviceController = {
 		vnp_Params.vnp_ReturnUrl = returnUrl;
 		vnp_Params.vnp_IpAddr = ipAddr;
 		vnp_Params.vnp_CreateDate = createDate;
-		console.log(vnp_Params);
 		if (bankCode !== undefined && bankCode !== '') {
 			vnp_Params.vnp_BankCode = bankCode;
 		}
@@ -94,6 +97,8 @@ const serviceController = {
 		// eslint-disable-next-line no-buffer-constructor
 		const signed = hmac.update(new Buffer(signData, 'utf-8')).digest('hex');
 		vnp_Params.vnp_SecureHash = signed;
+		console.log('vnp_Params',vnp_Params);
+
 		vnpUrl += `?${querystring.stringify(vnp_Params, { encode: false })}`;
 		console.log(vnpUrl);
 		return res.apiResponse(vnpUrl);
