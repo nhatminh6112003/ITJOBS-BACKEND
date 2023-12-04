@@ -14,7 +14,7 @@ const jobPostController = {
 	},
 
 	async analytic(req, res) {
-		const data = await jobPostService.analytic();
+		const data = await jobPostService.analytic(req.query);
 		return res.apiResponse(data);
 	},
 	async calculateCorrelationIndex(req, res) {

@@ -17,7 +17,6 @@ import {
 	job_post_activity
 } from '../models';
 
-
 const { Op } = Sequelize;
 dotenv.config();
 const jobPostService = {
@@ -201,8 +200,12 @@ const jobPostService = {
 		return await findOneAndUpdate(job_post, { id }, { isDeleted: true });
 	},
 
-	async analytic() {
-		const pendingStatus = await job_post.count({ where: { status: { [Op.eq]: jobPostStatusEnum.Pending } } });
+	async analytic(query) {
+		const { posted_by_id } = query;
+		const pendingStatus = await job_post.count({
+			where: { status: { [Op.eq]: jobPostStatusEnum.Pending }, posted_by_id, isDeleted: false }
+		});
+		console.log(pendingStatus);
 		const expiredStatus = await job_post.count({ where: { status: { [Op.eq]: jobPostStatusEnum.Expired } } });
 		const publishStatus = await job_post.count({ where: { status: { [Op.eq]: jobPostStatusEnum.Publish } } });
 		const pauseStatus = await job_post.count({ where: { status: { [Op.eq]: jobPostStatusEnum.Pause } } });
