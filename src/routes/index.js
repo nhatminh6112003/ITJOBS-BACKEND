@@ -37,6 +37,7 @@ import price_listRoutes from './price_list.route.js';
 import employer_resumeRoutes from './employer_resume.route.js';
 import feedbackRoutes from './feedback.route.js';
 import orderRoutes from './order.route.js';
+import orderItemRoutes from './orderItem.route.js';
 
 function route(app) {
 	const apiRoutes = Router();
@@ -81,6 +82,7 @@ function route(app) {
 	apiRoutes.use('/employer_resume', employer_resumeRoutes);
 apiRoutes.use('/feedback', feedbackRoutes);
 apiRoutes.use('/order', orderRoutes);
+apiRoutes.use('/orderItem', orderItemRoutes);
 
 	app.use('/api', apiRoutes);
 }
