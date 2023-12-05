@@ -80,9 +80,9 @@ function route(app) {
 	apiRoutes.use('/company_service', companyServiceRoutes);
 	apiRoutes.use('/price_list', price_listRoutes);
 	apiRoutes.use('/employer_resume', employer_resumeRoutes);
-apiRoutes.use('/feedback', feedbackRoutes);
-apiRoutes.use('/order', orderRoutes);
-apiRoutes.use('/orderItem', orderItemRoutes);
+	apiRoutes.use('/feedback', feedbackRoutes);
+	apiRoutes.use('/order', orderRoutes);
+	apiRoutes.use('/orderItem', orderItemRoutes);
 
 	app.use('/api', apiRoutes);
 }
