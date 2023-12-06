@@ -1,12 +1,30 @@
 import dotenv from 'dotenv';
 import createError from 'http-errors';
+import { Sequelize } from 'sequelize';
 import { company, user_account } from '../models';
-import { findByPkAndUpdate, findByPkAndDelete } from '../helpers/databaseHelpers';
+import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '../helpers/databaseHelpers';
 
 dotenv.config();
+const { Op } = Sequelize;
+
 const companyService = {
-	async getAll() {
-		return await company.findAll();
+	async getAll(query) {
+		const page = Number(query.page) || 1;
+		const limit = Number(query.limit) || 25;
+		const keyword = query.keyword ?? '';
+		const queryCondition = {};
+
+		if (keyword) {
+			queryCondition.name = { [Op.substring]: keyword };
+		}
+
+		const [data, pagination] = await handlePaginate({
+			model: company,
+			page,
+			limit,
+			condition: queryCondition
+		});
+		return [data, pagination];
 	},
 
 	async getOne(id) {
@@ -27,9 +45,6 @@ const companyService = {
 	},
 
 	async update(id, data) {
-		if (data.lastname || data.firstname) {
-			await findByPkAndUpdate(user_account, data.user_account_id, data);
-		}
 		return await findByPkAndUpdate(company, id, data);
 	},
 

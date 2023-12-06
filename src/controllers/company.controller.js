@@ -3,8 +3,9 @@ import companyService from '../services/company.service';
 
 const companyController = {
 	async getAll(req, res) {
-		const data = await companyService.getAll();
-		return res.apiResponse(data);
+		const { query } = req;
+		const [data, pagination] = await companyService.getAll(query);
+		return res.apiResponse(data, pagination);
 	},
 	async getOne(req, res) {
 		const { id } = req.params;
@@ -19,19 +20,18 @@ const companyController = {
 	},
 
 	async update(req, res) {
-		const logo=req.files[0]?.filename;
+		const logo = req.files[0]?.filename;
 		const { id } = req.params;
-		const banner=req.files[1]?.filename;
+		const banner = req.files[1]?.filename;
 		const data = req.body;
-
-		const dataUpdate= {
+		const dataUpdate = {
 			...data,
 			logo: logo || null,
-			banner:banner || null,
+			banner: banner || null
 		};
-		if(!logo) delete dataUpdate.logo;
-		if(!banner) delete dataUpdate.banner;
-		const handleUpdate = await companyService.update(id,dataUpdate);
+		if (!logo) delete dataUpdate.logo;
+		if (!banner) delete dataUpdate.banner;
+		const handleUpdate = await companyService.update(id, dataUpdate);
 		return res.apiResponse(handleUpdate);
 	},
 
