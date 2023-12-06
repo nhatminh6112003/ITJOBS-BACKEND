@@ -1,8 +1,8 @@
 import createError from 'http-errors';
-import { order } from '../models';
-import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '../helpers/databaseHelpers';
 import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
+import { order, company } from '../models';
+import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '../helpers/databaseHelpers';
 
 const { Op } = Sequelize;
 dotenv.config();
@@ -12,16 +12,22 @@ const orderService = {
 		const limit = Number(query.limit) || 25;
 		const keyword = query.keyword ?? '';
 		const queryCondition = {};
-		
+
 		if (keyword) {
 			queryCondition.name = { [Op.substring]: keyword };
 		}
 
 		const [data, pagination] = await handlePaginate({
-			model:order,
+			model: order,
 			page,
 			limit,
-			condition: queryCondition
+			condition: queryCondition,
+			queries: {
+				nest: true,
+				include: {
+					model: company
+				}
+			}
 		});
 		return [data, pagination];
 	},
@@ -47,6 +53,14 @@ const orderService = {
 
 	async delete(id) {
 		return await findByPkAndDelete(order, id);
+	},
+
+	async analysis() {
+		const count = await order.count();
+		if (!count) {
+			throw createError(404, 'Không tìm thấy bản ghi');
+		}
+		return count;
 	}
 };
 
