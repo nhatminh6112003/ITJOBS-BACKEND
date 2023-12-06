@@ -146,10 +146,8 @@ const companyServiceService = {
 		const timeDifference = endDateObj - startDateObj;
 		const daysDifference = Math.ceil(timeDifference / (24 * 60 * 60 * 1000));
 
-		return daysDifference;
-	},
-
-	
+		return daysDifference + 1;
+	}
 };
 
 export default companyServiceService;

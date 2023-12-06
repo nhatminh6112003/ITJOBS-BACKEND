@@ -202,14 +202,23 @@ const jobPostService = {
 
 	async analytic(query) {
 		const { posted_by_id } = query;
-		const pendingStatus = await job_post.count({
+		const pendingStatus = await job_post.findAll({
 			where: { status: { [Op.eq]: jobPostStatusEnum.Pending }, posted_by_id, isDeleted: false }
 		});
-		console.log(pendingStatus);
-		const expiredStatus = await job_post.count({ where: { status: { [Op.eq]: jobPostStatusEnum.Expired } } });
-		const publishStatus = await job_post.count({ where: { status: { [Op.eq]: jobPostStatusEnum.Publish } } });
-		const pauseStatus = await job_post.count({ where: { status: { [Op.eq]: jobPostStatusEnum.Pause } } });
-		return { pendingStatus, expiredStatus, pauseStatus, publishStatus };
+
+		const expiredStatus = await job_post.count({
+			where: {
+				status: { [Op.eq]: jobPostStatusEnum.Expired },
+				posted_by_id
+			}
+		});
+		const publishStatus = await job_post.count({
+			where: { status: { [Op.eq]: jobPostStatusEnum.Publish }, posted_by_id }
+		});
+		const pauseStatus = await job_post.count({
+			where: { status: { [Op.eq]: jobPostStatusEnum.Pause }, posted_by_id }
+		});
+		return { pendingStatus: pendingStatus.length, expiredStatus, pauseStatus, publishStatus };
 	},
 
 	async calculateCorrelationIndex(query) {
@@ -427,6 +436,14 @@ const jobPostService = {
 			data_1: degreeCounts,
 			label: DegreeOptions.map((item) => item.label)
 		};
+	},
+
+	async analyticTotalPost() {
+		const countPost = await job_post.findAll({
+			where: { isDeleted: false, status: { [Op.eq]: jobPostStatusEnum.Publish } },
+			raw: true
+		});
+		return countPost;
 	},
 	calculateDaysDifference(start_date, end_date) {
 		const startDateObj = new Date(start_date);
