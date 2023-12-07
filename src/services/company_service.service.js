@@ -21,6 +21,16 @@ const companyServiceService = {
 		});
 	},
 
+	async getAllByService() {
+		return await company_service.findAll({
+			include: [
+				{
+					model: service
+				}
+			]
+		});
+	},
+
 	async getOne(id) {
 		const dataOne = await company_service.findOne({
 			where: {
@@ -147,9 +157,7 @@ const companyServiceService = {
 		const daysDifference = Math.ceil(timeDifference / (24 * 60 * 60 * 1000));
 
 		return daysDifference;
-	},
-
-	
+	}
 };
 
 export default companyServiceService;
