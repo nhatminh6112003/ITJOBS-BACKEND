@@ -1,10 +1,26 @@
 import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
 import jobPostService from '../services/job_post.service';
+import company_serviceService from '../services/company_service.service';
 
 const jobPostController = {
 	async getAll(req, res) {
 		const { query } = req;
 		const [data, pagination] = await jobPostService.getAll(query);
+		return res.apiResponse(data, pagination);
+	},
+	async getAllByService(req, res) {
+		const { query } = req;
+		const [data, pagination] = await jobPostService.getAll(query);
+		const { data: company_service } = await company_serviceService.getAllByService();
+		// sắp xếp theo giá tiền
+		if (company_service) {
+			data.sort((a, b) => {
+				const priceA = company_service.find((item) => item.company_id === a.company_id)?.service?.price || 0;
+				const priceB = company_service.find((item) => item.company_id === b.company_id)?.service?.price || 0;
+				return priceB - priceA;
+			});
+		}
+
 		return res.apiResponse(data, pagination);
 	},
 	async getOne(req, res) {

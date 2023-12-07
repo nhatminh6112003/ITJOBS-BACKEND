@@ -21,6 +21,16 @@ const companyServiceService = {
 		});
 	},
 
+	async getAllByService() {
+		return await company_service.findAll({
+			include: [
+				{
+					model: service
+				}
+			]
+		});
+	},
+
 	async getOne(id) {
 		const dataOne = await company_service.findOne({
 			where: {
