@@ -38,6 +38,7 @@ import employer_resumeRoutes from './employer_resume.route.js';
 import feedbackRoutes from './feedback.route.js';
 import orderRoutes from './order.route.js';
 import orderItemRoutes from './orderItem.route.js';
+import service_benefitsRoutes from './service_benefits.route.js';
 
 function route(app) {
 	const apiRoutes = Router();
@@ -83,6 +84,7 @@ function route(app) {
 	apiRoutes.use('/feedback', feedbackRoutes);
 	apiRoutes.use('/order', orderRoutes);
 	apiRoutes.use('/orderItem', orderItemRoutes);
+	apiRoutes.use('/service_benefits', service_benefitsRoutes);
 
 	app.use('/api', apiRoutes);
 }
