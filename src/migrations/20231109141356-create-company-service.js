@@ -18,12 +18,22 @@ module.exports = {
 			service_id: {
 				type: Sequelize.UUID
 			},
+			quantity: {
+				type: Sequelize.INTEGER
+			},
+			isActive: {
+				type: Sequelize.BOOLEAN,
+				defaultValue: false
+			},
+			isExpiry: {
+				type: Sequelize.BOOLEAN,
+				defaultValue: false
+			},
 			expiration_date: {
 				type: Sequelize.DATE
 			},
 			register_date: {
 				type: Sequelize.DATE,
-				defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
 			},
 			createdAt: {
 				allowNull: false,
