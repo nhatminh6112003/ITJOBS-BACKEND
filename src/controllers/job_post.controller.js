@@ -6,6 +6,11 @@ const jobPostController = {
 	async getAll(req, res) {
 		const { query } = req;
 		const [data, pagination] = await jobPostService.getAll(query);
+		return res.apiResponse(data, pagination);
+	},
+	async getAllByService(req, res) {
+		const { query } = req;
+		const [data, pagination] = await jobPostService.getAll(query);
 		const { data: company_service } = await company_serviceService.getAllByService();
 
 		// sắp xếp theo giá tiền

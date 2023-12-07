@@ -10,6 +10,7 @@ router.get('/analytics/analyticJobSeekerApplyByDay', jobPostController.analyticJ
 router.get('/analytics/analyticResumeStatus', jobPostController.analyticResumeStatus);
 router.get('/analytics/analyticDegreeValue', jobPostController.analyticDegreeValue);
 router.get('', jobPostController.getAll);
+router.get('/sort', jobPostController.getAllByService);
 router.get('/:id', jobPostController.getOne);
 router.post('', jobPostValidation.jobPost, jobPostController.create);
 router.patch('/:id', jobPostController.update);
