@@ -8,10 +8,10 @@ import { connectDb } from './config/connectDB.js';
 import apiResponse from './middleware/apiResponse.js';
 import errorHandler from './middleware/errorHandler.js';
 import route from './routes/index.js';
-// import cronJob from './cron-job/cron-job.js';
+import cronJob from './cron-job/cron-job.js';
 
 const app = express();
-// cronJob();
+cronJob();
 
 app.use(cookieParser());
 app.use(
