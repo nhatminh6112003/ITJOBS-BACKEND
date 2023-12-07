@@ -99,7 +99,10 @@ const companyServiceService = {
 
 			where: {
 				createdAt: {
-					[Sequelize.Op.between]: [startDate, endDate]
+					[Sequelize.Op.between]: [
+						moment(startDate).format('YYYY-MM-DD h:mm:ss'),
+						moment(endDate).format('YYYY-MM-DD h:mm:ss')
+					]
 				}
 			},
 
