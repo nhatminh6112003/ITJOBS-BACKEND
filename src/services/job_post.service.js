@@ -254,7 +254,7 @@ const jobPostService = {
 			nest: true,
 			raw: true
 		});
-		console.log('TCL: calculateCorrelationIndex -> resultJobPostActivity', resultJobPostActivity);
+
 
 		const daysBetween = this.calculateDaysDifference(startDate, endDate);
 
@@ -354,11 +354,7 @@ const jobPostService = {
 			{ label: 'Đề nghị tuyển dụng', value: ResumeStatusEnum.OFFERED },
 			{ label: 'Nhận việc', value: ResumeStatusEnum.HIRED }
 		];
-		console.log(
-			"TCL: analyticResumeStatus -> moment(startDate).format('YYYY-MM-DD')",
-			moment(startDate).format('YYYY-DD-MM h:mm:ss')
-		);
-
+	
 		const getStatusCount = async (status) =>
 			job_post_activity.count({
 				where: {
