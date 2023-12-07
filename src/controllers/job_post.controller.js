@@ -12,7 +12,6 @@ const jobPostController = {
 		const { query } = req;
 		const [data, pagination] = await jobPostService.getAll(query);
 		const { data: company_service } = await company_serviceService.getAllByService();
-
 		// sắp xếp theo giá tiền
 		if (company_service) {
 			data.sort((a, b) => {
