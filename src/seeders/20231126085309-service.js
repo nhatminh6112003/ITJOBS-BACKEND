@@ -7,7 +7,7 @@ module.exports = {
 			'service',
 			[
 				{
-          id:'7abfa5ec-8c3e-11ee-b9d1-0242ac120002',
+					id: '7abfa5ec-8c3e-11ee-b9d1-0242ac120002',
 					name: 'Tuyển dụng ứng viên',
 					price: 1000000,
 					description: 'Đăng tuyển dụng lên website'

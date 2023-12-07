@@ -1,5 +1,4 @@
 // eslint-disable-next-line import/no-extraneous-dependencies, import/no-import-module-exports
-import { v4 as uuidv4 } from 'uuid';
 
 const { Model } = require('sequelize');
 

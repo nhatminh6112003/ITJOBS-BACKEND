@@ -1,7 +1,7 @@
 import moment from 'moment/moment';
 import dotenv from 'dotenv';
 import createError from 'http-errors';
-import { Sequelize, company_service, sequelize, service } from '../models';
+import { Sequelize, company_service, sequelize, service, service_type } from '../models';
 import { findByPkAndUpdate, findByPkAndDelete } from '../helpers/databaseHelpers';
 
 dotenv.config();
@@ -15,7 +15,8 @@ const companyServiceService = {
 			where: queries,
 			include: [
 				{
-					model: service
+					model: service,
+					include: [{ model: service_type }]
 				}
 			]
 		});
