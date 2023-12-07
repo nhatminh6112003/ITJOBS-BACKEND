@@ -31,6 +31,11 @@ const orderController = {
 		const { id } = req.params;
 		await orderService.delete(id);
 		return res.apiResponse();
+	},
+
+	async analysis(req, res) {
+		const data = await orderService.analysis();
+		return res.apiResponse(data);
 	}
 };
 

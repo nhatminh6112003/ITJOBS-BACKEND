@@ -109,7 +109,10 @@ const companyServiceService = {
 
 			where: {
 				createdAt: {
-					[Sequelize.Op.between]: [startDate, endDate]
+					[Sequelize.Op.between]: [
+						moment(startDate).format('YYYY-MM-DD h:mm:ss'),
+						moment(endDate).format('YYYY-MM-DD h:mm:ss')
+					]
 				}
 			},
 
@@ -125,11 +128,10 @@ const companyServiceService = {
 		});
 
 		const label = [];
-		const service_name = [];
 
 		const currentDate = new Date(startDate);
 		while (currentDate <= new Date(endDate)) {
-			const formattedDate = `${currentDate.getDate()}/${currentDate.getMonth() + 1}`;
+			const formattedDate = `${moment(currentDate).format('DD')}/${currentDate.getMonth() + 1}`;
 			label.push(formattedDate);
 			currentDate.setDate(currentDate.getDate() + 1);
 		}
@@ -139,11 +141,8 @@ const companyServiceService = {
 			const dayIndex = label.indexOf(result.day);
 			data[dayIndex] = Number(result.total_revenue);
 		});
-		results.forEach((result) => {
-			service_name.push(result.service_name);
-		});
+
 		return {
-			service_name,
 			data,
 			label
 		};
@@ -156,7 +155,7 @@ const companyServiceService = {
 		const timeDifference = endDateObj - startDateObj;
 		const daysDifference = Math.ceil(timeDifference / (24 * 60 * 60 * 1000));
 
-		return daysDifference;
+		return daysDifference + 1;
 	}
 };
 

@@ -8,7 +8,7 @@ import ResumeValidation from '../validations/resume.validation';
 
 const router = express.Router();
 
-router.get('/', AuthMiddleWare.protect, ResumeController.getAll);
+router.get('/', ResumeController.getAll);
 router.get('/:id', ResumeController.getOne);
 router.get(
 	'/resume-profile/:user_id',

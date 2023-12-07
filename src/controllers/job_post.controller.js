@@ -70,6 +70,11 @@ const jobPostController = {
 		const { id } = req.params;
 		await jobPostService.delete(id);
 		return res.apiResponse();
+	},
+
+	async analyticTotalPost(req, res) {
+		const data = await jobPostService.analyticTotalPost();
+		return res.apiResponse(data);
 	}
 };
 

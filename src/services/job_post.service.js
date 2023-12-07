@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import createError from 'http-errors';
+import moment from 'moment';
 import { Sequelize } from 'sequelize';
 import DateTypeEnum from '../constants/dateTypeEnum';
 import jobPostStatusEnum from '../constants/jobPostStatusEnum';
@@ -202,14 +203,23 @@ const jobPostService = {
 
 	async analytic(query) {
 		const { posted_by_id } = query;
-		const pendingStatus = await job_post.count({
+		const pendingStatus = await job_post.findAll({
 			where: { status: { [Op.eq]: jobPostStatusEnum.Pending }, posted_by_id, isDeleted: false }
 		});
-		console.log(pendingStatus);
-		const expiredStatus = await job_post.count({ where: { status: { [Op.eq]: jobPostStatusEnum.Expired } } });
-		const publishStatus = await job_post.count({ where: { status: { [Op.eq]: jobPostStatusEnum.Publish } } });
-		const pauseStatus = await job_post.count({ where: { status: { [Op.eq]: jobPostStatusEnum.Pause } } });
-		return { pendingStatus, expiredStatus, pauseStatus, publishStatus };
+
+		const expiredStatus = await job_post.count({
+			where: {
+				status: { [Op.eq]: jobPostStatusEnum.Expired },
+				posted_by_id
+			}
+		});
+		const publishStatus = await job_post.count({
+			where: { status: { [Op.eq]: jobPostStatusEnum.Publish }, posted_by_id }
+		});
+		const pauseStatus = await job_post.count({
+			where: { status: { [Op.eq]: jobPostStatusEnum.Pause }, posted_by_id }
+		});
+		return { pendingStatus: pendingStatus.length, expiredStatus, pauseStatus, publishStatus };
 	},
 
 	async calculateCorrelationIndex(query) {
@@ -220,23 +230,18 @@ const jobPostService = {
 				[sequelize.literal('COUNT(*)'), 'total_jobs']
 			],
 			where: {
-				posted_date: {
-					[Sequelize.Op.between]: [startDate, endDate]
-				},
 				posted_by_id: user_account_id
 			},
-			group: ['day']
+			group: ['day'],
+			nest: true,
+			raw: true
 		});
+
 		const resultJobPostActivity = await job_post_activity.findAll({
 			attributes: [
 				[sequelize.fn('DATE_FORMAT', sequelize.col('apply_date'), '%d/%m'), 'day'],
 				[sequelize.literal('COUNT(*)'), 'total_resume']
 			],
-			where: {
-				apply_date: {
-					[Sequelize.Op.between]: [startDate, endDate]
-				}
-			},
 			include: [
 				{
 					model: job_post,
@@ -245,8 +250,12 @@ const jobPostService = {
 					}
 				}
 			],
-			group: ['day', 'job_post.id']
+			group: ['day', 'job_post.id'],
+			nest: true,
+			raw: true
 		});
+
+
 		const daysBetween = this.calculateDaysDifference(startDate, endDate);
 
 		const data_1 = Array(daysBetween).fill(0);
@@ -256,20 +265,22 @@ const jobPostService = {
 
 		const currentDate = new Date(startDate);
 		while (currentDate <= new Date(endDate)) {
-			const formattedDate = `${currentDate.getDate()}/${currentDate.getMonth() + 1}`;
+			const formattedDate = `${moment(currentDate).format('DD')}/${currentDate.getMonth() + 1}`;
 			label.push(formattedDate);
 			currentDate.setDate(currentDate.getDate() + 1);
 		}
+		console.log('TCL: calculateCorrelationIndex -> label', label);
 
 		results.forEach((result) => {
-			const { day } = result.dataValues;
-			const totalJobs = result.dataValues.total_jobs;
-			const dayIndex = label.indexOf(day);
-			data_1[dayIndex] = totalJobs;
+			const dayIndex = label.indexOf(result.day);
+			if (dayIndex !== -1) {
+				data_1[dayIndex] = result.total_jobs;
+			}
 		});
+
 		resultJobPostActivity.forEach((result) => {
-			const { day } = result.dataValues;
-			const totalResume = result.dataValues.total_resume;
+			const { day } = result;
+			const totalResume = result.total_resume;
 			const dayIndex = label.indexOf(day);
 			data_2[dayIndex] = totalResume;
 		});
@@ -291,11 +302,6 @@ const jobPostService = {
 				[sequelize.fn('DATE_FORMAT', sequelize.col('apply_date'), '%d/%m'), 'day'],
 				[sequelize.literal('COUNT(*)'), 'total_resume']
 			],
-			where: {
-				apply_date: {
-					[Sequelize.Op.between]: [startDate, endDate]
-				}
-			},
 			include: [
 				{
 					model: job_post,
@@ -311,7 +317,7 @@ const jobPostService = {
 
 		const currentDate = new Date(startDate);
 		while (currentDate <= new Date(endDate)) {
-			const formattedDate = `${currentDate.getDate()}/${currentDate.getMonth() + 1}`;
+			const formattedDate = `${moment(currentDate).format('DD')}/${currentDate.getMonth() + 1}`;
 			label.push(formattedDate);
 			currentDate.setDate(currentDate.getDate() + 1);
 		}
@@ -348,12 +354,15 @@ const jobPostService = {
 			{ label: 'Đề nghị tuyển dụng', value: ResumeStatusEnum.OFFERED },
 			{ label: 'Nhận việc', value: ResumeStatusEnum.HIRED }
 		];
-
+	
 		const getStatusCount = async (status) =>
 			job_post_activity.count({
 				where: {
 					apply_date: {
-						[Sequelize.Op.between]: [startDate, endDate]
+						[Sequelize.Op.between]: [
+							moment(startDate).format('YYYY-MM-DD h:mm:ss'),
+							moment(endDate).format('YYYY-MM-DD h:mm:ss')
+						]
 					},
 					status
 				},
@@ -384,15 +393,6 @@ const jobPostService = {
 	async analyticDegreeValue(query) {
 		const { startDate, endDate, user_account_id } = query;
 
-		const DegreeEnum = {
-			CHUA_TOT_NGHIEP: 0, // Chưa tốt nghiệp
-			TRUNG_HOC: 1, // Trung học
-			TRUNG_CAP: 2, // Trung cấp
-			CAO_DANG: 3, // Cao đẳng
-			DAI_HOC: 4, // Đại học
-			SAU_DAI_HOC: 5, // Sau đại học
-			KHAC: 6 // Khác
-		};
 		const DegreeOptions = [
 			{ label: 'Chưa tốt nghiệp', value: 0 },
 			{ label: 'Trung học', value: 1 },
@@ -402,31 +402,50 @@ const jobPostService = {
 			{ label: 'Sau đại học', value: 5 },
 			{ label: 'Khác', value: 6 }
 		];
-
+		const DegreeEnum = {
+			CHUA_TOT_NGHIEP: 0, // Chưa tốt nghiệp
+			TRUNG_HOC: 1, // Trung học
+			TRUNG_CAP: 2, // Trung cấp
+			CAO_DANG: 3, // Cao đẳng
+			DAI_HOC: 4, // Đại học
+			SAU_DAI_HOC: 5, // Sau đại học
+			KHAC: 6 // Khác
+		};
 		const getDegreeCount = async (degree) =>
 			job_post.count({
 				where: {
 					posted_date: {
-						[Sequelize.Op.between]: [startDate, endDate]
+						[Sequelize.Op.between]: [
+							moment(startDate).format('YYYY-MM-DD h:mm:ss'),
+							moment(endDate).format('YYYY-MM-DD h:mm:ss')
+						]
 					},
 					posted_by_id: user_account_id,
-					job_degree_value: degree
+					job_degree_value: degree,
+					status: jobPostStatusEnum.Publish
 				}
 			});
+		const degrees = Object.values(DegreeEnum);
 
-		const degreeCounts = [];
-
-		await Promise.all(
-			Object.values(DegreeEnum).map(async (degree) => {
+		const countArray = await Promise.all(
+			degrees.map(async (degree) => {
 				const count = await getDegreeCount(degree);
-				degreeCounts.push(count);
+				return count;
 			})
 		);
 
 		return {
-			data_1: degreeCounts,
+			data_1: countArray,
 			label: DegreeOptions.map((item) => item.label)
 		};
+	},
+
+	async analyticTotalPost() {
+		const countPost = await job_post.findAll({
+			where: { isDeleted: false, status: { [Op.eq]: jobPostStatusEnum.Publish } },
+			raw: true
+		});
+		return countPost;
 	},
 	calculateDaysDifference(start_date, end_date) {
 		const startDateObj = new Date(start_date);
