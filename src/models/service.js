@@ -16,6 +16,11 @@ module.exports = (sequelize, DataTypes) => {
 			service.hasMany(models.company_service, {
 				foreignKey: 'service_id'
 			});
+			service.belongsToMany(models.benefits, {
+				through: 'service_benefits',
+				foreignKey: 'service_id',
+				otherKey: 'benefit_id'
+			});
 		}
 	}
 	service.init(
