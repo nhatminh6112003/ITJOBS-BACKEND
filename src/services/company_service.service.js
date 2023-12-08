@@ -1,7 +1,7 @@
 import moment from 'moment/moment';
 import dotenv from 'dotenv';
 import createError from 'http-errors';
-import { Sequelize, company_service, sequelize, service } from '../models';
+import { Sequelize, company_service, sequelize, service, service_type } from '../models';
 import { findByPkAndUpdate, findByPkAndDelete } from '../helpers/databaseHelpers';
 
 dotenv.config();
@@ -11,11 +11,15 @@ const companyServiceService = {
 		if (req.company_id) {
 			queries.company_id = req.company_id;
 		}
+		if (req.isExpiry || req.isExpiry !== 0) {
+			queries.isExpiry = req.isExpiry;
+		}
 		return await company_service.findAll({
 			where: queries,
 			include: [
 				{
-					model: service
+					model: service,
+					include: [{ model: service_type }]
 				}
 			]
 		});
@@ -56,19 +60,19 @@ const companyServiceService = {
 			raw: true
 		});
 		if (!dataOne) {
-			const register_date = moment(date).format('YYYY-MM-DD');
-			const expiration_date = moment(register_date).add(30, 'days').format('YYYY-MM-DD');
+			const quantity = 1;
+			const isActive = false;
 			return await company_service.create({
 				user_account_id,
 				company_id,
 				service_id,
-				register_date,
-				expiration_date
+				quantity,
+				isActive
 			});
 		}
-		const { expiration_date, id } = dataOne;
-		const newExiration_date = moment(expiration_date, 'YYYYMMDD').add(30, 'days').format('YYYYMMDD');
-		return await findByPkAndUpdate(company_service, id, { expiration_date: newExiration_date });
+		const { quantity, id } = dataOne;
+		const newQuantity = quantity + 1;
+		return await findByPkAndUpdate(company_service, id, { quantity: newQuantity });
 	},
 
 	async update(id, data) {

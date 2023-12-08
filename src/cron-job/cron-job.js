@@ -2,7 +2,8 @@ import cron from 'node-cron';
 import moment from 'moment';
 import { Sequelize } from 'sequelize';
 import jobPostStatusEnum from '../constants/jobPostStatusEnum';
-import { job_post } from '../models';
+import { job_post, company_service } from '../models';
+import { findByPkAndDelete } from '../helpers/databaseHelpers';
 
 const { Op } = Sequelize;
 const cronJob = () => {
@@ -37,6 +38,63 @@ const cronJob = () => {
 		} catch (error) {
 			console.log('TCL: updateStatusExpiredDate -> error', error);
 		}
+	});
+	cron.schedule('0 0 * * *', async () => {
+		const currentDate = moment().toISOString();
+		try {
+			const findAllCompanyService = await company_service.findAll({
+				where: {
+					expiration_date: {
+						[Op.lt]: currentDate
+					},
+					isExpiry: false
+				},
+				raw: true
+			});
+			if (findAllCompanyService.length > 0) {
+				findAllCompanyService.forEach(async (item) => {
+					let newQuantity = 0;
+					if (item.quantity > 1) {
+						newQuantity = item?.quantity - 1;
+						await company_service.create({
+							company_id: item.company_id,
+							user_account_id: item.user_account_id,
+							service_id: item.service_id,
+							expiration_date: item.expiration_date,
+							register_date: item.register_date,
+							quantity: 1,
+							isActive: false,
+							isExpiry: true
+						});
+						await company_service.update(
+							{
+								quantity: newQuantity,
+								isActive: false,
+								expiration_date: null,
+								register_date: null
+							},
+							{
+								where: {
+									id: item.id
+								}
+							}
+						);
+					} else {
+						await company_service.create({
+							company_id: item.company_id,
+							user_account_id: item.user_account_id,
+							service_id: item.service_id,
+							expiration_date: item.expiration_date,
+							register_date: item.register_date,
+							quantity: 1,
+							isActive: false,
+							isExpiry: true
+						});
+						await findByPkAndDelete(company_service, item.id);
+					}
+				});
+			}
+		} catch (error) {}
 	});
 };
 

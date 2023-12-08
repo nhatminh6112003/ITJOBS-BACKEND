@@ -26,7 +26,10 @@ module.exports = (sequelize, DataTypes) => {
 			user_account_id: DataTypes.UUID,
 			service_id: DataTypes.UUID,
 			expiration_date: DataTypes.DATE,
-			register_date: DataTypes.DATE
+			register_date: DataTypes.DATE,
+			quantity: DataTypes.INTEGER,
+			isActive: DataTypes.BOOLEAN,
+			isExpiry: DataTypes.BOOLEAN
 		},
 		{
 			sequelize,
