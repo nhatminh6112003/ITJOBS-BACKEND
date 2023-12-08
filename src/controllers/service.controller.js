@@ -97,7 +97,7 @@ const serviceController = {
 		// eslint-disable-next-line no-buffer-constructor
 		const signed = hmac.update(new Buffer(signData, 'utf-8')).digest('hex');
 		vnp_Params.vnp_SecureHash = signed;
-		console.log('vnp_Params',vnp_Params);
+		console.log('vnp_Params', vnp_Params);
 
 		vnpUrl += `?${querystring.stringify(vnp_Params, { encode: false })}`;
 		console.log(vnpUrl);
