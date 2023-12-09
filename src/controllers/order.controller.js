@@ -36,6 +36,10 @@ const orderController = {
 	async analysis(req, res) {
 		const data = await orderService.analysis();
 		return res.apiResponse(data);
+	},
+	async calculateTotalRevenue(req, res) {
+		const data = await orderService.calculateTotalRevenue(req.query);
+		return res.apiResponse(data);
 	}
 };
 
