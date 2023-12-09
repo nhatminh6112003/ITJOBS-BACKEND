@@ -11,9 +11,15 @@ const companyServiceService = {
 		if (req.company_id) {
 			queries.company_id = req.company_id;
 		}
-		if (req.isExpiry || req.isExpiry !== 0) {
+	
+		if (req.isActive || req.isActive === 0) {
+			queries.isActive = req.isActive;
+		}
+
+		if (req.isExpiry || req.isExpiry === 0) {
 			queries.isExpiry = req.isExpiry;
 		}
+
 		return await company_service.findAll({
 			where: queries,
 			include: [
@@ -49,7 +55,6 @@ const companyServiceService = {
 	},
 
 	async create(data) {
-		const date = new Date();
 		const { user_account_id, company_id, service_id } = data;
 		const dataOne = await company_service.findOne({
 			where: {

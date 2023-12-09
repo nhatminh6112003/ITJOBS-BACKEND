@@ -19,6 +19,9 @@ const serviceService = {
 		if (keyword) {
 			queryCondition.name = { [Op.substring]: keyword };
 		}
+		if (query.service_type_id) {
+			queryCondition.service_type_id = query.service_type_id;
+		}
 
 		const [data, pagination] = await handlePaginate({
 			model: service,
@@ -27,7 +30,7 @@ const serviceService = {
 			condition: queryCondition,
 			queries: {
 				nest: true,
-				include: [{ model: service_type }]
+				include: [{ model: service_type }, { model: benefits }]
 			},
 			nest: true
 		});

@@ -70,6 +70,12 @@ const jobPostService = {
 			queryCondition.status = { [Op.eq]: Number(status) };
 		}
 
+		if (query.stringStatus) {
+			const { stringStatus } = query;
+			const arrayStatus = stringStatus.toString().split(',');
+			queryCondition.status = { [Op.in]: arrayStatus };
+		}
+
 		if (query.profession_id) {
 			const { profession_id } = query;
 			queryProfessionCondition.id = { [Op.eq]: profession_id };
@@ -255,7 +261,6 @@ const jobPostService = {
 			raw: true
 		});
 
-
 		const daysBetween = this.calculateDaysDifference(startDate, endDate);
 
 		const data_1 = Array(daysBetween).fill(0);
@@ -354,7 +359,7 @@ const jobPostService = {
 			{ label: 'Đề nghị tuyển dụng', value: ResumeStatusEnum.OFFERED },
 			{ label: 'Nhận việc', value: ResumeStatusEnum.HIRED }
 		];
-	
+
 		const getStatusCount = async (status) =>
 			job_post_activity.count({
 				where: {
