@@ -1,6 +1,5 @@
 import Express from 'express';
 import serviceController from '../controllers/service.controller';
-import ServiceValidation from '../validations/service.validation';
 
 const router = Express.Router();
 router.get('/', serviceController.getAll);

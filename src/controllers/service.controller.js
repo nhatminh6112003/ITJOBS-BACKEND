@@ -100,7 +100,6 @@ const serviceController = {
 		console.log('vnp_Params', vnp_Params);
 
 		vnpUrl += `?${querystring.stringify(vnp_Params, { encode: false })}`;
-		console.log(vnpUrl);
 		return res.apiResponse(vnpUrl);
 	}
 };

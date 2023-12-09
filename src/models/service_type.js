@@ -22,7 +22,8 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    slug: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'service_type',
