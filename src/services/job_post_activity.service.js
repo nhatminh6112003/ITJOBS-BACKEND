@@ -10,7 +10,8 @@ import {
 	my_attach,
 	resume_title,
 	user_account,
-	resume_profile
+	resume_profile,
+	resume_desired_job
 } from '../models';
 import { findByPkAndUpdate, findByPkAndDelete, handlePaginate, findOneAndUpdate } from '../helpers/databaseHelpers';
 import sendMail from '../helpers/mailer';
@@ -71,7 +72,11 @@ const jobPostActivityService = {
 								where: Object.keys(queryConditionResumeTitle).length > 0 ? queryConditionResumeTitle : null,
 								required: false
 							},
-							{ model: my_attach }
+							{ model: my_attach },
+							{
+								model: resume_desired_job,
+								as: 'resume_desired_job'
+							}
 						]
 					}
 				]
