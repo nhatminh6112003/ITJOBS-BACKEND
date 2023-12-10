@@ -1,7 +1,7 @@
 import createError from 'http-errors';
 import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
-import { profession, job_position_category } from '../models';
+import { profession, job_position_category, job_post } from '../models';
 import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '../helpers/databaseHelpers';
 
 const { Op } = Sequelize;
@@ -57,53 +57,56 @@ const professionService = {
 	},
 
 	async analysisProfession() {
-		const professionList = await profession.findAll({
-			attributes: [
-				[Sequelize.fn('COUNT', Sequelize.col('profession.id')), 'count'],
-				[Sequelize.literal('job_position_category.name'), 'job_position_category_name'],
-				[Sequelize.literal('profession.id'), 'profession_id'], // Thêm id của profession
-				[Sequelize.literal('profession.name'), 'profession_name']
-			],
+		const professionList = await job_post.findAll({
 			include: [
 				{
-					model: job_position_category,
-					as: 'job_position_category',
-					attributes: ['id', 'name']
+					model: profession,
+					as: 'profession',
+					include: [
+						{
+							model: job_position_category,
+							as: 'job_position_category'
+						}
+					]
 				}
 			],
-			group: ['job_position_category.id', 'job_position_category.name', 'profession_id', 'profession_name'],
-			raw: true
+			nest: true
 		});
 
-		if (!professionList) {
-			throw createError(404, 'Không tìm thấy bản ghi');
-		}
+		const result = {};
 
-		const dataMap = new Map();
+		professionList.forEach((job) => {
+			job.profession.forEach((professionItem) => {
+				console.log('TCL: analysisProfession -> professionItem', professionItem);
+				const categoryName = professionItem.job_position_category.name;
+				const professionId = professionItem.id;
+				const professionName = professionItem.name;
 
-		professionList.forEach((item) => {
-			const jobPositionCategoryName = item.job_position_category_name;
-			const professionId = item.profession_id; // Lấy id của profession
-			const professionName = item.profession_name;
-			const { count } = item;
+				if (!result[categoryName]) {
+					result[categoryName] = {
+						job_position_category_name: categoryName,
+						profession_data: []
+					};
+				}
 
-			if (!dataMap.has(jobPositionCategoryName)) {
-				dataMap.set(jobPositionCategoryName, {
-					job_position_category_name: jobPositionCategoryName,
-					profession_data: []
-				});
-			}
-
-			dataMap.get(jobPositionCategoryName).profession_data.push({
-				profession_id: professionId,
-				profession_name: professionName,
-				count
+				const existingProfession = result[categoryName].profession_data.find(
+					(p) => p.profession_id === professionId
+				);
+				if (existingProfession) {
+					// eslint-disable-next-line no-plusplus
+					existingProfession.count++;
+				} else {
+					result[categoryName].profession_data.push({
+						profession_id: professionId,
+						profession_name: professionName,
+						count: 1
+					});
+				}
 			});
 		});
 
-		const data = Array.from(dataMap.values());
-
-		return data;
+		const formattedData = Object.values(result);
+		return formattedData;
 	}
 };
 
