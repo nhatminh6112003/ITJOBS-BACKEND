@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
 import { profession, job_position_category, job_post } from '../models';
 import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '../helpers/databaseHelpers';
+import jobPostStatusEnum from '../constants/jobPostStatusEnum';
 
 const { Op } = Sequelize;
 dotenv.config();
@@ -58,6 +59,9 @@ const professionService = {
 
 	async analysisProfession() {
 		const professionList = await job_post.findAll({
+			where: {
+				status: jobPostStatusEnum.Publish
+			},
 			include: [
 				{
 					model: profession,
@@ -77,7 +81,6 @@ const professionService = {
 
 		professionList.forEach((job) => {
 			job.profession.forEach((professionItem) => {
-				console.log('TCL: analysisProfession -> professionItem', professionItem);
 				const categoryName = professionItem.job_position_category.name;
 				const professionId = professionItem.id;
 				const professionName = professionItem.name;
