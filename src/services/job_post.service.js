@@ -274,7 +274,6 @@ const jobPostService = {
 			label.push(formattedDate);
 			currentDate.setDate(currentDate.getDate() + 1);
 		}
-		console.log('TCL: calculateCorrelationIndex -> label', label);
 
 		results.forEach((result) => {
 			const dayIndex = label.indexOf(result.day);
@@ -360,26 +359,28 @@ const jobPostService = {
 			{ label: 'Nhận việc', value: ResumeStatusEnum.HIRED }
 		];
 
-		const getStatusCount = async (status) =>
-			job_post_activity.count({
-				where: {
-					apply_date: {
-						[Sequelize.Op.between]: [
-							moment(startDate).format('YYYY-MM-DD h:mm:ss'),
-							moment(endDate).format('YYYY-MM-DD h:mm:ss')
-						]
-					},
-					status
+		const getStatusCount = async (status) => {
+			const queryStatusCount = `
+			  SELECT COUNT(*) AS count
+			  FROM job_post_activity
+			  JOIN job_post ON job_post_activity.job_id = job_post.id
+			  WHERE job_post_activity.apply_date BETWEEN :startDate AND :endDate
+				 AND job_post_activity.status = :status
+				 AND job_post.posted_by_id = :userAccountId
+			`;
+
+			const [result] = await sequelize.query(queryStatusCount, {
+				replacements: {
+					startDate: moment(startDate).format('YYYY-MM-DD h:mm:ss'),
+					endDate: moment(endDate).format('YYYY-MM-DD h:mm:ss'),
+					status,
+					userAccountId: user_account_id
 				},
-				include: [
-					{
-						model: job_post,
-						where: {
-							posted_by_id: user_account_id
-						}
-					}
-				]
+				type: sequelize.QueryTypes.SELECT
 			});
+
+			return result.count;
+		};
 		const statusCounts = [];
 
 		await Promise.all(
