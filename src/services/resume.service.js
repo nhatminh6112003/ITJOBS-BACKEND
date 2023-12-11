@@ -67,13 +67,11 @@ const resumeService = {
 		if (query.resume_active == resumeActiveEnum.FLASH || query.resume_active == resumeActiveEnum.PUBLIC) {
 			queryCondition.resume_active = { [Op.eq]: query.resume_active };
 		}
-
 		if (query.isFindJobSeeker) {
 			queryCondition.resume_active = {
-				[Op.or]: [resumeActiveEnum.FLASH, resumeActiveEnum.PUBLIC]
+				[Op.eq]: query.resume_active
 			};
 		}
-
 		const [data, pagination] = await handlePaginate({
 			model: resume,
 			page,
@@ -91,7 +89,7 @@ const resumeService = {
 						model: profession,
 						where: Object.keys(queryProfessionCondition).length > 0 ? queryProfessionCondition : null
 					},
-					{model:work_type,as:'work_type'},
+					{ model: work_type, as: 'work_type' },
 					{
 						model: resume_desired_job,
 						as: 'resume_desired_job'
@@ -189,7 +187,7 @@ const resumeService = {
 					{ model: resume_addioninfo, as: 'resume_addioninfo' },
 					{ model: resume_education, as: 'resume_education' },
 					{ model: resume_certificate, as: 'resume_certificate' },
-					{model:profession}
+					{ model: profession }
 				],
 				nest: true
 			});
