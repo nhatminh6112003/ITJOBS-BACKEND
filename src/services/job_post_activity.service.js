@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import createError from 'http-errors';
-import { Sequelize } from 'sequelize';
+import { Sequelize, where } from 'sequelize';
 import { resumeActiveEnum } from '../constants/resumeStatus';
 import {
 	job_post_activity,
@@ -36,9 +36,10 @@ const jobPostActivityService = {
 		}
 
 		if (query.user_account_id) {
-			const { user_account_id } = query;
-			queryCondition.user_account_id = { [Op.eq]: user_account_id };
+			// const { user_account_id } = query;
+			queryCondition.user_account_id = { [Op.eq]: query.user_account_id };
 		}
+		console.log('query', query.user_account_id);
 		if (query.posted_by_id) {
 			const { posted_by_id } = query;
 			queryConditionOther.posted_by_id = { [Op.eq]: posted_by_id };
@@ -59,6 +60,7 @@ const jobPostActivityService = {
 			limit,
 			queries: {
 				nest: true,
+				where: Object.keys(queryCondition).length > 0 ? queryCondition : null,
 				include: [
 					{ model: job_post, where: queryConditionOther, include: { model: company } },
 					{ model: user_account, as: 'user_account', include: { model: resume_profile } },
