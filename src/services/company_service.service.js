@@ -1,9 +1,11 @@
 import moment from 'moment/moment';
 import dotenv from 'dotenv';
 import createError from 'http-errors';
-import { Sequelize, company_service, service, service_type } from '../models';
+import { Sequelize } from 'sequelize';
+import { company_service, service, service_type } from '../models';
 import { findByPkAndUpdate, findByPkAndDelete } from '../helpers/databaseHelpers';
 
+const { Op } = Sequelize;
 dotenv.config();
 const companyServiceService = {
 	async getAll(req) {
@@ -11,7 +13,7 @@ const companyServiceService = {
 		if (req.company_id) {
 			queries.company_id = req.company_id;
 		}
-	
+
 		if (req.isActive || req.isActive === 0) {
 			queries.isActive = req.isActive;
 		}
@@ -20,12 +22,21 @@ const companyServiceService = {
 			queries.isExpiry = req.isExpiry;
 		}
 
+		if (req.fromDate && req.toDate) {
+			const { fromDate, toDate } = req;
+			queries.register_date = { [Op.between]: [fromDate, toDate] };
+		}
+
 		return await company_service.findAll({
 			where: queries,
 			include: [
 				{
 					model: service,
-					include: [{ model: service_type }]
+					include: [
+						{
+							model: service_type
+						}
+					]
 				}
 			]
 		});

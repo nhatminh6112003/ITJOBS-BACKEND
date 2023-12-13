@@ -3,8 +3,9 @@ import serviceTypeService from '../services/service_type.service';
 
 const serviceTypeController = {
 	async getAll(req, res) {
-		const data = await serviceTypeService.getAll();
-		return res.apiResponse(data);
+		const { query } = req;
+		const [data, pagination] = await serviceTypeService.getAll(query);
+		return res.apiResponse(data, pagination);
 	},
 	async getOne(req, res) {
 		const { id } = req.params;
