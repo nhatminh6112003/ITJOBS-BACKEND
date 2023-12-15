@@ -29,7 +29,10 @@ module.exports = (sequelize, DataTypes) => {
 			register_date: DataTypes.DATE,
 			quantity: DataTypes.INTEGER,
 			isActive: DataTypes.BOOLEAN,
-			isExpiry: DataTypes.BOOLEAN
+			isExpiry: DataTypes.BOOLEAN,
+			priority: DataTypes.BOOLEAN,
+			priority_expiry_date: DataTypes.DATE,
+			priority_level: DataTypes.INTEGER
 		},
 		{
 			sequelize,

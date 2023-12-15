@@ -35,6 +35,17 @@ module.exports = {
 			register_date: {
 				type: Sequelize.DATE,
 			},
+			priority: {
+				type: Sequelize.BOOLEAN,
+				defaultValue: false
+			},
+			priority_expiry_date: {
+				type: Sequelize.DATE,
+			},
+			priority_level: {
+				type: Sequelize.INTEGER,
+				defaultValue: 0
+			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE

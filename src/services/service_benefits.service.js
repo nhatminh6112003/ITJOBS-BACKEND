@@ -1,5 +1,5 @@
 import createError from 'http-errors';
-import { service_benefits } from '../models';
+import { service_benefits, benefits } from '../models';
 import { findByPkAndUpdate, findByPkAndDelete, handlePaginate } from '../helpers/databaseHelpers';
 import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
@@ -12,18 +12,30 @@ const service_benefitsService = {
 		const limit = Number(query.limit) || 25;
 		const keyword = query.keyword ?? '';
 		const queryCondition = {};
-		
+
 		if (keyword) {
 			queryCondition.name = { [Op.substring]: keyword };
 		}
 
 		const [data, pagination] = await handlePaginate({
-			model:service_benefits,
+			model: service_benefits,
 			page,
 			limit,
 			condition: queryCondition
 		});
 		return [data, pagination];
+	},
+
+	async getAllByServiceId(service_id) {
+		const data = service_benefits.findAll({
+			where: {
+				service_id: service_id
+			},
+			include: [{ model: benefits }],
+			nest: true,
+			raw: true
+		});
+		return data;
 	},
 
 	async getOne(id) {
