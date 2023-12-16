@@ -55,7 +55,7 @@ const AuthService = {
 				resume_profile.create(
 					{
 						resume_id: createResume.id,
-						user_account_id:newUser.id
+						user_account_id: newUser.id
 					},
 					{ transaction }
 				),
@@ -72,18 +72,36 @@ const AuthService = {
 						cv_color: 101,
 						cv_font: 'Roboto',
 						cv_font_color: 'fontCVColorBlack',
-						cv_language: 'en',
+						cv_language: 'vi',
 						cv_size: 'fontCVsize14',
 						cv_template_id: 1,
-						default_color: colorsEnum[101],
+						default_color: colorsEnum[121],
 						default_font: 'fontCVRoboto',
 						default_size: 'fontCVsize14',
-						default_template_name: 'CVHay Mới tốt nghiệp',
-						default_template_color: '101',
-						default_template: 'cv-template-11'
+						default_template_name: 'CVHay Quản lý',
+						default_template_color: '121',
+						default_template: 'cv-template-13'
 					},
 					{ transaction }
 				),
+				// resume_template.create(
+				// 	{
+				// 		resume_id: createResume.id,
+				// 		cv_color: 101,
+				// 		cv_font: 'Roboto',
+				// 		cv_font_color: 'fontCVColorBlack',
+				// 		cv_language: 'en',
+				// 		cv_size: 'fontCVsize14',
+				// 		cv_template_id: 1,
+				// 		default_color: colorsEnum[101],
+				// 		default_font: 'fontCVRoboto',
+				// 		default_size: 'fontCVsize14',
+				// 		default_template_name: 'CVHay Mới tốt nghiệp',
+				// 		default_template_color: '101',
+				// 		default_template: 'cv-template-11'
+				// 	},
+				// 	{ transaction }
+				// ),
 				resume_desired_job.create(
 					{
 						resume_id: createResume.id
