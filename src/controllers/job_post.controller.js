@@ -11,15 +11,34 @@ const jobPostController = {
 	async getAllByService(req, res) {
 		const { query } = req;
 		const [data, pagination] = await jobPostService.getAll(query);
-		const { data: company_service } = await company_serviceService.getAllByService();
-		// sắp xếp theo giá tiền
-		if (company_service) {
-			data.sort((a, b) => {
-				const priceA = company_service.find((item) => item.company_id === a.company_id)?.service?.price || 0;
-				const priceB = company_service.find((item) => item.company_id === b.company_id)?.service?.price || 0;
-				return priceB - priceA;
-			});
-		}
+		const company_service = await company_serviceService.getAllByService();
+		
+		const sortedArray = company_service.sort((a, b) => {
+			if (!a.priority && !b.priority) {
+				// Nếu cả hai đều có priority: false, đưa xuống cuối mảng
+				return 0;
+			} else if (!a.priority) {
+				// Nếu chỉ a có priority: false, đưa xuống cuối mảng
+				return 1;
+			} else if (!b.priority) {
+				// Nếu chỉ b có priority: false, đưa xuống cuối mảng
+				return -1;
+			} else {
+				// Nếu cả hai đều có priority: true, áp dụng các điều kiện khác
+				if (a.priority_level % 3 === b.priority_level % 3) {
+					return moment(b.priority_expiry_date).diff(moment(a.priority_expiry_date));
+				} else {
+					return (a.priority_level % 3) - (b.priority_level % 3);
+				}
+			}
+		});
+
+		data.sort((x, y) => {
+			return (
+				sortedArray.findIndex((item) => item.user_account_id === x.posted_by_id) -
+				sortedArray.findIndex((item) => item.user_account_id === y.posted_by_id)
+			);
+		});
 
 		return res.apiResponse(data, pagination);
 	},
