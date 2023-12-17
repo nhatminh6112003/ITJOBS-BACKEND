@@ -44,6 +44,9 @@ module.exports = (sequelize, DataTypes) => {
 				foreignKey: 'resume_id',
 				as: 'resume_refer'
 			});
+			resume.hasMany(models.resume_activity, {
+				foreignKey: 'resume_id',
+			});
 
 			resume.hasOne(models.resume_addioninfo, {
 				foreignKey: 'resume_id',

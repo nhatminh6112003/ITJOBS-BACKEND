@@ -21,7 +21,9 @@ import {
 	resume_addioninfo,
 	resume_education,
 	resume_certificate,
-	resume_work_type
+	resume_work_type,
+	resume_refer,
+	resume_activity
 } from '../models';
 
 const { Op } = Sequelize;
@@ -187,6 +189,8 @@ const resumeService = {
 					{ model: resume_addioninfo, as: 'resume_addioninfo' },
 					{ model: resume_education, as: 'resume_education' },
 					{ model: resume_certificate, as: 'resume_certificate' },
+					{ model: resume_refer, as: 'resume_refer' },
+					{ model: resume_activity },
 					{ model: profession }
 				],
 				nest: true
