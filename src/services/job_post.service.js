@@ -364,15 +364,15 @@ const jobPostService = {
 			  SELECT COUNT(*) AS count
 			  FROM job_post_activity
 			  JOIN job_post ON job_post_activity.job_id = job_post.id
-			  WHERE job_post_activity.apply_date BETWEEN :startDate AND :endDate
+			  WHERE DATE(job_post_activity.apply_date) BETWEEN :startDate AND :endDate
 				 AND job_post_activity.status = :status
 				 AND job_post.posted_by_id = :userAccountId
 			`;
 
 			const [result] = await sequelize.query(queryStatusCount, {
 				replacements: {
-					startDate: moment(startDate).format('YYYY-MM-DD h:mm:ss'),
-					endDate: moment(endDate).format('YYYY-MM-DD h:mm:ss'),
+					startDate: moment(startDate).format('YYYY-MM-DD'),
+					endDate: moment(endDate).format('YYYY-MM-DD'),
 					status,
 					userAccountId: user_account_id
 				},
@@ -417,31 +417,40 @@ const jobPostService = {
 			SAU_DAI_HOC: 5, // Sau đại học
 			KHAC: 6 // Khác
 		};
-		const getDegreeCount = async (degree) =>
-			job_post.count({
-				where: {
-					posted_date: {
-						[Sequelize.Op.between]: [
-							moment(startDate).format('YYYY-MM-DD h:mm:ss'),
-							moment(endDate).format('YYYY-MM-DD h:mm:ss')
-						]
-					},
-					posted_by_id: user_account_id,
-					job_degree_value: degree,
-					status: jobPostStatusEnum.Publish
-				}
-			});
-		const degrees = Object.values(DegreeEnum);
+		const getDegreeCount = async (degree) => {
+			const queryStatusCount = `
+			  SELECT COUNT(*) AS count
+			  FROM job_post
+			  WHERE DATE(job_post.posted_date) BETWEEN :startDate AND :endDate
+				 AND job_post.posted_by_id = :userAccountId
+				 AND job_post.job_degree_value = :job_degree_value 
+				 AND job_post.status =:status 
+			`;
 
-		const countArray = await Promise.all(
-			degrees.map(async (degree) => {
+			const [result] = await sequelize.query(queryStatusCount, {
+				replacements: {
+					startDate: moment(startDate).format('YYYY-MM-DD'),
+					endDate: moment(endDate).format('YYYY-MM-DD'),
+					job_degree_value: degree,
+					userAccountId: user_account_id,
+					status: jobPostStatusEnum.Publish
+				},
+				type: sequelize.QueryTypes.SELECT
+			});
+
+			return result.count;
+		};
+		const statusCounts = [];
+
+		await Promise.all(
+			Object.values(DegreeEnum).map(async (degree) => {
 				const count = await getDegreeCount(degree);
-				return count;
+				console.log('TCL: analyticDegreeValue -> count', count);
+				statusCounts.push(count);
 			})
 		);
-
 		return {
-			data_1: countArray,
+			data_1: statusCounts,
 			label: DegreeOptions.map((item) => item.label)
 		};
 	},
