@@ -1,6 +1,7 @@
 import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
 import jobPostService from '../services/job_post.service';
 import company_serviceService from '../services/company_service.service';
+import moment from 'moment';
 
 const jobPostController = {
 	async getAll(req, res) {
@@ -33,10 +34,12 @@ const jobPostController = {
 			}
 		});
 
+		console.log(1, sortedArray);
+
 		data.sort((x, y) => {
 			return (
-				sortedArray.findIndex((item) => item.user_account_id === x.posted_by_id) -
-				sortedArray.findIndex((item) => item.user_account_id === y.posted_by_id)
+				sortedArray.findIndex((item) => item.id === x.company_service_id) -
+				sortedArray.findIndex((item) => item.id === y.company_service_id)
 			);
 		});
 

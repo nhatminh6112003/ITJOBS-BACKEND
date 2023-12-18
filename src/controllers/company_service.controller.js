@@ -2,6 +2,7 @@ import moment from 'moment';
 import asyncHandlerDecorator from '../helpers/asyncHandlerDecorator';
 import company_serviceService from '../services/company_service.service';
 import service_benefitsService from '../services/service_benefits.service';
+import { service } from '../models';
 
 const companyServiceController = {
 	async getAll(req, res) {
@@ -36,6 +37,24 @@ const companyServiceController = {
 			const newData = service_benefits.map(getday);
 			const numbersOnly = newData.filter((value) => typeof value === 'number' && !Number.isNaN(value));
 			if (!numbersOnly[0]) {
+				const service_data = await service.findOne({
+					where: {
+						id: data.service_id
+					},
+					raw: true,
+					nest:true
+				});
+
+				const updateIsActive = await company_serviceService.updateByIsActive(service_data?.service_type_id);
+				const company_service_data = await company_serviceService.getOne(id);
+
+				if (company_service_data?.register_date && company_service_data?.expiration_date) {
+					const handleUpdate = await company_serviceService.update(id, {
+						isActive: data.isActive
+					});
+					return res.apiResponse(handleUpdate);
+				}
+
 				const handleUpdate = await company_serviceService.update(id, {
 					isActive: data.isActive,
 					register_date: data.register_date,
@@ -45,6 +64,25 @@ const companyServiceController = {
 			}
 			const now = moment();
 			const priority_expiry_date = now.add(numbersOnly[0], 'days').format('YYYY-MM-DD');
+			
+			const service_data = await service.findOne({
+				where: {
+					id: data.service_id
+				},
+				raw: true,
+				nest:true
+			});
+
+			const updateIsActive = await company_serviceService.updateByIsActive(service_data?.service_type_id);
+			console.log(1, updateIsActive);
+			const company_service_data = await company_serviceService.getOne(id);
+			if (company_service_data?.register_date && company_service_data?.expiration_date) {
+				const handleUpdate = await company_serviceService.update(id, {
+					isActive: data.isActive
+				});
+				return res.apiResponse(handleUpdate);
+			}
+
 			const handleUpdate = await company_serviceService.update(id, {
 				isActive: data.isActive,
 				register_date: data.register_date,
