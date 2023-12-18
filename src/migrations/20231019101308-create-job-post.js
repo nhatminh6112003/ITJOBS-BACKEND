@@ -10,6 +10,14 @@ module.exports = {
 				type: Sequelize.UUID,
 				defaultValue: Sequelize.UUIDV4
 			},
+			company_service_id: {
+				allowNull: true,
+				type: Sequelize.UUID,
+				references: {
+					model: 'company_service',
+					key: 'id'
+				},
+			},
 			posted_by_id: {
 				type: Sequelize.UUID,
 				references: {
