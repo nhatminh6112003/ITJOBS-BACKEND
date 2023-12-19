@@ -15,7 +15,8 @@ import {
 	work_type,
 	company,
 	sequelize,
-	job_post_activity
+	job_post_activity,
+	company_service
 } from '../models';
 
 const { Op } = Sequelize;
@@ -131,7 +132,8 @@ const jobPostService = {
 						model: profession,
 						as: 'profession',
 						where: Object.keys(queryProfessionCondition).length > 0 ? queryProfessionCondition : null
-					}
+					},
+					{ model: company_service }
 				]
 			}
 		});
