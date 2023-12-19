@@ -97,10 +97,12 @@ const companyServiceService = {
 		return await findByPkAndUpdate(company_service, id, data);
 	},
 
-	async updateByIsActive(service_type_id) {
+	async updateByIsActive(service_type_id,posted_by_id) {
 		const data = await company_service.findAll({
 			where: {
-				isActive: true
+				isActive: true,
+				user_account_id: posted_by_id
+				
 			},
 			include: [
 				{

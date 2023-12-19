@@ -45,7 +45,7 @@ const companyServiceController = {
 					nest:true
 				});
 
-				const updateIsActive = await company_serviceService.updateByIsActive(service_data?.service_type_id);
+				const updateIsActive = await company_serviceService.updateByIsActive(service_data?.service_type_id,data?.posted_by_id);
 				const company_service_data = await company_serviceService.getOne(id);
 
 				if (company_service_data?.register_date && company_service_data?.expiration_date) {
@@ -73,7 +73,7 @@ const companyServiceController = {
 				nest:true
 			});
 
-			const updateIsActive = await company_serviceService.updateByIsActive(service_data?.service_type_id);
+			const updateIsActive = await company_serviceService.updateByIsActive(service_data?.service_type_id,data?.posted_by_id);
 			console.log(1, updateIsActive);
 			const company_service_data = await company_serviceService.getOne(id);
 			if (company_service_data?.register_date && company_service_data?.expiration_date) {
