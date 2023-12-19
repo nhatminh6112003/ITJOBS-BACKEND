@@ -97,6 +97,7 @@ const employer_resumeService = {
 	},
 
 	async create(data) {
+		
 		const findResume = await employer_resume.findOne({
 			where: {
 				user_account_id: data.user_account_id,
