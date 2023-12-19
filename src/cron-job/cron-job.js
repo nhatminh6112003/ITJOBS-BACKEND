@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Sequelize } from 'sequelize';
 import jobPostStatusEnum from '../constants/jobPostStatusEnum';
 import { job_post, company_service } from '../models';
-import { findByPkAndDelete } from '../helpers/databaseHelpers';
+import { findByPkAndDelete, findByPkAndUpdate } from '../helpers/databaseHelpers';
 
 const { Op } = Sequelize;
 const cronJob = () => {
@@ -94,6 +94,14 @@ const cronJob = () => {
 					}
 				});
 			}
+		} catch (error) {}
+	});
+	cron.schedule('0 */8 * * *', async () => {
+		try {
+			const data = await company_service.findAll();
+			data.forEach(async (item) => {
+				await findByPkAndUpdate(company_service, item.id, { priority_level: item.priority_level + 1 });
+			});
 		} catch (error) {}
 	});
 };

@@ -1,5 +1,5 @@
-import employer_resumeController from '../controllers/employer_resume.controller';
 import Express from 'express';
+import employer_resumeController from '../controllers/employer_resume.controller';
 import AuthMiddleWare from '../middleware/authMiddleware';
 
 

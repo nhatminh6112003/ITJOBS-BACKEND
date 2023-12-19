@@ -13,7 +13,7 @@ const DB_PASSWORD =
 const DB_HOST = process.env.NODE_ENV === 'production' ? process.env.DB_PRODUCTION_HOST : process.env.DB_HOST;
 export const sequelize = new Sequelize(DB_NAME, USER_NAME, DB_PASSWORD, {
 	host: DB_HOST,
-	logging: true,
+	logging: false,
 	pool: {
 		max: 5,
 		min: 0,

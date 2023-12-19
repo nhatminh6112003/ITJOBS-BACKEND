@@ -41,6 +41,9 @@ module.exports = (sequelize, DataTypes) => {
 				otherKey: 'profession_id',
 				as: 'profession'
 			});
+			job_post.belongsTo(models.company_service, {
+				foreignKey: 'company_service_id'
+			});
 		}
 	}
 	job_post.init(
@@ -50,6 +53,7 @@ module.exports = (sequelize, DataTypes) => {
 				defaultValue: DataTypes.UUIDV4,
 				primaryKey: true
 			},
+			company_service_id: DataTypes.UUID,
 			posted_by_id: DataTypes.UUID,
 			company_id: DataTypes.UUID,
 			job_degree_value: DataTypes.INTEGER,

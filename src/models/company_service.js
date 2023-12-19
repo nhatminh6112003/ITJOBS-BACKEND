@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
 			company_service.belongsTo(models.service, {
 				foreignKey: 'service_id'
 			});
+			company_service.hasMany(models.job_post, {
+				foreignKey: 'company_service_id'
+			});
 		}
 	}
 	company_service.init(

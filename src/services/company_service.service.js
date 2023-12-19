@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import createError from 'http-errors';
 import { Sequelize } from 'sequelize';
 import { company_service, service, service_type } from '../models';
-import { findByPkAndUpdate, findByPkAndDelete } from '../helpers/databaseHelpers';
+import { findByPkAndUpdate, findByPkAndDelete, findOneAndUpdate } from '../helpers/databaseHelpers';
 
 const { Op } = Sequelize;
 dotenv.config();
@@ -53,11 +53,13 @@ const companyServiceService = {
 	},
 
 	async getOne(id) {
+		console.log(3, id);
 		const dataOne = await company_service.findOne({
 			where: {
 				id
 			},
-			raw: true
+			raw: true,
+			nest: true
 		});
 		if (!dataOne) {
 			throw createError(404, 'Không tìm thấy thông tin công ty');
@@ -95,6 +97,26 @@ const companyServiceService = {
 		return await findByPkAndUpdate(company_service, id, data);
 	},
 
+	async updateByIsActive(service_type_id) {
+		const data = await company_service.findAll({
+			where: {
+				isActive: true
+			},
+			include: [
+				{
+					model: service
+				}
+			],
+			raw: true,
+			nest: true
+		});
+		const result = data.find(item => item.service.service_type_id === service_type_id);
+		if(!result) {
+			return;
+		}
+		return await findByPkAndUpdate(company_service, result.id, { isActive: false });
+	},
+
 	async delete(id) {
 		return await findByPkAndDelete(company_service, id);
 	},
@@ -106,11 +128,11 @@ const companyServiceService = {
 				company_id,
 				expiration_date: {
 					[Sequelize.Op.gte]: nowDay
-				}
+				},
+				isActive:true
 			},
 			raw: true
 		});
-		console.log(results);
 		if (!results) {
 			throw createError(404, 'Không tìm thấy bản ghi');
 		}
