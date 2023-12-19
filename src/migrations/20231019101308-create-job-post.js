@@ -12,11 +12,7 @@ module.exports = {
 			},
 			company_service_id: {
 				allowNull: true,
-				type: Sequelize.UUID,
-				references: {
-					model: 'company_service',
-					key: 'id'
-				},
+				type: Sequelize.UUID
 			},
 			posted_by_id: {
 				type: Sequelize.UUID,

@@ -110,7 +110,6 @@ const companyServiceService = {
 			raw: true,
 			nest: true
 		});
-		console.log(4, service_type_id, data);
 		const result = data.find(item => item.service.service_type_id === service_type_id);
 		if(!result) {
 			return;
@@ -129,11 +128,11 @@ const companyServiceService = {
 				company_id,
 				expiration_date: {
 					[Sequelize.Op.gte]: nowDay
-				}
+				},
+				isActive:true
 			},
 			raw: true
 		});
-		console.log(results);
 		if (!results) {
 			throw createError(404, 'Không tìm thấy bản ghi');
 		}
