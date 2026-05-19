@@ -8,6 +8,7 @@
 	},
 	"scripts": {
 		"start": "nodemon  --exec ./node_modules/.bin/babel-node --inspect server.js",
+		"server":"node ./build/bundle.js",
 		"clean": "rm -rf build && mkdir build",
 		"build-babel": "babel ./src -d ./build/src",
 		"build-webpack": "npx webpack --config webpack.config.js",

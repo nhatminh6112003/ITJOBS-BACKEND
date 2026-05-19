@@ -19,9 +19,14 @@ const jobPostActivityController = {
 		return res.apiResponse(handleCreate);
 	},
 	async sendMailJobSeeker(req, res) {
-		const data = req.body;
-		await jobPostActivityService.sendMailJobSeeker(data);
-		return res.apiResponse();
+		try {
+			const data = req.body;
+			await jobPostActivityService.sendMailJobSeeker(data);
+			return res.apiResponse();
+		} catch (error) {
+			console.error(error);
+			return res.apiResponse(error);
+		}
 	},
 	async update(req, res) {
 		const data = req.body;
